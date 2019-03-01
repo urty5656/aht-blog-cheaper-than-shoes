@@ -1,7 +1,7 @@
 import autobind from 'autobind-decorator';
 import { action, observable } from 'mobx';
 import { createContext } from 'react';
-import { auth } from '../services/firebase';
+import { auth } from '../lib/firebase';
 
 const nothing = () => { };
 

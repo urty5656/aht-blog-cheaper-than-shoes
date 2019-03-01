@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
 import React, { useContext } from 'react';
-import { authStoreCtx } from '../stores/auth';
+import { authStoreCtx } from '../../stores/auth';
+import styles from './styles.css';
 
 const Header: React.FunctionComponent = () => {
   const authStore = useContext(authStoreCtx);
@@ -13,7 +14,7 @@ const Header: React.FunctionComponent = () => {
   }
 
   return (
-    <header>
+    <header className={styles.container}>
       <Link href="/"><a>Home</a></Link> | <Link href="/write"><a>Write a post</a></Link> | {renderSignInButton()}
     </header>
   )

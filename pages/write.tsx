@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
+import Editor from '../components/Editor';
 import { authStoreCtx } from '../stores/auth';
 
 const render = (flag: boolean, content: JSX.Element): JSX.Element => {
@@ -13,11 +14,11 @@ const Write: React.FunctionComponent = () => {
     <main>
       {
         render(
-          authStore.initialized,
+          process.browser && authStore.initialized,
           (
             <form action="#" autoComplete="off">
               <input placeholder="제목" />
-              <textarea placeholder="내용" style={{ resize: 'none' }} />
+              <Editor />
               <button type="submit">등록</button>
             </form>
           )
