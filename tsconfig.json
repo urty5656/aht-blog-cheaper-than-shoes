@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
     "jsx": "react",
     "lib": [
       "dom",
@@ -17,12 +18,15 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "es6"
+    "target": "es6",
+    "typeRoots": [
+      "./typings"
+    ]
   },
   "include": [
-    "**/*"
+    "./**/*"
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }

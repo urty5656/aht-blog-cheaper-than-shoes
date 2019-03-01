@@ -9,7 +9,7 @@ export interface SignInError {
   credential: firebase.auth.AuthCredential;
 }
 
-const provider = new firebase.auth.GoogleAuthProvider();
+const provider = new firebase.auth.GoogleAuthProvider()
 
 export const signIn = () =>
   tryP<SignInError, firebase.auth.UserCredential>(() => instance.signInWithPopup(provider));

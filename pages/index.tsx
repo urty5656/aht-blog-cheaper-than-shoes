@@ -1,48 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 import { NextFunctionComponent } from 'next';
-import Link from "next/link";
-import { auth } from '../services/firebase';
-
-type UserSetter = React.Dispatch<React.SetStateAction<firebase.User | null>>;
-
-const handleSignInWith = (setUser: UserSetter) => () => {
-  auth.signIn().fork(console.error, () => {
-    setUser(auth.instance.currentUser);
-  });
-}
-
-const handleSignOutWith = (setUser: UserSetter) => () => {
-  auth.signOut().fork(console.error, () => {
-    setUser(null)
-  });
-}
+import React, { useContext } from 'react';
+import { authStoreCtx } from '../stores/auth';
 
 const Index: NextFunctionComponent = () => {
-  const [initialized, setInitialized] = useState(false);
-  const [currentUser, setUser] = useState<firebase.User | null>(null);
-
-  useEffect(() => {
-    auth.instance.onAuthStateChanged((user) => {
-      !initialized && setInitialized(true);
-      setUser(user);
-    })
-  }, [])
-
-  const renderSignInButton = () => {
-    if (!initialized) {
-      return <p>Loading...</p>
-    }
-    return currentUser
-      ? <button onClick={handleSignOutWith(setUser)}>SignOut</button>
-      : <button onClick={handleSignInWith(setUser)}>SignIn</button>
-  }
+  const authStore = useContext(authStoreCtx);
 
   return (
     <main>
-      {renderSignInButton()}
-      <Link href="/about"><a>Go About</a></Link>
+      <h1>Hi!</h1>
+      {authStore.user && <p>{authStore.user.email}</p>}
     </main>
-  );
+  )
 };
 
-export default Index;
+export default observer(Index);
