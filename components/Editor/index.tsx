@@ -1,5 +1,6 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import { attach } from '../../lib/editor';
+import styles from './styles.css';
 
 const Editor: React.FunctionComponent = () => {
   const editorRef = useRef<HTMLDivElement>(null);
@@ -10,9 +11,7 @@ const Editor: React.FunctionComponent = () => {
     }
   });
 
-  return (
-    <div ref={editorRef} />
-  )
-}
+  return <div ref={editorRef} className={styles.container} />;
+};
 
 export default Editor;

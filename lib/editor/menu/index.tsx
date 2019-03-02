@@ -1,37 +1,37 @@
-import { redo, undo } from 'prosemirror-history';
 import { Plugin } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MenuBar from './MenuBar';
-import MenuItem from './MenuItem';
+import { MenuItem } from './MenuItem';
+import { menuCommands } from './menuCommands';
 
 export const menu = () => {
   return new Plugin({
     view(editorView) {
       return new MenuView(editorView);
-    }
-  })
-}
+    },
+  });
+};
 
 class MenuView {
-  private el: HTMLDivElement;
+  private el = document.createElement('div');
 
   constructor(private editorView: EditorView) {
-    this.el = document.createElement('div');
-
     const parent = this.editorView.dom.parentElement;
     if (!parent) {
       return;
     }
 
     parent.prepend(this.el);
-    ReactDOM.render((
+    ReactDOM.render(
       <MenuBar>
-        <MenuItem spec={{ label: 'Undo', command: undo }} view={this.editorView} />
-        <MenuItem spec={{ label: 'Redo', command: redo }} view={this.editorView} />
-      </MenuBar>
-    ), this.el)
+        {menuCommands.map(spec => (
+          <MenuItem key={spec.label} spec={spec} view={this.editorView} />
+        ))}
+      </MenuBar>,
+      this.el,
+    );
   }
 
   update() {

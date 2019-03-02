@@ -12,12 +12,12 @@ export const attach = (target: Node) => {
     plugins: [
       history(),
       keymap({
-        "Mod-z": undo,
-        "Mod-y": redo
+        'Mod-z': undo,
+        'Mod-y': redo,
       }),
       keymap(baseKeymap),
-      menu()
-    ]
+      menu(),
+    ],
   });
   new EditorView(target, { state });
-}
+};

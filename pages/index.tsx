@@ -11,7 +11,7 @@ const Index: NextFunctionComponent = () => {
       <h1>Hi!</h1>
       {authStore.user && <p>{authStore.user.email}</p>}
     </main>
-  )
+  );
 };
 
 export default observer(Index);
