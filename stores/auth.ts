@@ -3,7 +3,7 @@ import { action, observable } from 'mobx';
 import { createContext } from 'react';
 import { auth } from '../lib/firebase';
 
-const nothing = () => { };
+const nothing = () => {};
 
 class AuthStore {
   @observable

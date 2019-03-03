@@ -1,4 +1,7 @@
 .container {
   background: #fff;
   border: 1px solid #eee;
+  & :global(.ProseMirror) {
+    padding: 0.5rem;
+  }
 }

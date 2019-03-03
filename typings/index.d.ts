@@ -1,3 +1,5 @@
+type Nullable<T> = T | null;
+
 declare namespace NodeJS {
   interface Process {
     browser: boolean;

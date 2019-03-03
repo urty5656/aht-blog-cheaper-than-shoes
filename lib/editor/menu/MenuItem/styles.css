@@ -1,0 +1,17 @@
+.container {
+  cursor: pointer;
+  padding: 0.25rem;
+  position: relative;
+
+  &:hover {
+    background: #efefef;
+  }
+  & + .container {
+    border-left: 1px solid #eee;
+  }
+}
+
+.button {
+  display: block;
+  line-height: 1.5rem;
+}

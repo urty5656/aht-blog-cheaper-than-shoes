@@ -1,74 +1,47 @@
-import { Schema } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
+import { Node } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import React, { useState } from 'react';
+import React from 'react';
+import Button, { MenuItemButtonSpec } from './Button';
+import Dropdown, { MenuItemDropdownSpec } from './Dropdown';
+import styles from './styles.css';
 
-export type Command = (
-  state: EditorState<Schema>,
-  dispatch?: (tr: Transaction<Schema>) => void,
-  view?: EditorView<Schema>,
-) => boolean;
-
-interface MenuItemCommandSpec {
-  label: string;
+export interface MenuItemBaseSpec {
+  label: string | ((selectedNode: Nullable<Node>) => string);
   icon?: string;
-  command: Command;
-  dropdown?: never;
-  items?: never;
-}
-interface MenuItemDropdownSpec {
-  label: string;
-  icon?: string;
-  command?: never;
-  dropdown: true;
-  items: MenuItemCommandSpec[];
 }
 
-export type MenuItemSpec = MenuItemCommandSpec | MenuItemDropdownSpec;
+export type MenuItemSpec = MenuItemButtonSpec | MenuItemDropdownSpec;
 
-interface MenuItemProps {
+export const renderButton = (
+  spec: MenuItemBaseSpec,
+  selectedNode: Nullable<Node>,
+) => {
+  const label =
+    typeof spec.label === 'function' ? spec.label(selectedNode) : spec.label;
+
+  return spec.icon ? (
+    <img className={styles.button} src={spec.icon} alt={label} />
+  ) : (
+    <span className={styles.button}>{label}</span>
+  );
+};
+
+export interface MenuItemProps {
   spec: MenuItemSpec;
   view: EditorView;
+  selectedNode: Nullable<Node>;
 }
 
-export const MenuItem: React.FunctionComponent<MenuItemProps> = ({
+const MenuItem: React.FunctionComponent<MenuItemProps> = ({
   spec,
   view,
+  selectedNode,
 }) => {
-  const runCommand = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    spec.command && spec.command(view.state, view.dispatch, view);
-  };
-
-  return (
-    <div onMouseDown={runCommand}>
-      {spec.icon ? <img src={spec.icon} alt={spec.label} /> : spec.label}
-    </div>
+  return spec.dropdown ? (
+    <Dropdown spec={spec} view={view} selectedNode={selectedNode} />
+  ) : (
+    <Button spec={spec} view={view} selectedNode={selectedNode} />
   );
 };
 
-export const MenuDropdown: React.FunctionComponent<{
-  spec: MenuItemDropdownSpec;
-  view: EditorView;
-}> = ({ spec, view }) => {
-  const [opened, setOpened] = useState(false);
-
-  const toggle = (e: React.MouseEvent) => {
-    e.preventDefault();
-    setOpened(!opened);
-  };
-
-  return (
-    <div onMouseDown={toggle}>
-      {spec.icon ? <img src={spec.icon} alt={spec.label} /> : spec.label}
-      {opened && (
-        <div>
-          {spec.items.map(spec => (
-            <MenuItem spec={spec} view={view} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
+export default MenuItem;

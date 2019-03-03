@@ -5,7 +5,12 @@ class CustomDocument extends Document {
   render() {
     return (
       <html>
-        <Head />
+        <Head>
+          <link
+            href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;subset=korean"
+            rel="stylesheet"
+          />
+        </Head>
         <body className="custom_class">
           <Main />
           <NextScript />

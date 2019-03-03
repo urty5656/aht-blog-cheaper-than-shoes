@@ -1,10 +1,14 @@
+import { action, observable, autorun } from 'mobx';
+import { Node, Schema } from 'prosemirror-model';
 import { Plugin } from 'prosemirror-state';
+import { findParentNode } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
+import { always } from 'ramda';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MenuBar from './MenuBar';
-import { MenuItem } from './MenuItem';
 import { menuCommands } from './menuCommands';
+import MenuItem from './MenuItem';
 
 export const menu = () => {
   return new Plugin({
@@ -15,26 +19,46 @@ export const menu = () => {
 };
 
 class MenuView {
-  private el = document.createElement('div');
+  @observable
+  selectedNode: Nullable<Node> = null;
 
-  constructor(private editorView: EditorView) {
-    const parent = this.editorView.dom.parentElement;
-    if (!parent) {
+  private el = document.createElement('div');
+  private parent: HTMLElement;
+
+  constructor(private editorView: EditorView<Schema>) {
+    this.parent = this.editorView.dom.parentElement!;
+    if (!this.parent) {
       return;
     }
 
-    parent.prepend(this.el);
-    ReactDOM.render(
-      <MenuBar>
-        {menuCommands.map(spec => (
-          <MenuItem key={spec.label} spec={spec} view={this.editorView} />
-        ))}
-      </MenuBar>,
-      this.el,
-    );
+    this.parent.prepend(this.el);
+
+    autorun(() => {
+      ReactDOM.render(
+        <MenuBar>
+          {menuCommands.map((spec, index) => (
+            <MenuItem
+              key={index}
+              spec={spec}
+              view={this.editorView}
+              selectedNode={this.selectedNode}
+            />
+          ))}
+        </MenuBar>,
+        this.el,
+      );
+    });
   }
 
+  @action
   update() {
-    console.log(this.editorView.state);
+    const parent = findParentNode(always(true))(
+      this.editorView.state.selection,
+    );
+    if (parent) {
+      this.selectedNode = parent.node;
+    }
+    // [todo] move out to a new plugin
+    this.parent.dispatchEvent(new CustomEvent('update'));
   }
 }
