@@ -9,15 +9,15 @@ export const instanceF = tryP(async () => {
 });
 
 export const addBlogPost = (data: PostModel) => {
-  instanceF.chain(
-    instance => tryP(() => instance.collection('post').add(data))
-  ).fork(
-    error => {
-      alert('Couldn\'t add');
-      console.error(error);
-    },
-    () => {
-      alert('Added')
-    }
-  )
+  instanceF
+    .chain(instance => tryP(() => instance.collection('post').add(data)))
+    .fork(
+      error => {
+        alert("Couldn't add");
+        console.error(error);
+      },
+      () => {
+        alert('Added');
+      },
+    );
 };

@@ -8,16 +8,25 @@ const Header: React.FunctionComponent = () => {
   const authStore = useContext(authStoreCtx);
 
   const renderSignInButton = () => {
-    return authStore.user
-      ? <button onClick={authStore.signOut}>SignOut</button>
-      : <button onClick={authStore.signIn}>SignIn</button>
-  }
+    return authStore.user ? (
+      <button onClick={authStore.signOut}>SignOut</button>
+    ) : (
+      <button onClick={authStore.signIn}>SignIn</button>
+    );
+  };
 
   return (
     <header className={styles.container}>
-      <Link href="/"><a>Home</a></Link> | <Link href="/write"><a>Write a post</a></Link> | {renderSignInButton()}
+      <Link href="/">
+        <a>Home</a>
+      </Link>{' '}
+      |{' '}
+      <Link href="/write">
+        <a>Write a post</a>
+      </Link>{' '}
+      | {renderSignInButton()}
     </header>
-  )
+  );
 };
 
 export default observer(Header);
