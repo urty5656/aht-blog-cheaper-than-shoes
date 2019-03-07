@@ -7,7 +7,7 @@ module.exports = withTypescript(
     cssModules: true,
     cssLoaderOptions: {
       importLoaders: 1,
-      localIdentName: '[local][emoji][hash:base64:4]'
+      localIdentName: '[path]-[local]-[hash:base64:4]',
     },
     target: 'serverless',
     webpack(config, { dev, isServer }) {
@@ -17,5 +17,5 @@ module.exports = withTypescript(
       }
       return config;
     },
-  })
+  }),
 );
