@@ -35,6 +35,13 @@ html {
   font-family: 'Spoqa Han Sans KR', sans-serif;
 }
 
+html,
+body,
+:global(#__next) {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body,
 h1,
 h2,

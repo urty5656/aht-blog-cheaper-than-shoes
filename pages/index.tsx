@@ -1,15 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import { NextFunctionComponent } from 'next';
-import React, { useContext } from 'react';
-import { authStoreCtx } from '../stores/auth';
+import React from 'react';
+import Placeholder from '../components/Index/Placeholder';
+import styles from '../styles/pages/index.css';
 
 const Index: NextFunctionComponent = () => {
-  const authStore = useContext(authStoreCtx);
-
   return (
-    <main>
-      <h1>Hi!</h1>
-      {authStore.user && <p>{authStore.user.email}</p>}
+    <main className={styles.container}>
+      <Placeholder />
     </main>
   );
 };
