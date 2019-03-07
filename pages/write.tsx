@@ -4,7 +4,6 @@ import React, { useContext } from 'react';
 import Layout from '../components/Layouts/DefaultLayout';
 import Form from '../components/Write/Form';
 import SubmitModal from '../components/Write/SubmitModal';
-import { instanceF } from '../lib/firebase/firestore';
 import { authStoreCtx } from '../stores/auth';
 
 const render = (flag: boolean, content: JSX.Element): JSX.Element => {
@@ -20,10 +19,6 @@ const Write: NextFunctionComponent = () => {
       <SubmitModal />
     </Layout>
   );
-};
-Write.getInitialProps = async () => {
-  instanceF.fork(console.log, console.log);
-  instanceF.fork(console.log, console.log);
 };
 
 export default observer(Write);

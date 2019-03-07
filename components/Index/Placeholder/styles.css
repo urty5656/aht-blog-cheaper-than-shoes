@@ -6,12 +6,15 @@
 }
 
 .heading {
+  width: calc(480rem / 16);
   background: #303030;
   color: #fff;
   font-size: 2rem;
   font-weight: 700;
-  line-height: 1.8;
-  padding: 0 1.5em;
+  line-height: 1;
+  opacity: 0.5;
+  padding: calc(11rem / 16) 0;
+  text-align: center;
 }
 
 .desc {

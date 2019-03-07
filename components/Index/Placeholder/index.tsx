@@ -1,11 +1,17 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
 import styles from './styles.css';
+
+const Canvasic = dynamic(() => import('../Canvasic'), {
+  ssr: false,
+  loading: () => <h1 className={styles.heading}>PLEASE WAIT</h1>,
+});
 
 const Placeholder: React.FunctionComponent = () => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.heading}>UNDER CONSTRUCTION</h1>
-      <p className={styles.desc}>PLEASE WAIT</p>
+      <Canvasic />
+      <p className={styles.desc}>IT'S NOT READY YET</p>
     </div>
   );
 };
