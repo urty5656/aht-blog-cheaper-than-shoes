@@ -4,7 +4,7 @@ import 'firebase/auth';
 if (!firebase.apps.length) {
   firebase.initializeApp({
     apiKey: 'AIzaSyDx-aqcWadZGFklRIX9EuovN4u0_kVkAKc',
-    authDomain: 'sort-me-yang.firebaseapp.com',
+    authDomain: 'auth.sort-me.space',
     databaseURL: 'https://sort-me-yang.firebaseio.com',
     projectId: 'sort-me-yang',
     storageBucket: 'sort-me-yang.appspot.com',

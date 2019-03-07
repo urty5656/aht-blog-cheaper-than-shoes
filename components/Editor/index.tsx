@@ -18,7 +18,7 @@ const Editor: React.FunctionComponent = () => {
         }),
       );
     }
-  });
+  }, []);
 
   return (
     <div>

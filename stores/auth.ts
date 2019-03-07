@@ -5,7 +5,7 @@ import { auth } from '../lib/firebase';
 
 const nothing = () => {};
 
-class AuthStore {
+export class AuthStore {
   @observable
   initialized: boolean = false;
   @observable

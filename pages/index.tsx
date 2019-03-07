@@ -2,13 +2,15 @@ import { observer } from 'mobx-react-lite';
 import { NextFunctionComponent } from 'next';
 import React from 'react';
 import Placeholder from '../components/Index/Placeholder';
-import styles from '../styles/pages/index.css';
+import Layout from '../components/Layouts/DefaultLayout';
 
 const Index: NextFunctionComponent = () => {
   return (
-    <main className={styles.container}>
-      <Placeholder />
-    </main>
+    <Layout>
+      <main>
+        <Placeholder />
+      </main>
+    </Layout>
   );
 };
 

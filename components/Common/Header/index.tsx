@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
 import React, { useContext } from 'react';
-import { authStoreCtx } from '../../stores/auth';
+import { authStoreCtx } from '../../../stores/auth';
 import styles from './styles.css';
 
 const Header: React.FunctionComponent = () => {

@@ -1,9 +1,11 @@
 import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
-import Editor from '../components/Editor';
-import { authStoreCtx } from '../stores/auth';
 import { NextFunctionComponent } from 'next';
+import React, { useContext } from 'react';
+import Layout from '../components/Layouts/DefaultLayout';
+import Form from '../components/Write/Form';
+import SubmitModal from '../components/Write/SubmitModal';
 import { instanceF } from '../lib/firebase/firestore';
+import { authStoreCtx } from '../stores/auth';
 
 const render = (flag: boolean, content: JSX.Element): JSX.Element => {
   return flag ? content : <h1>Loading...</h1>;
@@ -13,19 +15,14 @@ const Write: NextFunctionComponent = () => {
   const authStore = useContext(authStoreCtx);
 
   return (
-    <main>
-      {render(
-        process.browser && authStore.initialized,
-        <form action="#" autoComplete="off">
-          <input placeholder="제목" />
-          <Editor />
-          <button type="submit">등록</button>
-        </form>,
-      )}
-    </main>
+    <Layout>
+      <main>{render(process.browser && authStore.initialized, <Form />)}</main>
+      <SubmitModal />
+    </Layout>
   );
 };
 Write.getInitialProps = async () => {
+  instanceF.fork(console.log, console.log);
   instanceF.fork(console.log, console.log);
 };
 

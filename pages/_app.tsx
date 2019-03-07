@@ -1,7 +1,7 @@
 import { useStaticRendering } from 'mobx-react-lite';
 import App, { Container } from 'next/app';
 import React from 'react';
-import Header from '../components/Header';
+import Header from '../components/Common/Header';
 import '../styles/normalize.css';
 
 if (!process.browser) {
