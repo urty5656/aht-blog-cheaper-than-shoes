@@ -1,13 +1,18 @@
+import clsx from 'clsx';
 import React, { useRef } from 'react';
 import styles from './styles.css';
 import { useScrollLock } from '../../../utils/hooks';
 
 interface ModalProps {
+  zIndex?: number;
   onClickBackground: React.MouseEventHandler;
+  className?: string;
 }
 
 const Modal: React.FunctionComponent<ModalProps> = ({
+  zIndex,
   onClickBackground,
+  className,
   children,
 }) => {
   const $el = useRef<HTMLDivElement>(null);
@@ -24,9 +29,10 @@ const Modal: React.FunctionComponent<ModalProps> = ({
     <div
       ref={$el}
       className={styles.background}
+      style={{ zIndex }}
       onClick={onClickOnlyBackground}
     >
-      <div className={styles.container}>{children}</div>
+      <div className={clsx(styles.container, className)}>{children}</div>
     </div>
   );
 };

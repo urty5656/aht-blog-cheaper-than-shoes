@@ -7,6 +7,14 @@ import styles from './styles.css';
 const Header: React.FunctionComponent = () => {
   const authStore = useContext(authStoreCtx);
 
+  const renderWriteButton = () => {
+    return authStore.IsAdmin ? (
+      <Link href="/write">
+        <a>Write a post</a>
+      </Link>
+    ) : null;
+  };
+
   const renderSignInButton = () => {
     return authStore.user ? (
       <button onClick={authStore.signOut}>SignOut</button>
@@ -20,11 +28,10 @@ const Header: React.FunctionComponent = () => {
       <Link href="/">
         <a>Home</a>
       </Link>{' '}
-      |{' '}
-      <Link href="/write">
-        <a>Write a post</a>
+      <Link href="/read">
+        <a>Read</a>
       </Link>{' '}
-      | {renderSignInButton()}
+      {renderWriteButton()} {renderSignInButton()}
     </header>
   );
 };

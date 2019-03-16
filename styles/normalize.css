@@ -33,6 +33,7 @@
 
 html {
   font-family: 'Spoqa Han Sans KR', sans-serif;
+  user-select: none;
 }
 
 html,

@@ -1,10 +1,10 @@
 import { observer } from 'mobx-react-lite';
-import { NextFunctionComponent } from 'next';
+import { NextFC } from 'next';
 import React from 'react';
-import Placeholder from '../components/Index/Placeholder';
-import Layout from '../components/Layouts/DefaultLayout';
+import Placeholder from '../components/index/Placeholder';
+import Layout from '../components/layouts/DefaultLayout';
 
-const Index: NextFunctionComponent = () => {
+const Index: NextFC = () => {
   return (
     <Layout>
       <main>
