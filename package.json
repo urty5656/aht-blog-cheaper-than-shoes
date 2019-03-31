@@ -2,7 +2,7 @@
   "name": "sort-me.space",
   "version": "0.0.1",
   "scripts": {
-    "develop": "next",
+    "develop": "node dev.js",
     "build": "next build",
     "now-build": "next build",
     "start": "next start",
@@ -54,6 +54,7 @@
     "@types/react": "^16.8.3",
     "@types/react-dom": "^16.8.2",
     "cssnano": "^4.1.10",
+    "express": "^4.16.4",
     "fork-ts-checker-webpack-plugin": "^0.5.2",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.6.0",

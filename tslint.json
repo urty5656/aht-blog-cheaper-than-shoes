@@ -6,9 +6,7 @@
     "tslint-react",
     "tslint-react-hooks"
   ],
-  "rulesDirectory": [
-    "tslint-plugin-prettier"
-  ],
+  "rulesDirectory": ["tslint-plugin-prettier"],
   "rules": {
     "prettier": true,
     "import-name": false,
@@ -22,10 +20,8 @@
       }
     ],
     "no-namespace": true,
+    "ordered-imports": true,
     "strict-boolean-expressions": false,
-    "variable-name": [
-      true,
-      "ban-keywords"
-    ]
+    "variable-name": [true, "ban-keywords"]
   }
 }
