@@ -39,7 +39,7 @@ Post.getInitialProps = async ({ res, query }) => {
   }
 
   try {
-    const post = await getBlogPostREST('intro').promise();
+    const post = await getBlogPostREST(slug).promise();
     return { post };
   } catch (_) {
     return p404;
