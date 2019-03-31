@@ -43,3 +43,8 @@ export const getBlogPost = (slug: string) =>
     .chain<firebase.firestore.DocumentSnapshot>(doc =>
       doc.exists ? of(doc) : reject(`No doc for ${slug}`),
     );
+
+export const getBlogPostList = () =>
+  instanceF
+    .chain(instance => tryP(() => instance.collection('posts').get()))
+    .map(val => val.docs.map(doc => doc.data()));

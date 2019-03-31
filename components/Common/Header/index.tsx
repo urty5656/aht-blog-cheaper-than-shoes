@@ -28,7 +28,7 @@ const Header: React.FunctionComponent = () => {
       <Link href="/">
         <a>Home</a>
       </Link>{' '}
-      <Link href="/read">
+      <Link href="/posts">
         <a>Read</a>
       </Link>{' '}
       {renderWriteButton()} {renderSignInButton()}
