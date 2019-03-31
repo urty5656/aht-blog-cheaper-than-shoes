@@ -7,7 +7,7 @@ import { prevent } from '../../../utils/events';
 import Editor, { EditorRef } from '../Editor';
 import styles from './styles.css';
 
-const EditorForm: React.FunctionComponent = () => {
+const EditorForm: React.FC = () => {
   const writeStore = useContext(writeStoreCtx);
   const $editor = useRef<EditorRef>(null);
 

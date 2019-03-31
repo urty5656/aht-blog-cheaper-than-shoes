@@ -22,7 +22,7 @@ interface ButtonProps extends MenuItemProps {
   afterCommand?: (e: React.MouseEvent) => void;
 }
 
-const Button: React.FunctionComponent<ButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
   spec,
   view,
   selectedNode,

@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 
 let app: Pixi.Application;
 
-const Cavasic: React.FunctionComponent = () => {
+const Cavasic: React.FC = () => {
   const $canvas = useRef<HTMLDivElement>(null);
   // const $app = useRef<Pixi.Application>();
 

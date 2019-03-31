@@ -7,7 +7,7 @@ const Canvasic = dynamic(() => import('../Canvasic'), {
   loading: () => <h1 className={styles.heading}>PLEASE WAIT</h1>,
 });
 
-const Placeholder: React.FunctionComponent = () => {
+const Placeholder: React.FC = () => {
   return (
     <div className={styles.container}>
       <Canvasic />

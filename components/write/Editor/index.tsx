@@ -18,7 +18,7 @@ export interface EditorProps {
   onUpdate: (event: Event) => void;
 }
 
-const Editor: React.FunctionComponent<EditorProps> = ({ onUpdate }, ref) => {
+const Editor: React.FC<EditorProps> = ({ onUpdate }, ref) => {
   const $el = useRef<HTMLDivElement>(null);
   const $editor = useRef<EditorView>();
 

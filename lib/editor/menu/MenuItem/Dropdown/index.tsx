@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { MenuItemBaseSpec, renderButton, MenuItemProps } from '..';
+import { MenuItemBaseSpec, MenuItemProps, renderButton } from '..';
 import Button, { MenuItemButtonSpec } from '../Button';
 import menuItemStyles from '../styles.css';
 import styles from './styles.css';
@@ -14,11 +14,7 @@ interface DropdownProps extends MenuItemProps {
   spec: MenuItemDropdownSpec;
 }
 
-const Dropdown: React.FunctionComponent<DropdownProps> = ({
-  spec,
-  view,
-  selectedNode,
-}) => {
+const Dropdown: React.FC<DropdownProps> = ({ spec, view, selectedNode }) => {
   const [opened, setOpened] = useState(false);
 
   const on = (e: React.MouseEvent | MouseEvent) => {

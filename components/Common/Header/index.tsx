@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import { authStoreCtx } from '../../../stores/auth';
 import styles from './styles.css';
 
-const Header: React.FunctionComponent = () => {
+const Header: React.FC = () => {
   const authStore = useContext(authStoreCtx);
 
   const renderWriteButton = () => {
@@ -29,7 +29,7 @@ const Header: React.FunctionComponent = () => {
         <a>Home</a>
       </Link>{' '}
       <Link href="/posts">
-        <a>Read</a>
+        <a>Posts</a>
       </Link>{' '}
       {renderWriteButton()} {renderSignInButton()}
     </header>

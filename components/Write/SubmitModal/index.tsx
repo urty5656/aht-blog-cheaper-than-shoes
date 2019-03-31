@@ -5,7 +5,7 @@ import { writeStoreCtx } from '../../../stores/write';
 import { prevent } from '../../../utils/events';
 import Modal from '../../common/Modal';
 
-const SubmitModal: React.FunctionComponent = () => {
+const SubmitModal: React.FC = () => {
   const writeStore = useContext(writeStoreCtx);
 
   return writeStore.isModalOpened ? (

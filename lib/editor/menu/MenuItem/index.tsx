@@ -32,11 +32,7 @@ export interface MenuItemProps {
   selectedNode: Nullable<Node>;
 }
 
-const MenuItem: React.FunctionComponent<MenuItemProps> = ({
-  spec,
-  view,
-  selectedNode,
-}) => {
+const MenuItem: React.FC<MenuItemProps> = ({ spec, view, selectedNode }) => {
   return spec.dropdown ? (
     <Dropdown spec={spec} view={view} selectedNode={selectedNode} />
   ) : (

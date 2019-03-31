@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.css';
 
-const DefaultLayout: React.FunctionComponent = ({ children }) => {
+const DefaultLayout: React.FC = ({ children }) => {
   return <div className={styles.layout}>{children}</div>;
 };
 

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { useRef } from 'react';
-import styles from './styles.css';
 import { useScrollLock } from '../../../utils/hooks';
+import styles from './styles.css';
 
 interface ModalProps {
   zIndex?: number;
@@ -9,7 +9,7 @@ interface ModalProps {
   className?: string;
 }
 
-const Modal: React.FunctionComponent<ModalProps> = ({
+const Modal: React.FC<ModalProps> = ({
   zIndex,
   onClickBackground,
   className,
