@@ -18,7 +18,7 @@
     "clsx": "^1.0.3",
     "firebase": "^5.8.4",
     "firestore-parser": "^0.8.6",
-    "fluture": "^10.3.1",
+    "fluture": "^11.0.1",
     "lodash": "^4.17.11",
     "mobx": "^5.9.0",
     "mobx-react-lite": "^1.1.0",
@@ -50,12 +50,12 @@
     "@types/prosemirror-schema-basic": "^1.0.1",
     "@types/prosemirror-state": "^1.2.3",
     "@types/prosemirror-view": "^1.3.1",
-    "@types/ramda": "^0.25.50",
+    "@types/ramda": "^0.26.5",
     "@types/react": "^16.8.3",
     "@types/react-dom": "^16.8.2",
     "cssnano": "^4.1.10",
     "express": "^4.16.4",
-    "fork-ts-checker-webpack-plugin": "^0.5.2",
+    "fork-ts-checker-webpack-plugin": "^1.0.1",
     "postcss-import": "^12.0.1",
     "postcss-preset-env": "^6.6.0",
     "prettier": "^1.16.4",
@@ -66,8 +66,8 @@
     "tslint-config-airbnb": "^5.11.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "tslint-react": "^3.6.0",
-    "tslint-react-hooks": "^1.1.0",
-    "typescript": "^3.3.3"
+    "tslint-react": "^4.0.0",
+    "tslint-react-hooks": "^2.0.0",
+    "typescript": "^3.4.1"
   }
 }
