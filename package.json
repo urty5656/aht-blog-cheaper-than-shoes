@@ -12,6 +12,7 @@
     "@babel/core": "^7.3.4",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-typescript": "^1.1.1",
+    "@zeit/webpack-asset-relocator-loader": "^0.3.7",
     "animejs": "^3.0.1",
     "autobind-decorator": "^2.4.0",
     "axios": "^0.18.0",
