@@ -6,7 +6,7 @@ declare namespace NodeJS {
   }
 }
 
-declare module '*.css' {
+declare module '*.scss' {
   const value: { [key: string]: string };
   export = value;
 }

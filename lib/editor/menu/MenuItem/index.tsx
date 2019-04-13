@@ -3,7 +3,7 @@ import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import Button, { MenuItemButtonSpec } from './Button';
 import Dropdown, { MenuItemDropdownSpec } from './Dropdown';
-import styles from './styles.css';
+import styles from './styles.scss';
 
 export interface MenuItemBaseSpec {
   label: string | ((selectedNode: Nullable<Node>) => string);

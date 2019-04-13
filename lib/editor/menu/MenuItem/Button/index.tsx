@@ -3,7 +3,7 @@ import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React, { memo } from 'react';
 import { MenuItemBaseSpec, MenuItemProps, renderButton } from '..';
-import menuItemStyles from '../styles.css';
+import menuItemStyles from '../styles.scss';
 
 export type Command = (
   state: EditorState<Schema>,

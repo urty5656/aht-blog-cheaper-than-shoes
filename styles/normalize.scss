@@ -1,3 +1,5 @@
+@import './resources/variables';
+
 @font-face {
   font-family: 'Spoqa Han Sans KR';
   font-style: normal;
@@ -41,6 +43,10 @@ body,
 :global(#__next) {
   height: 100%;
   overflow-x: hidden;
+}
+
+:global(#__next) {
+  background: $background-light;
 }
 
 body,

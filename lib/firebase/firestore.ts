@@ -1,50 +1,42 @@
-import firebase from 'firebase/app';
-import { of, reject, tryP } from 'fluture';
-import { tap } from 'ramda';
 import { PostModel } from '../../models/blog';
-
-export const instanceF = tryP(async () => {
-  await import('firebase/firestore');
-
-  return firebase.firestore();
-});
+import { db } from './firebase';
 
 const getBlogPostSnapshot = (slug: string) =>
-  instanceF.chain(instance =>
-    tryP(() =>
-      instance
-        .collection('posts')
-        .doc(slug)
-        .get(),
-    ),
-  );
+  db
+    .collection('posts')
+    .doc(slug)
+    .get();
 
 /**
- * Add a blog post. Rejects when the slug already exists.
+ * Add a blog post. Throws when the slug already exists.
  * @param data
  */
-export const addBlogPost = (data: PostModel) =>
-  getBlogPostSnapshot(data.slug)
-    // check existence
-    .chain<firebase.firestore.DocumentSnapshot>(doc =>
-      doc.exists ? reject('Doc already exists') : of(doc),
-    )
-    // create
-    .chain(doc => tryP(() => doc.ref.set(data)))
-    .bimap(tap(console.error), tap(console.log));
+// [todo] Either
+export const addBlogPost = async (data: PostModel) => {
+  const doc = await getBlogPostSnapshot(data.slug);
+  if (doc.exists) {
+    throw 'Doc already exists';
+  }
+  return doc.ref.set(data);
+};
 
 /**
- * Retrieve a blog post by given slug. Rejects when no such doc exists.
+ * Retrieve a blog post by given slug. Throws when no such doc exists.
  * @param slug
  */
-export const getBlogPost = (slug: string) =>
-  getBlogPostSnapshot(slug)
-    // check existence
-    .chain<firebase.firestore.DocumentSnapshot>(doc =>
-      doc.exists ? of(doc) : reject(`No doc for ${slug}`),
-    );
+// [todo] Either
+export const getBlogPost = async (slug: string): Promise<PostModel> => {
+  const doc = await getBlogPostSnapshot(slug);
+  if (!doc.exists) {
+    throw `No doc ${slug}`;
+  }
+  return doc.data() as PostModel;
+};
 
-export const getBlogPostList = () =>
-  instanceF
-    .chain(instance => tryP(() => instance.collection('posts').get()))
-    .map(val => val.docs.map(doc => doc.data()));
+// [todo] Error handling
+export const getBlogPostList = async (): Promise<readonly PostModel[]> => {
+  const posts = await db.collection('posts').get();
+  return posts.docs.map(doc => doc.data() as PostModel);
+};
+
+export { db };

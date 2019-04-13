@@ -52,7 +52,7 @@ export class WriteStore {
 
   @autobind
   @action
-  submit() {
+  async submit() {
     // validations
     if (!this.post.slug) {
       return window.alert('No slug!');
@@ -80,13 +80,13 @@ export class WriteStore {
     this.post.modified = now;
 
     // execute
-    addBlogPost(this.post).fork(
-      () => window.alert('Error!'),
-      () => {
-        window.alert('Added!');
-        this.toggleModal();
-      },
-    );
+    try {
+      await addBlogPost(this.post);
+      window.alert('Added!');
+      this.toggleModal();
+    } catch (_) {
+      window.alert('Error!');
+    }
   }
 }
 

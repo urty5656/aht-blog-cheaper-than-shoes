@@ -2,7 +2,7 @@ import { observer } from 'mobx-react-lite';
 import Link from 'next/link';
 import React, { useContext } from 'react';
 import { authStoreCtx } from '../../../stores/auth';
-import styles from './styles.css';
+import styles from './styles.scss';
 
 const Header: React.FC = () => {
   const authStore = useContext(authStoreCtx);

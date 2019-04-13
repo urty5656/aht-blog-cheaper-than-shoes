@@ -6,7 +6,7 @@ import { getBlogPostList } from '../lib/firebase/firestore';
 import { PostModel } from '../models/blog';
 
 interface BlogProps {
-  posts: PostModel[];
+  posts: readonly PostModel[];
 }
 
 const Posts: NextFC<BlogProps> = ({ posts }) => {
@@ -25,8 +25,8 @@ const Posts: NextFC<BlogProps> = ({ posts }) => {
   );
 };
 Posts.getInitialProps = async () => {
-  const posts = await getBlogPostList().promise();
-  return { posts: posts as PostModel[] };
+  const posts = await getBlogPostList();
+  return { posts };
 };
 
 export default Posts;

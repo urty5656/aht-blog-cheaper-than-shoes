@@ -1,9 +1,7 @@
 import autobind from 'autobind-decorator';
-import { action, observable, computed } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { createContext } from 'react';
 import { auth } from '../lib/firebase';
-
-const nothing = () => {};
 
 export class AuthStore {
   @observable
@@ -12,7 +10,7 @@ export class AuthStore {
   user: firebase.User | null = null;
 
   constructor() {
-    auth.instance.onAuthStateChanged(this.setUser);
+    auth.auth.onAuthStateChanged(this.setUser);
   }
 
   @computed
@@ -30,19 +28,18 @@ export class AuthStore {
       this.initialized = true;
     }
     this.user = user;
-    console.log(this.user);
   }
 
   @autobind
   @action
-  signIn(): void {
-    auth.signIn().fork(console.error, nothing);
+  signIn(): Promise<any> {
+    return auth.signIn();
   }
 
   @autobind
   @action
-  signOut(): void {
-    auth.signOut().fork(console.error, nothing);
+  signOut(): Promise<void> {
+    return auth.signOut();
   }
 }
 

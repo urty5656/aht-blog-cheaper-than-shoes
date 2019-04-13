@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React, { useRef } from 'react';
 import { useScrollLock } from '../../../utils/hooks';
-import styles from './styles.css';
+import styles from './styles.scss';
 
 interface ModalProps {
   zIndex?: number;

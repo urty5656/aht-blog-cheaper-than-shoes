@@ -6,7 +6,7 @@ import * as Pixi from 'pixi.js';
 import React, { useContext, useEffect, useRef } from 'react';
 import { authStoreCtx } from '../../../stores/auth';
 import { useScrollLock } from '../../../utils/hooks';
-import styles from './style.css';
+import styles from './style.scss';
 
 let app: Pixi.Application;
 let squares: any[] = [];

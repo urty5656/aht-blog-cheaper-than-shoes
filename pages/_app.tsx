@@ -1,8 +1,7 @@
 import { useStaticRendering } from 'mobx-react-lite';
 import App, { Container } from 'next/app';
 import React from 'react';
-import Header from '../components/common/Header';
-import '../styles/normalize.css';
+import '../styles/normalize.scss';
 
 if (!process.browser) {
   useStaticRendering(true);
@@ -24,7 +23,6 @@ class MyApp extends App {
 
     return (
       <Container>
-        <Header />
         <Component {...pageProps} />
       </Container>
     );

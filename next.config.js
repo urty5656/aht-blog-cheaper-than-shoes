@@ -1,11 +1,11 @@
-const withCSS = require('@zeit/next-css');
+const withSCSS = require('@zeit/next-sass');
 const withTypescript = require('@zeit/next-typescript');
 const ForkTsCheckerWebapckPlugin = require('fork-ts-checker-webpack-plugin');
 const withAssetRelocator = require('./assetRelocator');
 
 module.exports = withAssetRelocator(
   withTypescript(
-    withCSS({
+    withSCSS({
       cssModules: true,
       cssLoaderOptions: {
         importLoaders: 1,

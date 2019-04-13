@@ -1,8 +1,8 @@
 import React, { memo, useState } from 'react';
 import { MenuItemBaseSpec, MenuItemProps, renderButton } from '..';
 import Button, { MenuItemButtonSpec } from '../Button';
-import menuItemStyles from '../styles.css';
-import styles from './styles.css';
+import menuItemStyles from '../styles.scss';
+import styles from './styles.scss';
 
 export interface MenuItemDropdownSpec extends MenuItemBaseSpec {
   command?: never;

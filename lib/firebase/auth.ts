@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
-import { tryP } from 'fluture';
-import { auth as instance } from './firebase';
+import { auth } from './firebase';
 
 export interface SignInError {
   code: number;
@@ -11,11 +10,7 @@ export interface SignInError {
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
-export const signIn = () =>
-  tryP<SignInError, firebase.auth.UserCredential>(() =>
-    instance.signInWithPopup(provider),
-  );
+export const signIn = () => auth.signInWithPopup(provider);
+export const signOut = () => auth.signOut();
 
-export const signOut = () => tryP<any, void>(() => instance.signOut());
-
-export { instance };
+export { auth };

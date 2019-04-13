@@ -5,7 +5,7 @@ import React, { useContext, useRef } from 'react';
 import { writeStoreCtx } from '../../../stores/write';
 import { prevent } from '../../../utils/events';
 import Editor, { EditorRef } from '../Editor';
-import styles from './styles.css';
+import styles from './styles.scss';
 
 const EditorForm: React.FC = () => {
   const writeStore = useContext(writeStoreCtx);

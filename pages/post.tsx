@@ -29,8 +29,8 @@ Post.getInitialProps = async ({ res, query }) => {
   }
 
   try {
-    const post = await getBlogPost(slug).promise();
-    return { post: post.data() as PostModel };
+    const post = await getBlogPost(slug);
+    return { post };
   } catch (_) {
     return p404;
   }

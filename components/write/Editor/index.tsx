@@ -7,7 +7,7 @@ import React, {
   useRef,
 } from 'react';
 import { attach } from '../../../lib/editor';
-import styles from './styles.css';
+import styles from './styles.scss';
 
 export interface EditorRef {
   getState: () => EditorState;

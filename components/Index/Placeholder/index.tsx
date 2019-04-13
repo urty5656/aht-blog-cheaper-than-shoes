@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
-import styles from './styles.css';
+import styles from './styles.scss';
 
 const Canvasic = dynamic(() => import('../Canvasic'), {
   ssr: false,
