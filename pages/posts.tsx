@@ -3,7 +3,6 @@ import Link from 'next/link';
 import React from 'react';
 import Layout from '../components/layouts/DefaultLayout';
 import { getBlogPostList } from '../lib/firebase/firestore';
-import { getBlogPostList as getBlogPostListREST } from '../lib/firebase/firestoreREST';
 import { PostModel } from '../models/blog';
 
 interface BlogProps {
@@ -26,11 +25,7 @@ const Posts: NextFC<BlogProps> = ({ posts }) => {
   );
 };
 Posts.getInitialProps = async () => {
-  if (process.browser) {
-    const posts = await getBlogPostList().promise();
-    return { posts: posts as PostModel[] };
-  }
-  const posts = await getBlogPostListREST().promise();
+  const posts = await getBlogPostList().promise();
   return { posts: posts as PostModel[] };
 };
 
