@@ -1,0 +1,28 @@
+.container {
+  color: rgba(#333, 0.87);
+  padding: (128rem / 16) 0 3rem;
+}
+
+.heading {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.nav {
+  font-size: 1.5rem;
+  list-style: none;
+  margin-top: 4rem;
+}
+
+.navItem {
+  margin-top: 2rem;
+}
+
+.outlinks {
+  display: flex;
+  margin-top: (40rem / 16);
+
+  & > * + * {
+    margin-left: (12rem / 16);
+  }
+}

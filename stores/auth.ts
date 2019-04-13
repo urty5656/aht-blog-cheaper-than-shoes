@@ -1,4 +1,3 @@
-import autobind from 'autobind-decorator';
 import { action, computed, observable } from 'mobx';
 import { createContext } from 'react';
 import { auth } from '../lib/firebase';
@@ -18,8 +17,7 @@ export class AuthStore {
     return this.user && this.user.email === 'urty5656@gmail.com';
   }
 
-  @autobind
-  @action
+  @action.bound
   setUser(user: firebase.User | null) {
     if (!process.browser) {
       return;
@@ -30,14 +28,12 @@ export class AuthStore {
     this.user = user;
   }
 
-  @autobind
-  @action
+  @action.bound
   signIn(): Promise<any> {
     return auth.signIn();
   }
 
-  @autobind
-  @action
+  @action.bound
   signOut(): Promise<void> {
     return auth.signOut();
   }

@@ -4,12 +4,15 @@ import React from 'react';
 import Layout from '../components/layouts/DefaultLayout';
 import { getBlogPost } from '../lib/firebase/firestore';
 import { PostModel } from '../models/blog';
+import { useGlobalStore } from '../stores/global';
 
 interface BlogProps {
   post?: PostModel;
 }
 
 const Post: NextFC<BlogProps> = ({ post }) => {
+  useGlobalStore();
+
   if (!post) {
     return <Error statusCode={404} />;
   }

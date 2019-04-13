@@ -1,0 +1,30 @@
+@keyframes loader-y {
+  0% {
+    transform: translateY(-100%);
+  }
+  50% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.wrap {
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  position: fixed;
+  top: 2rem;
+  right: 4rem;
+}
+
+.loader {
+  width: 100%;
+  height: 100%;
+  animation: loader-y infinite 750ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+  background: #000;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

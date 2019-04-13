@@ -49,7 +49,6 @@ const Cavasic: React.FC = () => {
       const container = new Pixi.Container();
       container.filterArea = app.screen;
       container.filters = [filter];
-      // container.filters = [blur];
       const text = new Pixi.Text('PLEASE WAIT', {
         fontFamily: 'Spoqa Han Sans',
         fontSize: 32,
@@ -67,7 +66,6 @@ const Cavasic: React.FC = () => {
       text.anchor.set(0.5);
       text.x = app.screen.width / 2;
       text.y = app.screen.height / 2;
-      // app.stage.addChild(background);
       app.stage.addChild(background);
       app.stage.addChild(container);
 

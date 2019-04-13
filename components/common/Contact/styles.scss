@@ -1,0 +1,14 @@
+.contact {
+  width: 2rem;
+  height: 2rem;
+  background: rgba(#333, 0.2);
+  border-radius: (6rem / 16);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: (18rem / 16);
+}

@@ -6,6 +6,7 @@ import Layout from '../components/layouts/DefaultLayout';
 import EditorForm from '../components/write/EditorForm';
 import SubmitModal from '../components/write/SubmitModal';
 import { authStoreCtx } from '../stores/auth';
+import { useGlobalStore } from '../stores/global';
 
 const UnauthorizedWarning = dynamic(
   () => import('../components/common/UnauthorizedWarning'),
@@ -19,6 +20,8 @@ const render = (flag: boolean, content: JSX.Element): JSX.Element => {
 };
 
 const Write: NextFC = () => {
+  useGlobalStore();
+
   const authStore = useContext(authStoreCtx);
 
   return (
