@@ -15,10 +15,11 @@ export interface EditorRef {
 }
 
 export interface EditorProps {
+  initialState?: object;
   onUpdate: (event: Event) => void;
 }
 
-const Editor: React.FC<EditorProps> = ({ onUpdate }, ref) => {
+const Editor: React.FC<EditorProps> = ({ initialState, onUpdate }, ref) => {
   const $el = useRef<HTMLDivElement>(null);
   const $editor = useRef<EditorView>();
 
@@ -29,7 +30,7 @@ const Editor: React.FC<EditorProps> = ({ onUpdate }, ref) => {
 
   useEffect(() => {
     if ($el.current) {
-      $editor.current = attach($el.current);
+      $editor.current = attach($el.current, initialState);
       $editor.current.dom.parentElement!.addEventListener('update', onUpdate);
     }
   }, []);

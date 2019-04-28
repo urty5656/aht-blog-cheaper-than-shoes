@@ -15,6 +15,10 @@
     {
       "src": "/posts/(?<slug>[^/]+)$",
       "dest": "/post?slug=$slug"
+    },
+    {
+      "src": "/write/(?<slug>[^/]+)$",
+      "dest": "/write?slug=$slug"
     }
   ]
 }

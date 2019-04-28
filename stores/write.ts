@@ -1,9 +1,8 @@
-import autobind from 'autobind-decorator';
 import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
 import { path, prop } from 'ramda';
 import { createContext } from 'react';
-import { addBlogPost } from '../lib/firebase/firestore';
+import { addBlogPost, updateBlogPost } from '../lib/firebase/firestore';
 import { PostModel } from '../models/blog';
 
 export class WriteStore {
@@ -19,39 +18,40 @@ export class WriteStore {
   @observable
   isModalOpened: boolean = false;
 
-  @autobind
-  @action
+  // Create (false) or Update (true)
+  private isUpdating: boolean = false;
+
+  /**
+   * Set a post for editing. This action implies `isUpdating = true`.
+   */
+  @action.bound
   setPost(post: PostModel) {
     this.post = post;
+    this.isUpdating = true;
   }
 
-  @autobind
-  @action
+  @action.bound
   setPublic(public_: boolean) {
     this.post.public = public_;
   }
 
-  @autobind
-  @action
+  @action.bound
   setSlug(slug: string) {
     this.post.slug = slug;
   }
 
-  @autobind
-  @action
+  @action.bound
   setContents(content: EditorState, contentHTML: string) {
     this.post.content = content.toJSON();
     this.post.contentHTML = contentHTML;
   }
 
-  @autobind
-  @action
+  @action.bound
   toggleModal() {
     this.isModalOpened = !this.isModalOpened;
   }
 
-  @autobind
-  @action
+  @action.bound
   async submit() {
     // validations
     if (!this.post.slug) {
@@ -80,8 +80,11 @@ export class WriteStore {
     this.post.modified = now;
 
     // execute
+    // [TODO] what should happen when I change the updating post? duh
     try {
-      await addBlogPost(this.post);
+      await (this.isUpdating
+        ? updateBlogPost(this.post)
+        : addBlogPost(this.post));
       window.alert('Added!');
       this.toggleModal();
     } catch (_) {

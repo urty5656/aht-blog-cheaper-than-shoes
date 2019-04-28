@@ -11,8 +11,8 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { menu } from './menu';
 
-export const attach = (target: Node): EditorView => {
-  const state = EditorState.create({
+export const attach = (target: Node, initialState?: object): EditorView => {
+  const config = {
     schema,
     plugins: [
       history(),
@@ -36,6 +36,11 @@ export const attach = (target: Node): EditorView => {
       keymap(baseKeymap),
       menu(),
     ],
-  });
+  };
+
+  const state = initialState
+    ? EditorState.fromJSON(config, initialState)
+    : EditorState.create(config);
+
   return new EditorView(target, { state });
 };

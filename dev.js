@@ -12,6 +12,10 @@ app.prepare().then(() => {
     return app.render(req, res, '/post', { slug: req.params.slug });
   });
 
+  server.get('/write/:slug', (req, res) => {
+    return app.render(req, res, '/write', { slug: req.params.slug });
+  });
+
   server.get('*', (req, res) => {
     return handle(req, res);
   });

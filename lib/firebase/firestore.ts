@@ -20,6 +20,14 @@ export const addBlogPost = async (data: PostModel) => {
   return doc.ref.set(data);
 };
 
+export const updateBlogPost = async (data: PostModel) => {
+  const doc = await getBlogPostSnapshot(data.slug);
+  if (!doc.exists) {
+    throw 'Doc does not exist';
+  }
+  return doc.ref.update(data);
+};
+
 /**
  * Retrieve a blog post by given slug. Throws when no such doc exists.
  * @param slug

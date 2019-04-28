@@ -1,20 +1,24 @@
 import { observer } from 'mobx-react-lite';
 import { NextFC } from 'next';
-import React from 'react';
+import React, { useContext } from 'react';
 import Contact from '../components/common/Contact';
 import Link from '../components/common/Link';
 import Layout from '../components/layouts/DefaultLayout';
+import { authStoreCtx } from '../stores/auth';
 import { useGlobalStore } from '../stores/global';
 import styles from '../styles/pages/index.scss';
 
 const Index: NextFC = () => {
   useGlobalStore();
 
+  const authStore = useContext(authStoreCtx);
+
   return (
     <Layout>
       <main className={styles.container}>
         <h1 className={styles.heading}>NOT 整列</h1>
         <ul className={styles.nav}>
+          <li onClick={authStore.signIn}>SIGN IN</li>
           <li className={styles.navItem}>
             <Link href="/me">ME</Link>
           </li>

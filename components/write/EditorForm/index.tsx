@@ -7,7 +7,11 @@ import { prevent } from '../../../utils/events';
 import Editor, { EditorRef } from '../Editor';
 import styles from './styles.scss';
 
-const EditorForm: React.FC = () => {
+interface EditorFormProps {
+  initialState?: object;
+}
+
+const EditorForm: React.FC<EditorFormProps> = ({ initialState }) => {
   const writeStore = useContext(writeStoreCtx);
   const $editor = useRef<EditorRef>(null);
 
@@ -29,7 +33,7 @@ const EditorForm: React.FC = () => {
 
   return (
     <form className={styles.form} onSubmit={openSubmitModal} autoComplete="off">
-      <Editor ref={$editor} onUpdate={onUpdate} />
+      <Editor ref={$editor} initialState={initialState} onUpdate={onUpdate} />
       <button type="submit">등록</button>
     </form>
   );
