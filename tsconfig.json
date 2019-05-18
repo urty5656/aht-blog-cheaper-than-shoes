@@ -2,12 +2,10 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "experimentalDecorators": true,
     "jsx": "react",
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -19,14 +17,11 @@
     "sourceMap": true,
     "strict": true,
     "target": "es6",
-    "typeRoots": [
-      "./typings"
-    ]
+    "typeRoots": ["./typings"],
+    "paths": {
+      "@/*": ["*"]
+    }
   },
-  "include": [
-    "./**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
+  "include": ["./**/*"],
+  "exclude": ["node_modules"]
 }

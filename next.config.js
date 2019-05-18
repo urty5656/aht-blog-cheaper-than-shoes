@@ -14,6 +14,7 @@ module.exports = withAssetRelocator(
       target: 'serverless',
       webpack(config, { dev, isServer }) {
         config.devtool = dev && 'eval-source-map';
+        config.resolve.alias['@'] = __dirname;
         if (dev && isServer) {
           config.plugins.push(new ForkTsCheckerWebapckPlugin());
         }
