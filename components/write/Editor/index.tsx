@@ -1,3 +1,6 @@
+import { attach } from '@/lib/editor';
+import postStyles from '@/styles/common/post.scss';
+import clsx from 'clsx';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React, {
@@ -6,10 +9,10 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react';
-import { attach } from '../../../lib/editor';
 import styles from './styles.scss';
 
 export interface EditorRef {
+  getView: () => EditorView;
   getState: () => EditorState;
   getInnerHTML: () => string;
 }
@@ -24,6 +27,7 @@ const Editor: React.FC<EditorProps> = ({ initialState, onUpdate }, ref) => {
   const $editor = useRef<EditorView>();
 
   useImperativeHandle(ref, () => ({
+    getView: () => $editor.current!,
     getState: () => $editor.current!.state,
     getInnerHTML: () => $editor.current!.dom.innerHTML,
   }));
@@ -36,18 +40,7 @@ const Editor: React.FC<EditorProps> = ({ initialState, onUpdate }, ref) => {
   }, []);
 
   return (
-    <div>
-      <div ref={$el} className={styles.container} />
-      <button
-        onClick={e => {
-          e.preventDefault();
-          console.log($editor.current && $editor.current.dom.innerHTML);
-          console.log($editor.current && $editor.current.state.toJSON());
-        }}
-      >
-        Log
-      </button>
-    </div>
+    <div ref={$el} className={clsx(styles.container, postStyles.postBody)} />
   );
 };
 

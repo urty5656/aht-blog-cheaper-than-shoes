@@ -1,0 +1,16 @@
+.item {
+  width: 20%;
+  min-width: 20%;
+  padding: (4rem / 16);
+}
+
+.image {
+  background: center no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  padding-top: 100%;
+
+  .selected > & {
+    outline: (3rem / 16) solid salmon;
+  }
+}

@@ -2,22 +2,22 @@ import { storage } from './firebase';
 
 const storageRef = storage.ref();
 
+/**
+ * Uploads an image. Automatically prefixes the refName with the current date.
+ * @param file An image to upload.
+ * @param refName An identifier.
+ */
 export const addImage = async (file: File, refName: string) => {
-  const ref = storageRef.child(refName);
+  const now = new Date().toISOString().slice(0, 10);
+  const ref = storageRef.child(`${refName}-${now}`);
 
   await ref.put(file);
   return ref;
 };
 
-export const addBlogImage = async (file: File) => {
-  const date = new Date()
-    .toISOString()
-    .slice(2, 10)
-    .replace(/-/g, ''); // 190520
-  const name = `blog/${date}/${file.name}`;
-
-  return addImage(file, name);
-};
-
+/**
+ * Deletes an image.
+ * @param refName An identifier for the image to delete.
+ */
 export const deleteImage = async (refName: string) =>
   await storageRef.child(refName).delete();

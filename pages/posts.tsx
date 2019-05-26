@@ -2,7 +2,7 @@ import { NextFC } from 'next';
 import React from 'react';
 import Link from '../components/common/Link';
 import Layout from '../components/layouts/DefaultLayout';
-import { getBlogPostList } from '../lib/firebase/firestore';
+import { getBlogPostList } from '../lib/firebase/firestore/blog';
 import { PostModel } from '../models/blog';
 import { useGlobalStore } from '../stores/global';
 
@@ -10,6 +10,9 @@ interface BlogProps {
   posts: readonly PostModel[];
 }
 
+/**
+ * Blog post list
+ */
 const Posts: NextFC<BlogProps> = ({ posts }) => {
   useGlobalStore();
 

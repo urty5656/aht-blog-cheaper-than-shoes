@@ -1,8 +1,8 @@
 import { setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
 import { redo, undo } from 'prosemirror-history';
-import { Schema, Node } from 'prosemirror-model';
+import { Node, Schema } from 'prosemirror-model';
 import { schema } from 'prosemirror-schema-basic';
-import { MenuItemSpec } from './MenuItem';
+import { MenuItemSpec } from './component/MenuItem';
 
 export const menuCommands: MenuItemSpec[] = [
   {

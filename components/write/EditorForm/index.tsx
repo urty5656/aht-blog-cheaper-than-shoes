@@ -1,7 +1,7 @@
 import { debounce } from 'lodash';
 import { observer } from 'mobx-react-lite';
 import { pipe } from 'ramda';
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { writeStoreCtx } from '../../../stores/write';
 import { prevent } from '../../../utils/events';
 import Editor, { EditorRef } from '../Editor';
@@ -14,6 +14,11 @@ interface EditorFormProps {
 const EditorForm: React.FC<EditorFormProps> = ({ initialState }) => {
   const writeStore = useContext(writeStoreCtx);
   const $editor = useRef<EditorRef>(null);
+
+  // set editor on init
+  useEffect(() => {
+    writeStore.MediaStore.setEditor($editor);
+  }, []);
 
   const onUpdate = debounce(
     () => {

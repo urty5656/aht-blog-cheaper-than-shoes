@@ -1,24 +1,15 @@
-import { action, observable, autorun } from 'mobx';
+import { action, autorun, observable } from 'mobx';
 import { Node, Schema } from 'prosemirror-model';
-import { Plugin } from 'prosemirror-state';
 import { findParentNode } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import { always } from 'ramda';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { menuCommands } from '../menuCommands';
 import MenuBar from './MenuBar';
-import { menuCommands } from './menuCommands';
 import MenuItem from './MenuItem';
 
-export const menu = () => {
-  return new Plugin({
-    view(editorView) {
-      return new MenuView(editorView);
-    },
-  });
-};
-
-class MenuView {
+export class MenuView {
   @observable
   selectedNode: Nullable<Node> = null;
 
@@ -35,6 +26,7 @@ class MenuView {
 
     autorun(() => {
       ReactDOM.render(
+        // tslint:disable-next-line
         <MenuBar>
           {menuCommands.map((spec, index) => (
             <MenuItem

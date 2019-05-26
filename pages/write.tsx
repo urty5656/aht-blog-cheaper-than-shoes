@@ -2,14 +2,16 @@ import { observer } from 'mobx-react-lite';
 import { NextFC } from 'next';
 import dynamic from 'next/dynamic';
 import React, { useContext, useEffect } from 'react';
-import Layout from '../components/layouts/DefaultLayout';
-import EditorForm from '../components/write/EditorForm';
-import SubmitModal from '../components/write/SubmitModal';
-import { getBlogPost } from '../lib/firebase/firestore';
-import { PostModel } from '../models/blog';
-import { authStoreCtx } from '../stores/auth';
-import { useGlobalStore } from '../stores/global';
-import { writeStoreCtx } from '../stores/write';
+
+import Layout from '@/components/layouts/DefaultLayout';
+import EditorForm from '@/components/write/EditorForm';
+import MediaLibrary from '@/components/write/MediaLibrary';
+import SubmitModal from '@/components/write/SubmitModal';
+import { getBlogPost } from '@/lib/firebase/firestore/blog';
+import { PostModel } from '@/models/blog';
+import { authStoreCtx } from '@/stores/auth';
+import { useGlobalStore } from '@/stores/global';
+import { writeStoreCtx } from '@/stores/write';
 
 const UnauthorizedWarning = dynamic(
   () => import('../components/common/UnauthorizedWarning'),
@@ -32,6 +34,12 @@ const Write: NextFC<WriteProps> = ({ post }) => {
   const authStore = useContext(authStoreCtx);
   const writeStore = useContext(writeStoreCtx);
 
+  // fetch 1st page of media
+  useEffect(() => {
+    writeStore.MediaStore.fetchMedia();
+  }, []);
+
+  // re-set post whenever the reference changes
   useEffect(() => {
     post && writeStore.setPost(post);
   }, [post]);
@@ -41,7 +49,10 @@ const Write: NextFC<WriteProps> = ({ post }) => {
       <main>
         {render(
           process.browser && authStore.initialized,
-          <EditorForm initialState={post && post.content} />,
+          <>
+            <MediaLibrary mediaStore={writeStore.MediaStore} />
+            <EditorForm initialState={post && post.content} />
+          </>,
         )}
       </main>
       {<UnauthorizedWarning />}

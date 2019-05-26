@@ -2,8 +2,10 @@ import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
 import { path, prop } from 'ramda';
 import { createContext } from 'react';
-import { addBlogPost, updateBlogPost } from '../lib/firebase/firestore';
-import { PostModel } from '../models/blog';
+
+import { addBlogPost, updateBlogPost } from '@/lib/firebase/firestore/blog';
+import { PostModel } from '@/models/blog';
+import { MediaStore } from './partial/media';
 
 export class WriteStore {
   @observable
@@ -20,6 +22,11 @@ export class WriteStore {
 
   // Create (false) or Update (true)
   private isUpdating: boolean = false;
+  private readonly media = new MediaStore();
+
+  get MediaStore() {
+    return this.media;
+  }
 
   /**
    * Set a post for editing. This action implies `isUpdating = true`.
@@ -80,7 +87,7 @@ export class WriteStore {
     this.post.modified = now;
 
     // execute
-    // [TODO] what should happen when I change the updating post? duh
+    // [TODO] what should happen when I change slug? duh
     try {
       await (this.isUpdating
         ? updateBlogPost(this.post)

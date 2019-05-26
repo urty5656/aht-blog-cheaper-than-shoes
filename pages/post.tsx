@@ -1,15 +1,19 @@
+import Layout from '@/components/layouts/DefaultLayout';
+import { getBlogPost } from '@/lib/firebase/firestore/blog';
+import { PostModel } from '@/models/blog';
+import { useGlobalStore } from '@/stores/global';
+import postStyles from '@/styles/common/post.scss';
 import { NextFC } from 'next';
 import Error from 'next/error';
 import React from 'react';
-import Layout from '../components/layouts/DefaultLayout';
-import { getBlogPost } from '../lib/firebase/firestore';
-import { PostModel } from '../models/blog';
-import { useGlobalStore } from '../stores/global';
 
 interface BlogProps {
   post?: PostModel;
 }
 
+/**
+ * Blog post detail
+ */
 const Post: NextFC<BlogProps> = ({ post }) => {
   useGlobalStore();
 
@@ -18,7 +22,10 @@ const Post: NextFC<BlogProps> = ({ post }) => {
   }
   return (
     <Layout>
-      <div dangerouslySetInnerHTML={{ __html: post.contentHTML }} />
+      <div
+        className={postStyles.postBody}
+        dangerouslySetInnerHTML={{ __html: post.contentHTML }}
+      />
     </Layout>
   );
 };
