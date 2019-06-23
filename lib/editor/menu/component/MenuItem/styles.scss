@@ -1,7 +1,10 @@
 .container {
+  background: #fff;
+  color: #000;
   cursor: pointer;
   padding: 0.25rem;
   position: relative;
+  z-index: 10;
 
   &:hover {
     background: #efefef;

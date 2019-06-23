@@ -1,7 +1,7 @@
-import { db } from '../firebase';
-import { Collections } from './Collections';
-
 import { MediaModel } from '@/models/media';
+import { db } from '../firebase';
+import { deleteImage } from '../storage';
+import { Collections } from './Collections';
 
 const getMediaSnapshot = (ref: string) =>
   db
@@ -14,12 +14,24 @@ const getMediaSnapshot = (ref: string) =>
  * @param data
  */
 // [todo] Either
-export const addMedia = async (data: MediaModel) => {
+export const addMedia = async (
+  data: MediaModel,
+): Promise<firebase.firestore.DocumentSnapshot> => {
   const doc = await getMediaSnapshot(data.ref);
   if (doc.exists) {
     throw 'The media already exists';
   }
-  return doc.ref.set(data);
+  await doc.ref.set(data);
+
+  return await getMediaSnapshot(data.ref);
+};
+
+export const deleteMedia = async (data: MediaModel) => {
+  const doc = await getMediaSnapshot(data.ref);
+  if (!doc.exists) {
+    throw 'The media does not exist';
+  }
+  await Promise.all([deleteImage(data.ref), doc.ref.delete()]);
 };
 
 export const updateMedia = async (data: MediaModel) => {
@@ -50,7 +62,7 @@ export const getMediaList = async (
 ): Promise<readonly firebase.firestore.DocumentSnapshot[]> => {
   let query = await db
     .collection(Collections.Media)
-    .orderBy('created')
+    .orderBy('created', 'desc')
     .limit(limit);
   if (last) {
     query = query.startAfter(last);

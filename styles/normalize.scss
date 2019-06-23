@@ -48,7 +48,8 @@ body,
 }
 
 :global(#__next) {
-  background: $background-light;
+  background: $background-dark;
+  color: $foreground-dark;
 }
 
 body,

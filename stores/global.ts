@@ -1,26 +1,29 @@
-import { action, observable } from 'mobx';
 import { createContext, useContext, useEffect } from 'react';
+import { CursorStore, CursorType } from './partial/cursor';
 
 export class GlobalStore {
-  @observable
-  isLoading: boolean = false;
-
-  @action.bound
-  startLoading() {
-    this.isLoading = true;
-  }
-
-  @action.bound
-  finishLoading() {
-    this.isLoading = false;
-  }
+  readonly cursor = new CursorStore();
 }
 
 export const globalStoreCtx = createContext(new GlobalStore());
 
 export const useGlobalStore = () => {
-  const store = useContext(globalStoreCtx);
-  useEffect(store.finishLoading, []);
+  const { cursor } = useContext(globalStoreCtx);
+  useEffect(() => {
+    cursor.setType(CursorType.Normal);
+    cursor.finishLoading();
 
-  return store;
+    const onPressed = () => cursor.setPressed(true);
+    const onReleased = () => cursor.setPressed(false);
+
+    window.addEventListener('mousedown', onPressed);
+    window.addEventListener('mouseup', onReleased);
+
+    return () => {
+      window.removeEventListener('mousedown', onPressed);
+      window.removeEventListener('mouseup', onReleased);
+    };
+  }, []);
+
+  return cursor;
 };

@@ -1,7 +1,6 @@
 {
   "extends": ["stylelint-prettier/recommended"],
   "rules": {
-    "selector-nested-pattern": "^&",
     "selector-pseudo-class-no-unknown": [
       true,
       {

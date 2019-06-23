@@ -1,5 +1,9 @@
 @import '../../../styles/resources/variables';
 
+.wrap {
+  height: 100%;
+}
+
 .layout {
   max-width: (840rem / 16);
   height: 100%;
@@ -7,4 +11,11 @@
   // border-right: 1px solid rgba(#333, 0.87);
   margin: 0 auto;
   padding: 0 2rem;
+}
+
+.cursorLoaded {
+  &,
+  & * {
+    cursor: none;
+  }
 }

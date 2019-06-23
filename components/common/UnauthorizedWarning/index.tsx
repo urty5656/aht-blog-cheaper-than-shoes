@@ -3,9 +3,10 @@ import { debounce, shuffle } from 'lodash';
 import { observer } from 'mobx-react-lite';
 import Router from 'next/router';
 import * as Pixi from 'pixi.js';
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { authStoreCtx } from '../../../stores/auth';
 import { useScrollLock } from '../../../utils/hooks';
+import Anchor from '../Anchor';
 import styles from './style.scss';
 
 let app: Pixi.Application;
@@ -80,6 +81,7 @@ const clearCanvas = () => {
 
 const placeSquares = () => {
   clearCanvas();
+  console.log('placing');
 
   const innerWidth = window.innerWidth;
   const innerHeight = window.innerHeight;
@@ -98,6 +100,7 @@ const placeSquares = () => {
 
   shuffle(squares).forEach((square, index) =>
     setTimeout(() => {
+      console.log(index);
       square.activate();
     }, index * 15),
   );
@@ -139,14 +142,28 @@ const UnauthorizedWarning: React.FC = () => {
     };
   }, []);
 
-  const toIndex = () => Router.replace('/');
+  const toIndex = useCallback(() => Router.replace('/'), []);
+  const signIn = useCallback(async () => {
+    try {
+      await authStore.signIn();
+    } catch (_) {}
+  }, []);
 
   return authStore.initialized && !authStore.IsAdmin ? (
     <div className={styles.container}>
-      <div ref={$canvas} className={styles.canvas} onClick={toIndex} />
+      <div ref={$canvas} className={styles.canvas} />
       <div className={styles.texts}>
         <h1 className={styles.textHeading}>YOU SHOULDN'T BE HERE</h1>
-        <p className={styles.textSub}>NO ACCESS—CLICK ANYWHERE TO EXIT</p>
+        <p className={styles.textSub}>
+          NO ACCESS—CLICK{' '}
+          <Anchor>
+            <span className={styles.exit} onClick={toIndex}>
+              HERE
+            </span>
+          </Anchor>{' '}
+          TO EXIT
+        </p>
+        <button onClick={signIn}>Sign In</button>
       </div>
     </div>
   ) : null;

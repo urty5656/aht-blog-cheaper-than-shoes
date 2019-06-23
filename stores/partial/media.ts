@@ -1,5 +1,9 @@
 import { EditorRef } from '@/components/write/Editor';
-import { addMedia, getMediaList } from '@/lib/firebase/firestore/media';
+import {
+  addMedia,
+  deleteMedia,
+  getMediaList,
+} from '@/lib/firebase/firestore/media';
 import { addImage } from '@/lib/firebase/storage';
 import { MediaModel } from '@/models/media';
 import { getDimensions } from '@/utils/image';
@@ -12,7 +16,6 @@ const mediaLimit = 25;
 
 export class MediaStore {
   @observable mediaRefs: readonly firebase.firestore.DocumentSnapshot[] = [];
-  @observable mediaListPage: number = 0;
   @observable selectedIndex: number | undefined;
   @observable file: File | undefined;
   @observable fetching: boolean = false;
@@ -72,13 +75,30 @@ export class MediaStore {
       created: now,
       modified: now,
     };
-    await addMedia(mediaModel);
-
-    this.mediaListPage = 0;
-    await this.fetchMedia(true);
+    const added = await addMedia(mediaModel);
+    console.log(this.mediaRefs[0]);
+    console.log(added);
+    this.mediaRefs = [added].concat(this.mediaRefs);
+    console.log(this.mediaRefs.map(doc => doc.data()));
 
     this.fetching = false;
     alert('추가했습니다.');
+  }
+
+  @action.bound
+  async deleteMedia() {
+    if (this.fetching || !this.SelectedMedia) {
+      return;
+    }
+
+    this.fetching = true;
+    await deleteMedia(this.SelectedMedia);
+    this.mediaRefs = this.mediaRefs
+      .slice(0, this.selectedIndex)
+      .concat(this.mediaRefs.slice(this.selectedIndex! + 1));
+    this.selectedIndex = undefined;
+
+    this.fetching = false;
   }
 
   @action
@@ -94,7 +114,6 @@ export class MediaStore {
     );
 
     this.mediaRefs = replace ? fetched : this.mediaRefs.concat(fetched);
-    this.mediaListPage += 1;
     this.fetching = false;
   }
 

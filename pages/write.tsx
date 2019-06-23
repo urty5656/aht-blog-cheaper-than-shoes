@@ -55,7 +55,8 @@ const Write: NextFC<WriteProps> = ({ post }) => {
           </>,
         )}
       </main>
-      {<UnauthorizedWarning />}
+      <button onClick={authStore.signOut}>Sign Out</button>
+      <UnauthorizedWarning />
       <SubmitModal />
     </Layout>
   );

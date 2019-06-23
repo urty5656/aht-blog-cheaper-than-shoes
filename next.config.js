@@ -3,6 +3,8 @@ const withTypescript = require('@zeit/next-typescript');
 const ForkTsCheckerWebapckPlugin = require('fork-ts-checker-webpack-plugin');
 const withAssetRelocator = require('./assetRelocator');
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 module.exports = withAssetRelocator(
   withTypescript(
     withSCSS({
@@ -10,6 +12,13 @@ module.exports = withAssetRelocator(
       cssLoaderOptions: {
         importLoaders: 1,
         localIdentName: '[path]-[local]-[hash:base64:4]',
+        sourceMap: isDev,
+      },
+      sassLoaderOptions: {
+        sourceMap: isDev,
+      },
+      postcssLoaderOptions: {
+        sourceMap: isDev,
       },
       target: 'serverless',
       webpack(config, { dev, isServer }) {

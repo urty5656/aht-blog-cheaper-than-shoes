@@ -2,7 +2,7 @@
   "name": "sort-me.space",
   "version": "0.0.1",
   "scripts": {
-    "develop": "now dev",
+    "develop": "node dev.js",
     "build": "next build",
     "now-build": "next build",
     "start": "next start",

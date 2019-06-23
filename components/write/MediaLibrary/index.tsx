@@ -40,6 +40,9 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ mediaStore }) => {
           )}
         >
           <input type="file" onChange={mediaStore.setFile} />
+          <button type="button" onClick={mediaStore.deleteMedia}>
+            삭제
+          </button>
           <button type="submit">등록</button>
           <button type="button" onClick={mediaStore.insertMedia}>
             삽입

@@ -1,18 +1,32 @@
 .postBody {
-  h1 {
+  padding: (200rem / 16) 0;
+
+  & h1 {
     font-family: var(--serif);
     font-size: 2.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: (200rem / 16);
     opacity: 0.76;
+    padding-bottom: 2rem;
+    position: relative;
+    &::after {
+      content: '';
+      width: 100%;
+      height: 2px;
+      background: currentColor;
+      opacity: 0.25;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
   }
 
-  h2 {
+  & h2 {
     font-size: 1.8rem;
     margin-bottom: 0.75rem;
     opacity: 0.76;
   }
 
-  img {
+  & img {
     max-width: 100%;
   }
 }
