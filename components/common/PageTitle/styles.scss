@@ -1,0 +1,14 @@
+.pageTitle {
+  font-size: 4.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: all 175ms ease;
+  @supports (-webkit-text-stroke: #fff) {
+    color: transparent;
+    -webkit-text-stroke: 1px #fff;
+  }
+
+  &:hover {
+    color: #fff;
+  }
+}

@@ -10,8 +10,8 @@ interface PostModelContentsSerialized {
 }
 
 export interface PostModel {
-  created?: Date;
-  modified?: Date;
+  created?: number;
+  modified?: number;
   public: boolean;
   title: string;
   slug: string;

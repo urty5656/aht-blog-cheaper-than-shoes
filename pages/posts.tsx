@@ -1,5 +1,6 @@
-import Link from '@/components/common/Link';
+import PageTitle from '@/components/common/PageTitle';
 import Layout from '@/components/layouts/DefaultLayout';
+import PostBody from '@/components/posts/PostBody';
 import { PageFC } from '@/components/SortApp';
 import { getBlogPostList } from '@/lib/firebase/firestore/blog';
 import { PostModel } from '@/models/blog';
@@ -18,15 +19,10 @@ const Posts: PageFC<BlogProps> = ({ posts }) => {
 
   return (
     <Layout>
-      <ul>
-        {posts.map(post => (
-          <li key={post.slug}>
-            <Link href={`/post?slug=${post.slug}`} as={`/posts/${post.slug}`}>
-              {post.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <main>
+        <PageTitle>Posts</PageTitle>
+        <PostBody items={posts} />
+      </main>
     </Layout>
   );
 };

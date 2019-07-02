@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 import Error from '../components/common/Error';
 
-const Cursor = dynamic(() => import('@/Components/Common/Cursor'), {
+const Cursor = dynamic(() => import('@/components/common/Cursor'), {
   ssr: false,
   loading: () => null,
 });
@@ -25,10 +25,8 @@ class App extends NextApp<AppProps> {
 
     if (Component.getInitialProps) {
       try {
-        const {
-          statusCode: initStatusCode,
-          ...pageProps
-        } = await Component.getInitialProps(ctx);
+        const initialProps = (await Component.getInitialProps(ctx)) || {};
+        const { statusCode: initStatusCode, ...pageProps } = initialProps;
 
         const statusCode = initStatusCode || 200;
         res && (res.statusCode = statusCode);

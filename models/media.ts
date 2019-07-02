@@ -1,6 +1,6 @@
 export interface MediaModel {
-  created?: Date;
-  modified?: Date;
+  created?: number;
+  modified?: number;
   src: string;
   ref: string;
   width?: number;

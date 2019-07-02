@@ -3,7 +3,7 @@ import { MediaStore } from '@/stores/partial/media';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Anchorable, withAnchor } from '../../../Common/withAnchor';
+import { Anchorable, withAnchor } from '../../../common/withAnchor';
 import styles from './styles.scss';
 
 interface MediaItemProps extends Anchorable {

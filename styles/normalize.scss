@@ -1,6 +1,7 @@
 @import './resources/variables';
 
 @font-face {
+  font-display: swap;
   font-family: 'Spoqa Han Sans KR';
   font-style: normal;
   font-weight: 100;
@@ -8,6 +9,7 @@
     url('/static/fonts/Spoqa Han Sans Thin.woff') format('woff');
 }
 @font-face {
+  font-display: swap;
   font-family: 'Spoqa Han Sans KR';
   font-style: normal;
   font-weight: 200;
@@ -15,6 +17,7 @@
     url('/static/fonts/Spoqa Han Sans Light.woff') format('woff');
 }
 @font-face {
+  font-display: swap;
   font-family: 'Spoqa Han Sans KR';
   font-style: normal;
   font-weight: 400;
@@ -22,6 +25,7 @@
     url('/static/fonts/Spoqa Han Sans Regular.woff') format('woff');
 }
 @font-face {
+  font-display: swap;
   font-family: 'Spoqa Han Sans KR';
   font-style: normal;
   font-weight: 700;
@@ -35,7 +39,7 @@
 
 html {
   --sans-serif: 'Spoqa Han Sans KR', sans-serif;
-  --serif: serif; // [todo]
+  --serif: 'Noto Serif KR', serif; // [todo]
   font-family: var(--sans-serif);
   user-select: none;
 }

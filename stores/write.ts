@@ -80,7 +80,7 @@ export class WriteStore {
     }
 
     // times
-    const now = new Date();
+    const now = Number(new Date());
     if (!this.post.created) {
       this.post.created = now;
     }

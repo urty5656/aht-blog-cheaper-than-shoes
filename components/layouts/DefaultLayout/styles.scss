@@ -7,10 +7,8 @@
 .layout {
   max-width: (840rem / 16);
   height: 100%;
-  // border-left: 1px solid rgba(#333, 0.87);
-  // border-right: 1px solid rgba(#333, 0.87);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: (240rem / 16) 2rem 4rem;
 }
 
 .cursorLoaded {

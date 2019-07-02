@@ -61,7 +61,7 @@ export class MediaStore {
     }
 
     this.fetching = true;
-    const now = new Date();
+    const now = Number(new Date());
     const refAsync = addImage(this.file, this.file.name);
 
     const { width, height } = await getDimensions(this.file);

@@ -64,7 +64,7 @@ Write.getInitialProps = async ({ query }) => {
   const slug = query.slug as string;
 
   if (!slug) {
-    return { statusCode: 404 };
+    return;
   }
 
   try {

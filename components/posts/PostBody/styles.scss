@@ -1,0 +1,9 @@
+.container {
+  margin-top: 2rem;
+}
+
+.item {
+  & + & {
+    margin-top: 1.5rem;
+  }
+}

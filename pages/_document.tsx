@@ -10,7 +10,7 @@ class CustomDocument extends Document {
       <html>
         <Head>
           <link
-            href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&amp;subset=korean"
+            href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:400,700,900&display=swap&subset=korean"
             rel="stylesheet"
           />
         </Head>

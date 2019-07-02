@@ -1,0 +1,21 @@
+@import '~@/styles/common/index';
+
+.link {
+  @include anchor;
+  display: block;
+}
+
+.title {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+}
+
+.dateTime {
+  min-width: 1px;
+  min-height: (16em / 14);
+  display: inline-block;
+  font-size: (14rem / 16);
+  line-height: (16 / 14);
+  margin-top: 0.25rem;
+  opacity: 0.8;
+}
