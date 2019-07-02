@@ -1,9 +1,5 @@
-import { observer } from 'mobx-react-lite';
-import { NextFC } from 'next';
-import dynamic from 'next/dynamic';
-import React, { useContext, useEffect } from 'react';
-
 import Layout from '@/components/layouts/DefaultLayout';
+import { PageFC } from '@/components/SortApp';
 import EditorForm from '@/components/write/EditorForm';
 import MediaLibrary from '@/components/write/MediaLibrary';
 import SubmitModal from '@/components/write/SubmitModal';
@@ -12,6 +8,9 @@ import { PostModel } from '@/models/blog';
 import { authStoreCtx } from '@/stores/auth';
 import { useGlobalStore } from '@/stores/global';
 import { writeStoreCtx } from '@/stores/write';
+import { observer } from 'mobx-react-lite';
+import dynamic from 'next/dynamic';
+import React, { useContext, useEffect } from 'react';
 
 const UnauthorizedWarning = dynamic(
   () => import('../components/common/UnauthorizedWarning'),
@@ -28,7 +27,7 @@ const render = (flag: boolean, content: JSX.Element): JSX.Element => {
   return flag ? content : <h1>Loading...</h1>;
 };
 
-const Write: NextFC<WriteProps> = ({ post }) => {
+const Write: PageFC<WriteProps> = ({ post }) => {
   useGlobalStore();
 
   const authStore = useContext(authStoreCtx);
@@ -65,14 +64,14 @@ Write.getInitialProps = async ({ query }) => {
   const slug = query.slug as string;
 
   if (!slug) {
-    return {};
+    return { statusCode: 404 };
   }
 
   try {
     const post = await getBlogPost(slug);
     return { post };
   } catch (_) {
-    return {};
+    return { statusCode: 404 };
   }
 };
 

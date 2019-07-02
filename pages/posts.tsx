@@ -1,10 +1,10 @@
-import { NextFC } from 'next';
+import Link from '@/components/common/Link';
+import Layout from '@/components/layouts/DefaultLayout';
+import { PageFC } from '@/components/SortApp';
+import { getBlogPostList } from '@/lib/firebase/firestore/blog';
+import { PostModel } from '@/models/blog';
+import { useGlobalStore } from '@/stores/global';
 import React from 'react';
-import Link from '../components/common/Link';
-import Layout from '../components/layouts/DefaultLayout';
-import { getBlogPostList } from '../lib/firebase/firestore/blog';
-import { PostModel } from '../models/blog';
-import { useGlobalStore } from '../stores/global';
 
 interface BlogProps {
   posts: readonly PostModel[];
@@ -13,7 +13,7 @@ interface BlogProps {
 /**
  * Blog post list
  */
-const Posts: NextFC<BlogProps> = ({ posts }) => {
+const Posts: PageFC<BlogProps> = ({ posts }) => {
   useGlobalStore();
 
   return (

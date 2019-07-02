@@ -1,8 +1,9 @@
 import '@/styles/normalize.scss';
 import { useStaticRendering } from 'mobx-react-lite';
-import App, { Container } from 'next/app';
+import NextApp, { Container, NextAppContext } from 'next/app';
 import dynamic from 'next/dynamic';
 import React from 'react';
+import Error from '../components/common/Error';
 
 const Cursor = dynamic(() => import('@/Components/Common/Cursor'), {
   ssr: false,
@@ -13,27 +14,53 @@ if (!process.browser) {
   useStaticRendering(true);
 }
 
-class MyApp extends App {
-  static async getInitialProps({ Component, ctx }: any) {
-    let pageProps = {};
+export interface AppProps {
+  statusCode: number;
+  pageProps: any;
+}
+
+class App extends NextApp<AppProps> {
+  static async getInitialProps({ Component, ctx }: NextAppContext) {
+    const { res } = ctx;
 
     if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
+      try {
+        const {
+          statusCode: initStatusCode,
+          ...pageProps
+        } = await Component.getInitialProps(ctx);
+
+        const statusCode = initStatusCode || 200;
+        res && (res.statusCode = statusCode);
+
+        return {
+          statusCode,
+          pageProps,
+        };
+      } catch (e) {
+        console.error(e);
+        res && (res.statusCode = 500);
+        return { statusCode: 500, pageProps: null };
+      }
     }
 
-    return { pageProps };
+    return { statusCode: 200, pageProps: null };
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, statusCode, pageProps } = this.props;
 
     return (
       <Container>
         <Cursor />
-        <Component {...pageProps} />
+        {statusCode === 200 ? (
+          <Component {...pageProps} />
+        ) : (
+          <Error statusCode={statusCode} />
+        )}
       </Container>
     );
   }
 }
 
-export default MyApp;
+export default App;
