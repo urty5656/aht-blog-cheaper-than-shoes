@@ -1465,10 +1465,10 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
-"@types/ramda@^0.26.14":
-  version "0.26.14"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.26.14.tgz#3a6fb82b225ee0b2c8a9b3a657c9942445037d79"
-  integrity sha512-OKSReh+kGIPiLzYnQIdAtrdE0w1lW1dnTsdFtbVYEj8kWdYKpolF+bZAvHaNCiTq2C91iwGJ/7q81DOjRQOHrw==
+"@types/ramda@^0.26.15":
+  version "0.26.15"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.26.15.tgz#217d9d2133f55040bd5db0e67dbbf6ec8509446f"
+  integrity sha512-kmIO8GVOLv0A8UxFr5lJaqp4g8jbXNhH0grBaPL6NgkOqSirRKpV9+5DTmIDXTyq2G18YMdxDhnScEZtY4brtQ==
 
 "@types/react-dom@^16.8.2":
   version "16.8.4"
@@ -7333,6 +7333,14 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
+raw-loader@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/raw-loader/-/raw-loader-3.0.0.tgz#9a660dc9cfbfb8324eede3ea3511454d2a5d0389"
+  integrity sha512-FsELYliOpX5HdPdxa7PzTmEc5OTchmLUs/r4f8oLDGCYE+xC2FjVbDXzdyLcBrdlDnvkx1x5wzphixcWpxJG5w==
+  dependencies:
+    loader-utils "^1.1.0"
+    schema-utils "^1.0.0"
+
 rc@^1.2.7:
   version "1.2.8"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.8.tgz#cd924bf5200a075b83c188cd6b9e211b7fc0d3ed"
@@ -9149,6 +9157,11 @@ webpack-dev-middleware@3.6.0:
     mime "^2.3.1"
     range-parser "^1.0.3"
     webpack-log "^2.0.0"
+
+webpack-glsl-minify@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/webpack-glsl-minify/-/webpack-glsl-minify-1.0.3.tgz#0cab09e45c53970a76d25058e2cb3c269cfd4871"
+  integrity sha512-LWhCsYV7Gfbv6HvZR2YZK/6+FtVdBWdTSA+rMC773APQ7ij48mstRdTPDfTByhFHikYPlc3v8WvUC+ktQmsr4g==
 
 webpack-hot-middleware@2.24.3:
   version "2.24.3"

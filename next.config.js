@@ -24,6 +24,12 @@ module.exports = withAssetRelocator(
       webpack(config, { dev, isServer }) {
         config.devtool = dev && 'eval-source-map';
         config.resolve.alias['@'] = __dirname;
+
+        config.module.rules.push({
+          test: /\.glsl$/,
+          use: 'webpack-glsl-minify',
+        });
+
         if (dev && isServer) {
           config.plugins.push(new ForkTsCheckerWebapckPlugin());
         }

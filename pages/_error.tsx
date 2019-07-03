@@ -8,7 +8,6 @@ interface ErrorProps {
 }
 
 const ErrorPage: NextFC<ErrorProps> = ({ statusCode }) => {
-  console.log('error');
   return <Error statusCode={statusCode} />;
 };
 ErrorPage.getInitialProps = ({ res, err }) => {

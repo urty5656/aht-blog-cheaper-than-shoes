@@ -48,7 +48,6 @@ const Index: NextFC = () => {
             onClick={() => (location.href = 'mailto:urty5656@gmail.com')}
           />
         </div>
-        {/* <Placeholder /> */}
       </main>
     </Layout>
   );

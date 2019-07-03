@@ -11,6 +11,11 @@ declare module '*.scss' {
   export = value;
 }
 
+declare module '*.glsl' {
+  const sourceCode: string;
+  export { sourceCode };
+}
+
 declare module 'firestore-parser' {
   const parse: <T>(val: T) => T;
   export = parse;

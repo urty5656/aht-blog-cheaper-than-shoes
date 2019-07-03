@@ -15,13 +15,12 @@ const loaderAnimTarget = {
 };
 
 export const drawRim = (ctx: Pixi.Graphics, time: number) => {
-  const scale = 1 - time * 0.25;
-  const opacity = 1 - time * 0.35;
+  const scale = 1 + time * 0.35;
   const size = SIZE * scale;
 
   ctx
     .clear()
-    .lineStyle(2, 0xededed, opacity * 0.85)
+    .lineStyle(2, 0xededed, 0.85)
     .drawCircle(0, 0, size)
     .lineStyle(0.5, 0x202020, 0.85)
     .beginFill(0xffffff, 0.85)
@@ -36,7 +35,7 @@ export const animateRim = (ctx: Pixi.Graphics, type: CursorType) => {
   rimAnim = anime({
     targets: rimAnimTarget,
     time: type === CursorType.Normal ? 0 : 1,
-    duration: type === CursorType.Normal ? 100 : 175,
+    duration: type === CursorType.Normal ? 750 : 333,
     easing: type === CursorType.Normal ? 'easeOutQuad' : 'easeOutCubic',
     update: () => drawRim(ctx, rimAnimTarget.time),
     complete: () => (rimAnim = null),

@@ -1,19 +1,13 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
-import styles from './styles.scss';
 
 const Canvasic = dynamic(() => import('../Canvasic'), {
   ssr: false,
-  loading: () => <h1 className={styles.heading}>PLEASE WAIT</h1>,
+  loading: () => null,
 });
 
 const Placeholder: React.FC = () => {
-  return (
-    <div className={styles.container}>
-      <Canvasic />
-      <p className={styles.desc}>IT'S NOT READY YET</p>
-    </div>
-  );
+  return <Canvasic />;
 };
 
 export default Placeholder;
