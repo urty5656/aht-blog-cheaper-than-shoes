@@ -3,7 +3,6 @@ import React from 'react';
 
 const Canvasic = dynamic(() => import('../Canvasic'), {
   ssr: false,
-  loading: () => null,
 });
 
 const Placeholder: React.FC = () => {

@@ -1,0 +1,41 @@
+%circle {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.container {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+}
+.red {
+  @extend %circle;
+  background: #f00;
+  transition: transform 100ms ease;
+  .container:hover & {
+    transform: translateX(-1rem);
+  }
+}
+.green {
+  @extend %circle;
+  background: #0f0;
+  transform: translateX(0.3rem);
+  transition: transform 175ms ease;
+  .container:hover & {
+    transform: translateX(5rem);
+  }
+}
+.blue {
+  @extend %circle;
+  background: #00f;
+  transform: translateX(0.6rem);
+  transition: transform 230ms ease;
+  .container:hover & {
+    transform: translateX(6rem);
+  }
+}

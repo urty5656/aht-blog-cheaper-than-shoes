@@ -1,3 +1,4 @@
+import { PageFC } from '@/components/SortApp';
 import '@/styles/normalize.scss';
 import { useStaticRendering } from 'mobx-react-lite';
 import NextApp, { Container, NextAppContext } from 'next/app';
@@ -7,7 +8,6 @@ import Error from '../components/common/Error';
 
 const Cursor = dynamic(() => import('@/components/common/Cursor'), {
   ssr: false,
-  loading: () => null,
 });
 
 if (!process.browser) {
@@ -23,9 +23,10 @@ class App extends NextApp<AppProps> {
   static async getInitialProps({ Component, ctx }: NextAppContext) {
     const { res } = ctx;
 
-    if (Component.getInitialProps) {
+    if ((Component as PageFC<any>).getInitialProps) {
       try {
-        const initialProps = (await Component.getInitialProps(ctx)) || {};
+        const initialProps =
+          (await (Component as PageFC<any>).getInitialProps!(ctx)) || {};
         const { statusCode: initStatusCode, ...pageProps } = initialProps;
 
         const statusCode = initStatusCode || 200;

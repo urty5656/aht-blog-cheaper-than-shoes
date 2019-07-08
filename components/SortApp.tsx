@@ -1,7 +1,5 @@
-import { NextContext, NextFC } from 'next';
+import { NextFC } from 'next';
 
-export type PageFC<P> = NextFC<
-  P,
-  void | P | { statusCode?: number },
-  NextContext
->;
+export type PageIP<P> = void | P | { statusCode?: number };
+
+export type PageFC<P = object> = NextFC<P, PageIP<P>>;

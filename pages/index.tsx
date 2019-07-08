@@ -1,5 +1,7 @@
+import TriButton from '@/components/common/TriButton';
+import TwirlButton from '@/components/common/TwirlButton';
+import { PageFC } from '@/components/SortApp';
 import { observer } from 'mobx-react-lite';
-import { NextFC } from 'next';
 import React, { useContext } from 'react';
 import Anchor from '../components/common/Anchor';
 import Contact from '../components/common/Contact';
@@ -10,7 +12,7 @@ import { authStoreCtx } from '../stores/auth';
 import { useGlobalStore } from '../stores/global';
 import styles from '../styles/pages/index.scss';
 
-const Index: NextFC = () => {
+const Index: PageFC = () => {
   const authStore = useContext(authStoreCtx);
 
   useGlobalStore();
@@ -38,6 +40,8 @@ const Index: NextFC = () => {
             </Anchor>
           </li>
         </ul>
+        <TriButton />
+        <TwirlButton />
         <div className={styles.outlinks}>
           <Contact
             href="https://www.instagram.com/jr_.yang/"

@@ -13,7 +13,7 @@ import dynamic from 'next/dynamic';
 import React, { useContext, useEffect } from 'react';
 
 const UnauthorizedWarning = dynamic(
-  () => import('../components/common/UnauthorizedWarning'),
+  () => import('@/components/common/UnauthorizedWarning'),
   {
     ssr: false,
   },

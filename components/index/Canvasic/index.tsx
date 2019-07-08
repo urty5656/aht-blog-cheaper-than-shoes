@@ -14,7 +14,6 @@ const Cavasic: React.FC = () => {
     }
 
     const { width, height } = $canvas.current.getBoundingClientRect();
-    console.log(width, height);
     const app = new Pixi.Application({
       width,
       height,

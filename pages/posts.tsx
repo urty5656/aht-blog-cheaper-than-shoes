@@ -7,14 +7,14 @@ import { PostModel } from '@/models/blog';
 import { useGlobalStore } from '@/stores/global';
 import React from 'react';
 
-interface BlogProps {
+interface PostsProps {
   posts: readonly PostModel[];
 }
 
 /**
  * Blog post list
  */
-const Posts: PageFC<BlogProps> = ({ posts }) => {
+const Posts: PageFC<PostsProps> = ({ posts }) => {
   useGlobalStore();
 
   return (

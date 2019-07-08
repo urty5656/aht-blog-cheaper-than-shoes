@@ -6,14 +6,14 @@ import { useGlobalStore } from '@/stores/global';
 import postStyles from '@/styles/common/post.scss';
 import React from 'react';
 
-interface BlogProps {
+interface PostProps {
   post: PostModel;
 }
 
 /**
  * Blog post detail
  */
-const Post: PageFC<BlogProps> = ({ post }) => {
+const Post: PageFC<PostProps> = ({ post }) => {
   useGlobalStore();
 
   return (

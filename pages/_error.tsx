@@ -1,5 +1,5 @@
 import Error from '@/components/common/Error';
-import { NextFC } from 'next';
+import { PageFC } from '@/components/SortApp';
 import { prop } from 'ramda';
 import React from 'react';
 
@@ -7,10 +7,10 @@ interface ErrorProps {
   statusCode: number;
 }
 
-const ErrorPage: NextFC<ErrorProps> = ({ statusCode }) => {
+const ErrorPage: PageFC<ErrorProps> = ({ statusCode }) => {
   return <Error statusCode={statusCode} />;
 };
-ErrorPage.getInitialProps = ({ res, err }) => {
+ErrorPage.getInitialProps = async ({ res, err }) => {
   const pickStatusCode = prop('statusCode');
   const statusCode = pickStatusCode(res!) || pickStatusCode(err as any);
 

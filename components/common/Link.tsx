@@ -1,10 +1,13 @@
 import clsx from 'clsx';
-import NextLink, { LinkProps as NextLinkProps } from 'next/link';
+import NextLink from 'next/link';
 import React, { useContext } from 'react';
+import { UrlObject } from 'url';
 import { globalStoreCtx } from '../../stores/global';
 import { Anchorable, withAnchor } from './withAnchor';
 
-interface LinkProps extends Pick<NextLinkProps, 'href' | 'as'>, Anchorable {
+interface LinkProps extends Anchorable {
+  href: string | UrlObject;
+  as?: UrlObject;
   children: React.ReactNode;
   className?: string;
 }

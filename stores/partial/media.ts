@@ -76,10 +76,7 @@ export class MediaStore {
       modified: now,
     };
     const added = await addMedia(mediaModel);
-    console.log(this.mediaRefs[0]);
-    console.log(added);
     this.mediaRefs = [added].concat(this.mediaRefs);
-    console.log(this.mediaRefs.map(doc => doc.data()));
 
     this.fetching = false;
     alert('추가했습니다.');

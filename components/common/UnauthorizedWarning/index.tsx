@@ -81,7 +81,6 @@ const clearCanvas = () => {
 
 const placeSquares = () => {
   clearCanvas();
-  console.log('placing');
 
   const innerWidth = window.innerWidth;
   const innerHeight = window.innerHeight;
@@ -100,7 +99,6 @@ const placeSquares = () => {
 
   shuffle(squares).forEach((square, index) =>
     setTimeout(() => {
-      console.log(index);
       square.activate();
     }, index * 15),
   );
