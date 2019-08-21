@@ -1,21 +1,14 @@
 .postBody {
+  font-family: var(--serif);
+
+  & > * + * {
+    margin-top: 0.75em;
+  }
+
   & h1 {
-    font-family: var(--serif);
-    font-size: 2.75rem;
-    margin-bottom: (200rem / 16);
-    opacity: 0.76;
-    padding-bottom: 2rem;
-    position: relative;
-    &::after {
-      content: '';
-      width: 100%;
-      height: 2px;
-      background: currentColor;
-      opacity: 0.25;
-      position: absolute;
-      left: 0;
-      bottom: 0;
-    }
+    font-family: var(--sans-serif);
+    font-size: 4.8rem;
+    margin-bottom: 2rem;
   }
 
   & h2 {
@@ -26,5 +19,19 @@
 
   & img {
     max-width: 100%;
+  }
+
+  & code {
+    background: rgba(#fff, 0.2);
+    border-radius: 0.25rem;
+    display: inline-block;
+    padding: 0 0.2em;
+  }
+
+  & pre > code {
+    display: block;
+    font-size: 1.1em;
+    line-height: 1.5;
+    padding: 1em;
   }
 }

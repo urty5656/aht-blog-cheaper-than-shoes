@@ -21,10 +21,12 @@ export const attach = (target: Node, initialState?: object): EditorView => {
         'Mod-y': redo,
         'Mod-b': toggleMark(schema.marks.strong),
         'Mod-o': toggleMark(schema.marks.code),
-        'Mod-enter': chainCommands(exitCode, (state, dispatch) => {
+        'Shift-Enter': chainCommands(exitCode, (state, dispatch) => {
+          console.log('hi');
           if (!dispatch) {
             return true;
           }
+          console.log('hardBreak');
           dispatch(
             state.tr
               .replaceSelectionWith(schema.nodes.hard_break.create())

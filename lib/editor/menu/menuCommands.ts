@@ -26,8 +26,13 @@ export const menuCommands: MenuItemSpec[] = [
     icon: '/static/round-format_quote-24px.svg',
   },
   {
-    label: 'code',
+    label: 'pre',
     command: toggleMark<Schema>(schema.marks.code),
+    icon: '/static/round-space_bar-24px.svg',
+  },
+  {
+    label: 'code',
+    command: setBlockType<Schema>(schema.nodes.code_block),
     icon: '/static/round-code-24px.svg',
   },
   {
@@ -60,10 +65,6 @@ export const menuCommands: MenuItemSpec[] = [
             level: index + 1,
           }),
         })),
-      {
-        label: 'Code block',
-        command: setBlockType<Schema>(schema.nodes.code_block),
-      },
     ],
   },
 ];
