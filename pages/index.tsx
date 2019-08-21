@@ -1,5 +1,3 @@
-import TriButton from '@/components/common/TriButton';
-import TwirlButton from '@/components/common/TwirlButton';
 import { PageFC } from '@/components/SortApp';
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
@@ -40,8 +38,6 @@ const Index: PageFC = () => {
             </Anchor>
           </li>
         </ul>
-        <TriButton />
-        <TwirlButton />
         <div className={styles.outlinks}>
           <Contact
             href="https://www.instagram.com/jr_.yang/"
