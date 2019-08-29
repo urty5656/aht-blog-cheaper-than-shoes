@@ -2,6 +2,7 @@
   "name": "sort-me.space",
   "version": "0.0.1",
   "scripts": {
+    "dev": "next dev",
     "develop": "now dev",
     "build": "next build",
     "now-build": "next build",
@@ -14,7 +15,7 @@
   "dependencies": {
     "@babel/core": "^7.5.5",
     "@zeit/next-sass": "^1.0.1",
-    "@zeit/webpack-asset-relocator-loader": "0.5.3",
+    "@zeit/webpack-asset-relocator-loader": "^0.6.2",
     "animejs": "^3.1.0",
     "autobind-decorator": "^2.4.0",
     "axios": "0.18.1",
@@ -23,7 +24,7 @@
     "lodash": "^4.17.15",
     "mobx": "^5.13.0",
     "mobx-react-lite": "^1.4.1",
-    "next": "8",
+    "next": "9",
     "node-sass": "^4.11.0",
     "pixi.js": "^5.1.1",
     "prosemirror-commands": "^1.0.7",
@@ -43,7 +44,6 @@
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-decorators": "^7.3.0",
     "@types/lodash": "^4.14.137",
-    "@types/next": "^8.0.6",
     "@types/node": "^12.7.2",
     "@types/pixi.js": "^4.8.8",
     "@types/prosemirror-commands": "^1.0.1",

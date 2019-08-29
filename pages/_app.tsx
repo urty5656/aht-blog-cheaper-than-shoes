@@ -1,7 +1,7 @@
 import { PageFC } from '@/components/SortApp';
 import '@/styles/normalize.scss';
 import { useStaticRendering } from 'mobx-react-lite';
-import NextApp, { Container, NextAppContext } from 'next/app';
+import NextApp, { AppContext } from 'next/app';
 import dynamic from 'next/dynamic';
 import React from 'react';
 import Error from '../components/common/Error';
@@ -20,7 +20,7 @@ export interface AppProps {
 }
 
 class App extends NextApp<AppProps> {
-  static async getInitialProps({ Component, ctx }: NextAppContext) {
+  static async getInitialProps({ Component, ctx }: AppContext) {
     const { res } = ctx;
 
     if ((Component as PageFC<any>).getInitialProps) {
@@ -50,14 +50,14 @@ class App extends NextApp<AppProps> {
     const { Component, statusCode, pageProps } = this.props;
 
     return (
-      <Container>
+      <>
         <Cursor />
         {statusCode === 200 ? (
           <Component {...pageProps} />
         ) : (
           <Error statusCode={statusCode} />
         )}
-      </Container>
+      </>
     );
   }
 }
