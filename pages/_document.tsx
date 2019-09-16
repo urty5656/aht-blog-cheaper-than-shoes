@@ -13,6 +13,10 @@ class CustomDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:400,700,900&display=swap&subset=korean"
             rel="stylesheet"
           />
+          <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-tomorrow.min.css"
+            rel="stylesheet"
+          />
         </Head>
         <body className="custom_class">
           <Main />

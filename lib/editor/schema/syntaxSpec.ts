@@ -11,10 +11,12 @@ export const syntaxSpec: NodeSpec = {
     {
       tag: 'pre[data-lang]',
       getAttrs: dom => {
-        const lang = (dom as HTMLPreElement).getAttribute('data-lang');
+        const lang = (dom as HTMLPreElement).classList.value
+          .split(' ')
+          .find(klass => /^language\-.+/.test(klass));
         return lang ? { lang } : false;
       },
     },
   ],
-  toDOM: node => ['pre', { 'data-lang': node.attrs.lang }, ['code', 0]],
+  toDOM: node => ['pre', { class: `language-${node.attrs.lang}` }, ['code', 0]],
 };

@@ -11,10 +11,13 @@
       {
         "loose": true
       }
+    ],
+    [
+      "prismjs",
+      {
+        "languages": ["js", "jsx", "ts", "tsx", "scss", "html"]
+      }
     ]
   ],
-  "presets": [
-    "next/babel",
-    "@zeit/next-typescript/babel"
-  ]
+  "presets": ["next/babel", "@zeit/next-typescript/babel"]
 }
