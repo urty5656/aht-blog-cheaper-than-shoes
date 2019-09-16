@@ -1,8 +1,8 @@
 import { setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
 import { redo, undo } from 'prosemirror-history';
-import { Node, Schema } from 'prosemirror-model';
-import { schema } from 'prosemirror-schema-basic';
-import { MenuItemSpec } from './component/MenuItem';
+import { Schema } from 'prosemirror-model';
+import { schema } from '../../schema';
+import { MenuItemSpec } from './MenuItem';
 
 export const menuCommands: MenuItemSpec[] = [
   {
@@ -31,12 +31,44 @@ export const menuCommands: MenuItemSpec[] = [
     icon: '/static/round-space_bar-24px.svg',
   },
   {
-    label: 'code',
-    command: setBlockType<Schema>(schema.nodes.code_block),
-    icon: '/static/round-code-24px.svg',
+    label: selectedNode => {
+      if (!selectedNode || selectedNode.type.name !== 'syntax') {
+        return 'Code Snippet';
+      }
+
+      // [todo] ENUM?
+      switch (selectedNode.attrs.lang) {
+        case 'js':
+          return 'JavaScript';
+        case 'css':
+          return 'CSS';
+        case 'html':
+          return 'HTML';
+      }
+      return 'Code Snippets';
+    },
+    dropdown: true,
+    items: [
+      {
+        label: 'None',
+        command: setBlockType<Schema>(schema.nodes.syntax),
+      },
+      {
+        label: 'JavaScript',
+        command: setBlockType<Schema>(schema.nodes.syntax, { lang: 'js' }),
+      },
+      {
+        label: 'CSS',
+        command: setBlockType<Schema>(schema.nodes.syntax, { lang: 'css' }),
+      },
+      {
+        label: 'HTML',
+        command: setBlockType<Schema>(schema.nodes.syntax, { lang: 'html' }),
+      },
+    ],
   },
   {
-    label: (selectedNode: Nullable<Node>) => {
+    label: selectedNode => {
       if (!selectedNode) {
         return 'Style';
       }

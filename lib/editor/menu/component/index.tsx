@@ -5,8 +5,8 @@ import { EditorView } from 'prosemirror-view';
 import { always } from 'ramda';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { menuCommands } from '../menuCommands';
 import MenuBar from './MenuBar';
+import { menuCommands } from './menuCommands';
 import MenuItem from './MenuItem';
 
 export class MenuView {
