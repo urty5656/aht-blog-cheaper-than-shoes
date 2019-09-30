@@ -2,13 +2,8 @@ import { PageFC } from '@/components/SortApp';
 import '@/styles/normalize.scss';
 import { useStaticRendering } from 'mobx-react-lite';
 import NextApp, { AppContext } from 'next/app';
-import dynamic from 'next/dynamic';
 import React from 'react';
 import Error from '../components/common/Error';
-
-const Cursor = dynamic(() => import('@/components/common/Cursor'), {
-  ssr: false,
-});
 
 if (!process.browser) {
   useStaticRendering(true);
@@ -51,7 +46,7 @@ class App extends NextApp<AppProps> {
 
     return (
       <>
-        <Cursor />
+        {/* <Cursor /> */}
         {statusCode === 200 ? (
           <Component {...pageProps} />
         ) : (

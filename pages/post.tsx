@@ -4,8 +4,9 @@ import { getBlogPost } from '@/lib/firebase/firestore/blog';
 import { PostModel } from '@/models/blog';
 import { useGlobalStore } from '@/stores/global';
 import postStyles from '@/styles/common/post.scss';
+import clsx from 'clsx';
 import Prism from 'prismjs';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface PostProps {
   post: PostModel;
@@ -17,12 +18,17 @@ interface PostProps {
 const Post: PageFC<PostProps> = ({ post }) => {
   useGlobalStore();
 
-  useEffect(() => Prism.highlightAll(), [post]);
+  const [isLighted, setLighted] = useState(false);
+
+  useEffect(() => Prism.highlightAll(false, () => setLighted(true)), [post]);
 
   return (
     <Layout>
       <article
-        className={postStyles.postBody}
+        className={clsx(
+          postStyles.postBody,
+          isLighted && postStyles.postBodyLighted,
+        )}
         dangerouslySetInnerHTML={{ __html: post.contentHTML }}
       />
     </Layout>

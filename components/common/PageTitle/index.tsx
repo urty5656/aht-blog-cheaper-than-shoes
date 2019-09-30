@@ -1,8 +1,27 @@
 import React from 'react';
+import Link from '../Link';
 import styles from './styles.scss';
 
-const PageTitle: React.FC<{ children: React.ReactText }> = ({ children }) => (
-  <h1 className={styles.pageTitle}>{children}</h1>
-);
+interface PageTitleProps {
+  isAtHome?: boolean;
+  children: React.ReactText;
+}
+
+const PageTitle: React.FC<PageTitleProps> = ({ isAtHome, children }) => {
+  if (isAtHome) {
+    return <h1 className={styles.pageTitle}>{children}</h1>;
+  }
+
+  // [todo] should be able to choose destination
+  // e.g. Posts -> /, Post -> Posts
+  return (
+    <Link href="/">
+      <h1 className={styles.pageTitle}>
+        <img className={styles.arrow} src="/static/arrow_back-24px.svg" />
+        {children}
+      </h1>
+    </Link>
+  );
+};
 
 export default PageTitle;

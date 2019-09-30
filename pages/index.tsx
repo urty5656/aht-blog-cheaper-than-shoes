@@ -18,7 +18,7 @@ const Index: PageFC = () => {
   return (
     <Layout>
       <main>
-        <PageTitle>NOT 整列</PageTitle>
+        <PageTitle isAtHome={true}>NOT 整列</PageTitle>
         <ul className={styles.nav}>
           <li className={styles.navItem}>
             <Link href="/me">ME</Link>

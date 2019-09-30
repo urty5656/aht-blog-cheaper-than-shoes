@@ -8,7 +8,6 @@ import { Anchorable, withAnchor } from './withAnchor';
 interface LinkProps extends Anchorable {
   href: string | UrlObject;
   as?: UrlObject;
-  children: React.ReactNode;
   className?: string;
 }
 

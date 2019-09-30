@@ -28,10 +28,21 @@
     padding: 0 0.2em;
   }
 
+  & pre {
+    background: none !important;
+    padding: 0.5rem 0.5rem 1rem;
+    visibility: hidden;
+  }
+
   & pre > code {
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0.25em 1em;
     display: block;
     font-size: 1.1em;
     line-height: 1.5;
     padding: 1em;
   }
+}
+
+.postBodyLighted pre {
+  visibility: visible;
 }
