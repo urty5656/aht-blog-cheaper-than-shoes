@@ -5,7 +5,7 @@ export function useScrollLock(target?: HTMLElement) {
     const realTarget = target || document.body;
     realTarget.style.overflow = 'hidden';
     return () => {
-      realTarget.style.overflow = null;
+      realTarget.style.overflow = '';
     };
   }, []);
 }

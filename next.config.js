@@ -1,10 +1,8 @@
 const withSCSS = require('@zeit/next-sass');
 const ForkTsCheckerWebapckPlugin = require('fork-ts-checker-webpack-plugin');
-// const withAssetRelocator = require('./assetRelocator');
 
 const isDev = process.env.NODE_ENV !== 'production';
 
-// module.exports = withAssetRelocator(
 module.exports = withSCSS({
   cssModules: true,
   cssLoaderOptions: {
