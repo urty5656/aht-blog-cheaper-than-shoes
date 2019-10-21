@@ -52,7 +52,10 @@ export const getBlogPost = async (slug: string): Promise<PostModel> => {
  */
 // [todo] Error handling, pagination
 export const getBlogPostList = async (): Promise<readonly PostModel[]> => {
-  const posts = await db.collection(Collections.Posts).get();
+  const posts = await db
+    .collection(Collections.Posts)
+    .orderBy('created', 'desc')
+    .get();
   return posts.docs.map(doc => doc.data() as PostModel);
 };
 
