@@ -1,14 +1,10 @@
-@import '../../../styles/resources/variables';
-
 .wrap {
   height: 100%;
 }
 
 .layout {
-  max-width: (840rem / 16);
   height: 100%;
-  margin: 0 auto;
-  padding: (240rem / 16) 2rem 4rem;
+  padding: (160em / 16) 2rem 4rem;
 }
 
 .cursorLoaded {

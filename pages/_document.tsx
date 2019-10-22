@@ -17,6 +17,10 @@ class CustomDocument extends Document {
             href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-tomorrow.min.css"
             rel="stylesheet"
           />
+          <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
+            rel="stylesheet"
+          />
         </Head>
         <body className="custom_class">
           <Main />

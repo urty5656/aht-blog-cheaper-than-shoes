@@ -21,10 +21,10 @@ const Index: PageFC = () => {
         <PageTitle isAtHome={true}>NOT 整列</PageTitle>
         <ul className={styles.nav}>
           <li className={styles.navItem}>
-            <Link href="/me">ME</Link>
+            <Link href="/posts">BLOG</Link>
           </li>
           <li className={styles.navItem}>
-            <Link href="/posts">BLOG</Link>
+            <Link href="/me">ME</Link>
           </li>
           <li className={styles.navItem}>
             <Link href="/portfolio">WORKS</Link>

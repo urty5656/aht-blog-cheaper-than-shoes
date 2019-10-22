@@ -1,6 +1,6 @@
+import { useScrollLock } from '@/utils/hooks';
 import clsx from 'clsx';
 import React, { useRef } from 'react';
-import { useScrollLock } from '../../../utils/hooks';
 import styles from './styles.scss';
 
 interface ModalProps {

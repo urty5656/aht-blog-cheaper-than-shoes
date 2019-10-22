@@ -1,7 +1,6 @@
+import { PostModel } from '@/models/blog';
 import { db } from '../firebase';
 import { Collections } from './Collections';
-
-import { PostModel } from '@/models/blog';
 
 const getBlogPostSnapshot = (slug: string) =>
   db
