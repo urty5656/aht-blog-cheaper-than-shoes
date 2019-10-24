@@ -3,11 +3,15 @@ import { PageFC } from '@/components/SortApp';
 import EditorForm from '@/components/write/EditorForm';
 import MediaLibrary from '@/components/write/MediaLibrary';
 import SubmitModal from '@/components/write/SubmitModal';
-import { getBlogPost } from '@/lib/firebase/firestore/blog';
-import { PostModel } from '@/models/blog';
+import { getPostDetailOf } from '@/models/Blog/detail';
+import { PostModel } from '@/models/Blog/model';
 import { authStoreCtx } from '@/stores/auth';
 import { useGlobalStore } from '@/stores/global';
 import { writeStoreCtx } from '@/stores/write';
+import { constNull } from 'fp-ts/lib/function';
+import { fold, fromNullable, map } from 'fp-ts/lib/Option';
+import { pipe } from 'fp-ts/lib/pipeable';
+import { bimap, left, TaskEither } from 'fp-ts/lib/TaskEither';
 import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
 import React, { useContext, useEffect } from 'react';
@@ -61,18 +65,22 @@ const Write: PageFC<WriteProps> = ({ post }) => {
   );
 };
 Write.getInitialProps = async ({ query }) => {
-  const slug = query.slug as string;
+  const asPageProps = (
+    task: TaskEither<unknown, PostModel>,
+  ): TaskEither<null, WriteProps> =>
+    pipe(
+      task,
+      bimap(constNull, post => ({
+        post,
+      })),
+    );
 
-  if (!slug) {
-    return;
-  }
-
-  try {
-    const post = await getBlogPost(slug);
-    return { post };
-  } catch (_) {
-    return { statusCode: 404 };
-  }
+  return pipe(
+    fromNullable(query.slug as string | undefined),
+    map(slug => getPostDetailOf(slug)),
+    map(asPageProps),
+    fold(() => left(null), pageProps => pageProps),
+  );
 };
 
 export default observer(Write);

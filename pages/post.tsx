@@ -1,10 +1,15 @@
 import Layout from '@/components/layouts/DefaultLayout';
 import { PageFC } from '@/components/SortApp';
-import { getBlogPost } from '@/lib/firebase/firestore/blog';
-import { PostModel } from '@/models/blog';
+import { getPostDetailOf } from '@/models/Blog/detail';
+import { PostModel } from '@/models/Blog/model';
 import { useGlobalStore } from '@/stores/global';
 import postStyles from '@/styles/common/post.scss';
 import clsx from 'clsx';
+import { constNull } from 'fp-ts/lib/function';
+import { fold, fromNullable, map } from 'fp-ts/lib/Option';
+import { pipe } from 'fp-ts/lib/pipeable';
+import { bimap, left, TaskEither } from 'fp-ts/lib/TaskEither';
+import { Option } from 'fp-ts/lib/Option';
 import Prism from 'prismjs';
 import React, { useEffect, useState } from 'react';
 
@@ -34,20 +39,27 @@ const Post: PageFC<PostProps> = ({ post }) => {
     </Layout>
   );
 };
-Post.getInitialProps = async ({ res, query }) => {
-  const slug = query.slug as string;
+Post.getInitialProps = async ({ query }) => {
+  const wrapPost = (post: Option<PostModel>) => pipe(
+    post,
+    fold(() =>)
+  )
+  const asPageProps = (
+    task: TaskEither<unknown, Option<PostModel>>,
+  ): TaskEither<null, PostProps> =>
+    pipe(
+      task,
+      bimap(constNull, post => ({
+        post,
+      })),
+    );
 
-  if (!slug) {
-    res && (res.statusCode = 404);
-    return { statusCode: 404 };
-  }
-
-  try {
-    const post = await getBlogPost(slug);
-    return { post };
-  } catch (_) {
-    return { statusCode: 404 };
-  }
+  return pipe(
+    fromNullable(query.slug as string | undefined),
+    map(slug => getPostDetailOf(slug)),
+    map(asPageProps),
+    fold(() => left(null), pageProps => pageProps),
+  );
 };
 
 export default Post;

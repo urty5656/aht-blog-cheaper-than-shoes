@@ -1,10 +1,9 @@
+import { addBlogPost, updateBlogPost } from '@/lib/firebase/firestore/blog';
+import { PostModel } from '@/models/blog';
 import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
 import { path, prop } from 'ramda';
 import { createContext } from 'react';
-
-import { addBlogPost, updateBlogPost } from '@/lib/firebase/firestore/blog';
-import { PostModel } from '@/models/blog';
 import { MediaStore } from './partial/media';
 
 export class WriteStore {
