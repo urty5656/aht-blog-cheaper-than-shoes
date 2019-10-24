@@ -26,9 +26,6 @@ module.exports = withSCSS({
       use: 'webpack-glsl-minify',
     });
 
-    if (dev && isServer) {
-      config.plugins.push(new ForkTsCheckerWebapckPlugin());
-    }
     return config;
   },
 });
