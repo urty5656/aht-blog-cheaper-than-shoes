@@ -1,11 +1,11 @@
 import PageTitle from '@/components/common/PageTitle';
+import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
 import PostBody from '@/components/posts/PostBody';
-import { PageFC } from '@/components/SortApp';
 import { getPostList } from '@/models/Blog/list';
 import { PostModel } from '@/models/Blog/model';
 import { useGlobalStore } from '@/stores/global';
-import { constNull } from 'fp-ts/lib/function';
+import { identity } from 'fp-ts/lib/function';
 import { pipe } from 'fp-ts/lib/pipeable';
 import { bimap } from 'fp-ts/lib/TaskEither';
 import React from 'react';
@@ -17,7 +17,7 @@ interface PostsProps {
 /**
  * Blog post list
  */
-const Posts: PageFC<PostsProps> = ({ posts }) => {
+const Posts: TaskFC<PostsProps> = ({ posts }) => {
   useGlobalStore();
 
   return (
@@ -29,13 +29,14 @@ const Posts: PageFC<PostsProps> = ({ posts }) => {
     </Layout>
   );
 };
-Posts.getInitialProps = async () => {
-  return pipe(
+Posts.getInitialProps = () => {
+  const fn = pipe(
     getPostList,
-    bimap(constNull, posts => ({
+    bimap(identity, posts => ({
       posts,
     })),
   );
+  return fn;
 };
 
-export default Posts;
+export default withTaskHandler(Posts);
