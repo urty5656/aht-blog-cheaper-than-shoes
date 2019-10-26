@@ -1,5 +1,5 @@
 import Link from '@/components/common/Link';
-import { PostModel } from '@/models/blog';
+import { PostModel } from '@/models/Blog/model';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './styles.scss';

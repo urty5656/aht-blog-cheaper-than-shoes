@@ -1,22 +1,19 @@
 import Error from '@/components/common/Error';
 import Sidebar from '@/components/common/Sidebar';
-import { PageFC } from '@/components/SortApp';
+import { WrappedTaskFC } from '@/components/common/withTaskHandler';
 import '@/styles/normalize.scss';
-import { fold } from 'fp-ts/lib/Either';
-import { pipe } from 'fp-ts/lib/pipeable';
-import { bimap, TaskEither } from 'fp-ts/lib/TaskEither';
 import { useStaticRendering } from 'mobx-react-lite';
 import NextApp, { AppContext } from 'next/app';
 import NProgress from 'nprogress';
 import React from 'react';
 
-if (!process.browser) {
-  useStaticRendering(true);
-}
-
 export interface AppProps {
   statusCode: number;
   pageProps: any;
+}
+
+if (!process.browser) {
+  useStaticRendering(true);
 }
 
 class App extends NextApp<AppProps> {
@@ -53,44 +50,16 @@ class App extends NextApp<AppProps> {
   }
 
   static async getInitialProps(actx: AppContext): Promise<AppProps> {
-    const { ctx } = actx;
-    const page = actx.Component as PageFC<any>;
+    const { ctx, Component } = actx;
 
-    if (!page.getInitialProps) {
+    if (!Component.getInitialProps) {
       return { statusCode: 200, pageProps: null };
     }
 
-    // try extra protection
+    const page: WrappedTaskFC = Component;
+
     try {
-      const pageProps = page.getInitialProps(ctx) as TaskEither<
-        { statusCode: number } | null,
-        any
-      >;
-
-      const appProps = await pipe(
-        pageProps,
-        bimap(
-          // failure - no page props required
-          error => ({
-            pageProps: null,
-            statusCode: error ? error.statusCode : 500,
-          }),
-          // success - forced 200
-          pageProps => ({
-            pageProps,
-            statusCode: 200,
-          }),
-        ),
-      )();
-
-      return fold<AppProps, AppProps, AppProps>(
-        e => {
-          // [todo] IO
-          ctx.res && (ctx.res.statusCode = e.statusCode);
-          return e;
-        },
-        r => r,
-      )(appProps);
+      return (await page.getInitialProps!(ctx))();
     } catch (e) {
       console.error(e);
       ctx.res && (ctx.res.statusCode = 500);

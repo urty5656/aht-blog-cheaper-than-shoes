@@ -1,8 +1,8 @@
+import { writeStoreCtx } from '@/stores/write';
+import { prevent } from '@/utils/events';
 import { observer } from 'mobx-react-lite';
 import { pipe } from 'ramda';
 import React, { useContext } from 'react';
-import { writeStoreCtx } from '../../../stores/write';
-import { prevent } from '../../../utils/events';
 import Modal from '../../common/Modal';
 
 const SubmitModal: React.FC = () => {

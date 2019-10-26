@@ -10,38 +10,44 @@ import {
   tryCatch,
 } from 'fp-ts/lib/TaskEither';
 import { Collections } from '../Collections';
+import { CommonError, error, fromFirebaseError } from '../Common/error';
 import { PostModel } from './model';
 
 type DocSnapshot = firebase.firestore.DocumentSnapshot;
 
 // requester
-const fetchWith = (slug: string) =>
+const fetchWith = (slug: string): TaskEither<CommonError, DocSnapshot> =>
   tryCatch(
     () =>
       db
         .collection(Collections.Posts)
         .doc(slug)
         .get(),
-    error => error,
+    fromFirebaseError,
   );
 
-const retrieve = <T>(doc: DocSnapshot): Option<T> =>
-  fromNullable<T>(doc.data() as T);
+const retrieve = (doc: DocSnapshot): Option<PostModel> =>
+  fromNullable(doc.data() as PostModel);
 
 // filters
-const filterFound = (doc: DocSnapshot): TaskEither<unknown, DocSnapshot> =>
-  doc.exists ? left('Doc already exists') : right(doc);
+const filterFound = (doc: DocSnapshot): TaskEither<CommonError, DocSnapshot> =>
+  doc.exists ? left(error('already-exists')) : right(doc);
 
-const filterNotFound = (doc: DocSnapshot): TaskEither<unknown, DocSnapshot> =>
-  !doc.exists ? left('Doc does not exist') : right(doc);
+const filterNotFound = (
+  doc: DocSnapshot,
+): TaskEither<CommonError, DocSnapshot> =>
+  !doc.exists ? left(error('not-found')) : right(doc);
 
 // writer
 const writePostWith = (data: PostModel, create?: boolean) => (
   doc: DocSnapshot,
-): TaskEither<unknown, void> =>
-  tryCatch(() => doc.ref[create ? 'set' : 'update'](data), error => error);
+): TaskEither<CommonError, void> =>
+  tryCatch(() => doc.ref[create ? 'set' : 'update'](data), fromFirebaseError);
 
-export const addBlogPost = (data: PostModel): TaskEither<unknown, void> =>
+/**
+ * Returns TaskEither which writes a new blog post.
+ */
+export const addBlogPost = (data: PostModel): TaskEither<CommonError, void> =>
   pipe(
     fetchWith(data.slug),
     chain(filterFound),
@@ -49,10 +55,12 @@ export const addBlogPost = (data: PostModel): TaskEither<unknown, void> =>
   );
 
 /**
- * Updates a blog post. Throws when the data's slug does not exists.
+ * Returns a TaskEither which updates a existing post, identified by the data's slug.
  * @param data
  */
-export const updateBlogPost = (data: PostModel): TaskEither<unknown, void> =>
+export const updateBlogPost = (
+  data: PostModel,
+): TaskEither<CommonError, void> =>
   pipe(
     fetchWith(data.slug),
     chain(filterNotFound),
@@ -60,13 +68,13 @@ export const updateBlogPost = (data: PostModel): TaskEither<unknown, void> =>
   );
 
 /**
- * Retrieves a blog post by a given slug. Throws when no such doc exists.
+ * Returns a TaskEither containing the requested post.
  * @param slug
  */
 export const getPostDetailOf = (
   slug: string,
-): TaskEither<unknown, Option<PostModel>> =>
+): TaskEither<CommonError, Option<PostModel>> =>
   pipe(
     fetchWith(slug),
-    map(doc => retrieve<PostModel>(doc)),
+    map(doc => retrieve(doc)),
   );

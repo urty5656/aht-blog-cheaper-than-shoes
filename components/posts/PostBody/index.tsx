@@ -1,4 +1,4 @@
-import { PostModel } from '@/models/blog';
+import { PostModel } from '@/models/Blog/model';
 import React from 'react';
 import PostItem from './PostItem';
 import styles from './styles.scss';

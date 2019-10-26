@@ -1,15 +1,16 @@
+import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
-import { PageFC } from '@/components/SortApp';
 import { getPostDetailOf } from '@/models/Blog/detail';
 import { PostModel } from '@/models/Blog/model';
+import { CommonError, error } from '@/models/Common/error';
 import { useGlobalStore } from '@/stores/global';
 import postStyles from '@/styles/common/post.scss';
 import clsx from 'clsx';
-import { constNull } from 'fp-ts/lib/function';
-import { fold, fromNullable, map } from 'fp-ts/lib/Option';
+import * as E from 'fp-ts/lib/Either';
+import { identity } from 'fp-ts/lib/function';
+import { fold as foldOption, Option } from 'fp-ts/lib/Option';
 import { pipe } from 'fp-ts/lib/pipeable';
-import { bimap, left, TaskEither } from 'fp-ts/lib/TaskEither';
-import { Option } from 'fp-ts/lib/Option';
+import * as TE from 'fp-ts/lib/TaskEither';
 import Prism from 'prismjs';
 import React, { useEffect, useState } from 'react';
 
@@ -20,7 +21,7 @@ interface PostProps {
 /**
  * Blog post detail
  */
-const Post: PageFC<PostProps> = ({ post }) => {
+const Post: TaskFC<PostProps> = ({ post }) => {
   useGlobalStore();
 
   const [isLighted, setLighted] = useState(false);
@@ -39,27 +40,25 @@ const Post: PageFC<PostProps> = ({ post }) => {
     </Layout>
   );
 };
-Post.getInitialProps = async ({ query }) => {
-  const wrapPost = (post: Option<PostModel>) => pipe(
-    post,
-    fold(() =>)
-  )
-  const asPageProps = (
-    task: TaskEither<unknown, Option<PostModel>>,
-  ): TaskEither<null, PostProps> =>
-    pipe(
-      task,
-      bimap(constNull, post => ({
-        post,
-      })),
+Post.getInitialProps = ({ query }) => {
+  /** Fold `Option` of `TaskEither<unknown, Option>`. */
+  const flatten = (
+    postDetail: TE.TaskEither<CommonError, Option<PostModel>>,
+  ): TE.TaskEither<CommonError, PostModel> =>
+    TE.taskEither.chain(postDetail, postDetail =>
+      pipe(
+        postDetail,
+        foldOption(() => TE.left(error('not-found')), TE.right),
+      ),
     );
 
   return pipe(
-    fromNullable(query.slug as string | undefined),
-    map(slug => getPostDetailOf(slug)),
-    map(asPageProps),
-    fold(() => left(null), pageProps => pageProps),
+    E.fromNullable(error('not-found'))(query.slug as string | undefined),
+    E.map(getPostDetailOf),
+    E.map(flatten),
+    E.fold(TE.left, identity),
+    TE.map(post => ({ post })),
   );
 };
 
-export default Post;
+export default withTaskHandler(Post);

@@ -1,17 +1,19 @@
+import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
-import { PageFC } from '@/components/SortApp';
 import EditorForm from '@/components/write/EditorForm';
 import MediaLibrary from '@/components/write/MediaLibrary';
 import SubmitModal from '@/components/write/SubmitModal';
 import { getPostDetailOf } from '@/models/Blog/detail';
 import { PostModel } from '@/models/Blog/model';
+import { CommonError, error } from '@/models/Common/error';
 import { authStoreCtx } from '@/stores/auth';
 import { useGlobalStore } from '@/stores/global';
 import { writeStoreCtx } from '@/stores/write';
-import { constNull } from 'fp-ts/lib/function';
-import { fold, fromNullable, map } from 'fp-ts/lib/Option';
+import * as E from 'fp-ts/lib/Either';
+import { identity } from 'fp-ts/lib/function';
+import { fold, Option } from 'fp-ts/lib/Option';
 import { pipe } from 'fp-ts/lib/pipeable';
-import { bimap, left, TaskEither } from 'fp-ts/lib/TaskEither';
+import * as TE from 'fp-ts/lib/TaskEither';
 import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
 import React, { useContext, useEffect } from 'react';
@@ -31,7 +33,7 @@ const render = (flag: boolean, content: JSX.Element): JSX.Element => {
   return flag ? content : <h1>Loading...</h1>;
 };
 
-const Write: PageFC<WriteProps> = ({ post }) => {
+const Write: TaskFC<WriteProps> = ({ post }) => {
   useGlobalStore();
 
   const authStore = useContext(authStoreCtx);
@@ -64,23 +66,25 @@ const Write: PageFC<WriteProps> = ({ post }) => {
     </Layout>
   );
 };
-Write.getInitialProps = async ({ query }) => {
-  const asPageProps = (
-    task: TaskEither<unknown, PostModel>,
-  ): TaskEither<null, WriteProps> =>
-    pipe(
-      task,
-      bimap(constNull, post => ({
-        post,
-      })),
+Write.getInitialProps = ({ query }) => {
+  /** Fold `Option` of `TaskEither<unknown, Option>`. */
+  const flatten = (
+    postDetail: TE.TaskEither<CommonError, Option<PostModel>>,
+  ): TE.TaskEither<CommonError, PostModel> =>
+    TE.taskEither.chain(postDetail, postDetail =>
+      pipe(
+        postDetail,
+        fold(() => TE.left(error('not-found')), TE.right),
+      ),
     );
 
   return pipe(
-    fromNullable(query.slug as string | undefined),
-    map(slug => getPostDetailOf(slug)),
-    map(asPageProps),
-    fold(() => left(null), pageProps => pageProps),
+    E.fromNullable(error('not-found'))(query.slug as string | undefined),
+    E.map(getPostDetailOf),
+    E.map(flatten),
+    E.fold(TE.left, identity),
+    TE.map(post => ({ post })),
   );
 };
 
-export default observer(Write);
+export default withTaskHandler(observer(Write));

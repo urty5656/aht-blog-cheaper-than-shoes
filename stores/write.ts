@@ -1,5 +1,4 @@
-import { addBlogPost, updateBlogPost } from '@/lib/firebase/firestore/blog';
-import { PostModel } from '@/models/blog';
+import { PostModel } from '@/models/Blog/model';
 import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
 import { path, prop } from 'ramda';

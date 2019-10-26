@@ -1,9 +1,9 @@
+import { writeStoreCtx } from '@/stores/write';
+import { prevent } from '@/utils/events';
 import { debounce } from 'lodash';
 import { observer } from 'mobx-react-lite';
 import { pipe } from 'ramda';
 import React, { useContext, useEffect, useRef } from 'react';
-import { writeStoreCtx } from '../../../stores/write';
-import { prevent } from '../../../utils/events';
 import Editor, { EditorRef } from '../Editor';
 import styles from './styles.scss';
 
