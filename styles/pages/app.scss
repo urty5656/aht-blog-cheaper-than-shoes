@@ -1,0 +1,29 @@
+@keyframes loadIn {
+  from {
+    opacity: 0;
+    transform: translate(300px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes loadOut {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translate(-300px);
+  }
+}
+
+.app {
+  animation: loadIn 375ms cubic-bezier(0, 0, 0.2, 1);
+}
+.appLoading {
+  animation: loadOut 375ms cubic-bezier(0, 0, 0.2, 1);
+  animation-fill-mode: forwards;
+}

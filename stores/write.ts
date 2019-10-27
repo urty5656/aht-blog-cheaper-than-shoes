@@ -1,4 +1,4 @@
-import { PostModel } from '@/models/Blog/model';
+import { PostModel } from '@/models/post/model';
 import { IO } from 'fp-ts/lib/IO';
 import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
@@ -23,7 +23,7 @@ export class WriteStore {
   isModalOpened: boolean = false;
 
   @observable
-  isSubmitting: boolean = false;
+  isLoading: boolean = false;
 
   // Create (false) or Update (true)
   private readonly media = new MediaStore();
@@ -57,6 +57,9 @@ export class WriteStore {
     this.post.content = content.toJSON();
     this.post.contentHTML = contentHTML;
   }
+
+  @action
+  setLoading = (val: boolean): IO<void> => () => (this.isLoading = val);
 
   @action
   toggleModal: IO<void> = () => (this.isModalOpened = !this.isModalOpened);

@@ -1,18 +1,18 @@
 import { db } from '@/lib/firebase/firebase';
 import { pipe } from 'fp-ts/lib/pipeable';
-import { map, TaskEither, tryCatch } from 'fp-ts/lib/TaskEither';
+import * as TE from 'fp-ts/lib/TaskEither';
 import { Collections } from '../Collections';
 import { CommonError, fromFirebaseError } from '../Common/error';
 import { PostModel } from './model';
 
 // requester
-const fetch: TaskEither<
+const fetch: TE.TaskEither<
   CommonError,
   firebase.firestore.QuerySnapshot
-> = tryCatch(
+> = TE.tryCatch(
   () =>
     db
-      .collection(Collections.Posts)
+      .collection(Collections.Post)
       .orderBy('created', 'desc')
       .get(),
   fromFirebaseError,
@@ -26,8 +26,11 @@ const retrieve = (doc: firebase.firestore.QueryDocumentSnapshot): PostModel =>
  * Returns a TaskEither with all blog posts, ordered by creation date.
  */
 // [todo] Pagination
-export const getPostList: TaskEither<CommonError, readonly PostModel[]> = pipe(
+export const getPostList: TE.TaskEither<
+  CommonError,
+  readonly PostModel[]
+> = pipe(
   fetch,
-  map(query => query.docs),
-  map(docs => docs.map(doc => retrieve(doc))),
+  TE.map(query => query.docs),
+  TE.map(docs => docs.map(doc => retrieve(doc))),
 );

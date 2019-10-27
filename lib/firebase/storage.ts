@@ -1,23 +1,39 @@
+import { CommonError, error } from '@/models/Common/error';
+import { getNow } from '@/utils/io/date';
+import * as IO from 'fp-ts/lib/IO';
+import { pipe } from 'fp-ts/lib/pipeable';
+import * as TE from 'fp-ts/lib/TaskEither';
 import { storage } from './firebase';
 
 const storageRef = storage.ref();
 
-/**
- * Uploads an image. Automatically prefixes the refName with the current date.
- * @param file An image to upload.
- * @param refName An identifier.
- */
-export const addImage = async (file: File, refName: string) => {
-  const now = new Date().toISOString().slice(0, 10);
-  const ref = storageRef.child(`${refName}-${now}`);
+const putFile = (
+  ref: firebase.storage.Reference,
+  file: File,
+): TE.TaskEither<CommonError, firebase.storage.Reference> =>
+  TE.tryCatch(
+    async () => {
+      await ref.put(file);
+      return ref;
+    },
+    e => error('unknown', e),
+  );
 
-  await ref.put(file);
-  return ref;
-};
+/** Upload a file to storage with the name, postfixed with current timestamp. */
+export const addFile = (
+  refName: string,
+  file: File,
+): TE.TaskEither<CommonError, firebase.storage.Reference> =>
+  pipe(
+    getNow,
+    IO.map(now => storageRef.child(`${refName}-${now}`)),
+    TE.rightIO,
+    TE.chain(ref => putFile(ref, file)),
+  );
 
-/**
- * Deletes an image.
- * @param refName An identifier for the image to delete.
- */
-export const deleteImage = async (refName: string) =>
-  await storageRef.child(refName).delete();
+/** Delete a file from storage. */
+export const deleteFile = (refName: string): TE.TaskEither<CommonError, void> =>
+  TE.tryCatch(
+    () => storageRef.child(refName).delete(),
+    e => error('unknown', e),
+  );

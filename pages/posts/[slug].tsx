@@ -1,8 +1,8 @@
 import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
-import { getPostDetailOf } from '@/models/Blog/detail';
-import { PostModel } from '@/models/Blog/model';
 import { error } from '@/models/Common/error';
+import { getPostDetailOf } from '@/models/post/detail';
+import { PostModel } from '@/models/post/model';
 import { useGlobalStore } from '@/stores/global';
 import postStyles from '@/styles/common/post.scss';
 import { foldIO } from '@/utils/taskEither/foldIO';

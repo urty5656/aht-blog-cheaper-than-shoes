@@ -1,12 +1,11 @@
-import { addBlogPost, updateBlogPost } from '@/models/Blog/detail';
-import { PostContent, PostModel } from '@/models/Blog/model';
+import { updateTimeInfo } from '@/lib/firebase/firestore';
 import { CommonError, error } from '@/models/Common/error';
+import { addBlogPost, updateBlogPost } from '@/models/post/detail';
+import { PostContent, PostModel } from '@/models/post/model';
 import { PostModelOptionalSlug } from '@/stores/write';
-import { getNow } from '@/utils/io/date';
 import { assoc } from 'fp-ts-ramda';
 import { findFirst } from 'fp-ts/lib/Array';
 import * as E from 'fp-ts/lib/Either';
-import { IO, io } from 'fp-ts/lib/IO';
 import * as O from 'fp-ts/lib/Option';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as TE from 'fp-ts/lib/TaskEither';
@@ -36,14 +35,6 @@ const setTitle = (post: PostModel): E.Either<CommonError, PostModel> =>
     E.map(title => assoc('title', title, post)),
   );
 
-/** Associate current time with the post's respective time field. */
-const setTimeInfo = (post: PostModel) => (now: number): IO<PostModel> => () => {
-  if (post.created) {
-    return assoc('modified', now, post);
-  }
-  return assoc('created', now, post);
-};
-
 /** Submit function for write store. */
 export const submit = (
   post: PostModelOptionalSlug,
@@ -57,7 +48,7 @@ export const submit = (
     postE,
     E.chain(setTitle),
     TE.fromEither,
-    TE.chain(post => TE.rightIO(io.chain(getNow, setTimeInfo(post)))),
+    TE.chain(post => TE.rightIO(updateTimeInfo(post))),
     TE.chain(isUpdating ? updateBlogPost : addBlogPost),
   );
 };

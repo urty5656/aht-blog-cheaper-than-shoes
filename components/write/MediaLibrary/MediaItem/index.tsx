@@ -1,4 +1,4 @@
-import { MediaModel } from '@/models/media';
+import { MediaModel } from '@/models/media/model';
 import { MediaStore } from '@/stores/partial/media';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
