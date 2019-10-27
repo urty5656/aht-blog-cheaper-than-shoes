@@ -1,37 +1,24 @@
-import clsx from 'clsx';
 import NextLink from 'next/link';
 import React, { useContext } from 'react';
 import { UrlObject } from 'url';
 import { globalStoreCtx } from '../../stores/global';
-import { Anchorable, withAnchor } from './withAnchor';
 
-interface LinkProps extends Anchorable {
+interface LinkProps {
   href: string | UrlObject;
-  as?: UrlObject;
+  as?: string | UrlObject;
   className?: string;
 }
 
-const Link: React.FC<LinkProps> = ({
-  className,
-  onMouseEnter,
-  onMouseLeave,
-  children,
-  ...props
-}) => {
+const Link: React.FC<LinkProps> = ({ className, children, ...props }) => {
   const { cursor } = useContext(globalStoreCtx);
 
   return (
     <NextLink {...props}>
-      <a
-        className={clsx(className)}
-        onClick={cursor.startLoading}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-      >
+      <a className={className} onClick={cursor.startLoading}>
         {children}
       </a>
     </NextLink>
   );
 };
 
-export default withAnchor(Link);
+export default Link;

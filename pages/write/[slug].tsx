@@ -3,13 +3,15 @@ import Layout from '@/components/layouts/DefaultLayout';
 import EditorForm from '@/components/write/EditorForm';
 import MediaLibrary from '@/components/write/MediaLibrary';
 import SubmitModal from '@/components/write/SubmitModal';
-import { getPostDetailOf } from '@/models/Blog/detail';
-import { PostModel } from '@/models/Blog/model';
 import { CommonError, error } from '@/models/Common/error';
+import { getMediaList } from '@/models/media/list';
+import { getPostDetailOf } from '@/models/post/detail';
+import { PostModel } from '@/models/post/model';
 import { authStoreCtx } from '@/stores/auth';
 import { useGlobalStore } from '@/stores/global';
 import { WriteStore, writeStoreCtx } from '@/stores/write';
 import { foldIO } from '@/utils/taskEither/foldIO';
+import { useTaskEitherEffect } from '@/utils/taskEither/useTaskEitherEffect';
 import { identity } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/lib/Option';
 import { pipe } from 'fp-ts/lib/pipeable';
@@ -40,9 +42,7 @@ const Write: TaskFC<WriteProps> = ({ post }) => {
   const writeStore = useRef(new WriteStore(!!post)).current;
 
   // fetch 1st page of media
-  useEffect(() => {
-    writeStore.MediaStore.fetchMedia();
-  }, []);
+  useTaskEitherEffect(getMediaList(25, O.none));
 
   // re-set post whenever the reference changes
   useEffect(() => {

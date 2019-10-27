@@ -1,24 +1,18 @@
 import { EditorRef } from '@/components/write/Editor';
-import {
-  addMedia,
-  deleteMedia,
-  getMediaList,
-} from '@/lib/firebase/firestore/media';
-import { addImage } from '@/lib/firebase/storage';
-import { MediaModel } from '@/models/media';
-import { getDimensions } from '@/utils/image';
+import { MediaModel } from '@/models/media/model';
+import { splitAt } from 'fp-ts/lib/Array';
+import { IO } from 'fp-ts/lib/IO';
+import { pipe } from 'fp-ts/lib/pipeable';
 import { action, computed, observable } from 'mobx';
 import { schema } from 'prosemirror-schema-basic';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 
-const mediaLimit = 25;
-
 export class MediaStore {
-  @observable mediaRefs: readonly firebase.firestore.DocumentSnapshot[] = [];
+  @observable mediaRefs: firebase.firestore.DocumentSnapshot[] = [];
   @observable selectedIndex: number | undefined;
   @observable file: File | undefined;
-  @observable fetching: boolean = false;
+  @observable isLoading: boolean = false;
 
   private editorRef: React.RefObject<EditorRef> | undefined;
 
@@ -55,66 +49,6 @@ export class MediaStore {
   }
 
   @action.bound
-  async uploadMedia() {
-    if (this.fetching || !this.file) {
-      return;
-    }
-
-    this.fetching = true;
-    const now = Number(new Date());
-    const refAsync = addImage(this.file, this.file.name);
-
-    const { width, height } = await getDimensions(this.file);
-    const ref = await refAsync;
-
-    const mediaModel: MediaModel = {
-      width,
-      height,
-      ref: ref.fullPath,
-      src: await ref.getDownloadURL(),
-      created: now,
-      modified: now,
-    };
-    const added = await addMedia(mediaModel);
-    this.mediaRefs = [added].concat(this.mediaRefs);
-
-    this.fetching = false;
-    alert('추가했습니다.');
-  }
-
-  @action.bound
-  async deleteMedia() {
-    if (this.fetching || !this.SelectedMedia) {
-      return;
-    }
-
-    this.fetching = true;
-    await deleteMedia(this.SelectedMedia);
-    this.mediaRefs = this.mediaRefs
-      .slice(0, this.selectedIndex)
-      .concat(this.mediaRefs.slice(this.selectedIndex! + 1));
-    this.selectedIndex = undefined;
-
-    this.fetching = false;
-  }
-
-  @action
-  async fetchMedia(replace?: boolean) {
-    if (this.fetching) {
-      return;
-    }
-
-    this.fetching = true;
-    const fetched = await getMediaList(
-      mediaLimit,
-      this.mediaRefs[this.mediaRefs.length - 1],
-    );
-
-    this.mediaRefs = replace ? fetched : this.mediaRefs.concat(fetched);
-    this.fetching = false;
-  }
-
-  @action.bound
   insertMedia() {
     if (!this.Editor || !this.SelectedMedia) {
       return;
@@ -138,4 +72,20 @@ export class MediaStore {
   selectIndex(index: number) {
     this.selectedIndex = this.selectedIndex === index ? undefined : index;
   }
+
+  @action
+  setMediaRefs = (
+    refs: firebase.firestore.DocumentSnapshot[],
+  ): IO<void> => () => (this.mediaRefs = refs);
+
+  @action
+  removeMediaRefAt = (index: number): IO<void> => () =>
+    (this.mediaRefs = pipe(
+      this.mediaRefs,
+      splitAt(index),
+      ([pre, post]) => pre.concat(post.slice(1)),
+    ));
+
+  @action
+  setLoading = (loading: boolean): IO<void> => () => (this.isLoading = loading);
 }

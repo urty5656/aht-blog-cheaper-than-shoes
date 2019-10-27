@@ -4347,10 +4347,10 @@ forwarded@~0.1.2:
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
   integrity sha1-mMI9qxF1ZXuMBXPozszZGw/xjIQ=
 
-fp-ts-ramda@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/fp-ts-ramda/-/fp-ts-ramda-0.1.6.tgz#5cb28f68db7e240b251fc69084146dccac0677ef"
-  integrity sha512-4PXGQXsbaA15z7eCoOsTZAs6yuZduyZtAUxIww2CJkMkADulew2QtV1N6juywkgn+3NvOU1pPq8+u/LdDsZzGA==
+fp-ts-ramda@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/fp-ts-ramda/-/fp-ts-ramda-0.1.7.tgz#02672b60b61c955603ee1678eef51aef6ae20d49"
+  integrity sha512-BFBkrR1197t5qvSTEOWw/mEUEI2ZIJwgHSuRZOMjYaPvWL/BQbXC1NyikDiqPLx0LRe7HiCZz44zjYpgLkDvRQ==
   dependencies:
     fp-ts "^2.0.0"
     monocle-ts "^2.0.0"

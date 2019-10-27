@@ -2,6 +2,7 @@ import Error from '@/components/common/Error';
 import Sidebar from '@/components/common/Sidebar';
 import { WrappedTaskFC } from '@/components/common/withTaskHandler';
 import '@/styles/normalize.scss';
+import styles from '@/styles/pages/app.scss';
 import { useStaticRendering } from 'mobx-react-lite';
 import NextApp, { AppContext } from 'next/app';
 import NProgress from 'nprogress';
@@ -11,19 +12,28 @@ export interface AppProps {
   statusCode: number;
   pageProps: any;
 }
+interface AppStates {
+  isLoading: boolean;
+}
 
 if (!process.browser) {
   useStaticRendering(true);
 }
 
-class App extends NextApp<AppProps> {
+class App extends NextApp<AppProps, AppStates> {
+  state = {
+    isLoading: false,
+  };
+
   componentDidMount() {
-    NProgress.configure({ minimum: 0.33, showSpinner: false, speed: 375 });
+    NProgress.configure({ minimum: 0.75, showSpinner: false, speed: 375 });
     const startLoading = () => {
       NProgress.start();
+      this.setState({ isLoading: true });
     };
     const endLoading = () => {
       NProgress.done();
+      this.setState({ isLoading: false });
     };
 
     const { router } = this.props;
@@ -34,10 +44,11 @@ class App extends NextApp<AppProps> {
 
   render() {
     const { Component, statusCode, pageProps } = this.props;
+    const { isLoading } = this.state;
 
     return (
       <>
-        <div id="__app">
+        <div id="__app" className={isLoading ? styles.appLoading : styles.app}>
           {statusCode === 200 ? (
             <Component {...pageProps} />
           ) : (
@@ -61,7 +72,7 @@ class App extends NextApp<AppProps> {
     try {
       return (await page.getInitialProps!(ctx))();
     } catch (e) {
-      console.error(e);
+      console.error('App error', e);
       ctx.res && (ctx.res.statusCode = 500);
 
       return { statusCode: 500, pageProps: null };

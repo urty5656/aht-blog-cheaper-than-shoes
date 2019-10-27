@@ -1,3 +1,5 @@
+import { BaseModel } from '../BaseModel';
+
 export interface PostContent {
   type: string;
   content?: { text: string }[];
@@ -11,9 +13,7 @@ export interface PostModelContentsSerialized {
   selection?: object;
 }
 
-export interface PostModel {
-  created?: number;
-  modified?: number;
+export interface PostModel extends BaseModel {
   public: boolean;
   title: string;
   slug: string;

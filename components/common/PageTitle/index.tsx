@@ -16,10 +16,7 @@ const PageTitle: React.FC<PageTitleProps> = ({ isAtHome, children }) => {
   // e.g. Posts -> /, Post -> Posts
   return (
     <Link href="/">
-      <h1 className={styles.pageTitle}>
-        <img className={styles.arrow} src="/static/arrow_back-24px.svg" />
-        {children}
-      </h1>
+      <h1 className={styles.pageTitle}>{children}</h1>
     </Link>
   );
 };
