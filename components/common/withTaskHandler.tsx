@@ -42,13 +42,13 @@ export const withTaskHandler = <T extends any>(Page: TaskFC<T>) => {
       mapLeft(defaultTo(error('unknown'))),
       bimap(
         // failure - no page props required
-        error => ({
+        left => ({
           pageProps: null,
-          statusCode: firestoreErrorToHTTP(error.code),
+          statusCode: firestoreErrorToHTTP(left.code),
         }),
         // success - forced 200
-        pageProps => ({
-          pageProps,
+        right => ({
+          pageProps: right,
           statusCode: 200,
         }),
       ),

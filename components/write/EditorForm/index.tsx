@@ -1,8 +1,7 @@
 import { writeStoreCtx } from '@/stores/write';
-import { prevent } from '@/utils/events';
+import { prevented } from '@/utils/events';
 import { debounce } from 'lodash';
 import { observer } from 'mobx-react-lite';
-import { pipe } from 'ramda';
 import React, { useContext, useEffect, useRef } from 'react';
 import Editor, { EditorRef } from '../Editor';
 import styles from './styles.scss';
@@ -31,13 +30,12 @@ const EditorForm: React.FC<EditorFormProps> = ({ initialState }) => {
     { trailing: true },
   );
 
-  const openSubmitModal = pipe(
-    prevent,
-    writeStore.toggleModal,
-  );
-
   return (
-    <form className={styles.form} onSubmit={openSubmitModal} autoComplete="off">
+    <form
+      className={styles.form}
+      onSubmit={prevented(writeStore.toggleModal)}
+      autoComplete="off"
+    >
       <Editor ref={$editor} initialState={initialState} onUpdate={onUpdate} />
       <button type="submit">등록</button>
     </form>

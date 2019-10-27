@@ -1,10 +1,12 @@
-interface PostModelContentsSerialized {
+export interface PostContent {
+  type: string;
+  content?: { text: string }[];
+  attrs?: { [key: string]: any };
+}
+
+export interface PostModelContentsSerialized {
   doc?: {
-    content: {
-      type: string;
-      content?: { text: string }[];
-      attrs?: { [key: string]: any };
-    }[];
+    content: PostContent[];
   };
   selection?: object;
 }

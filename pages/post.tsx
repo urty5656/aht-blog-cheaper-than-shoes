@@ -2,13 +2,13 @@ import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
 import { getPostDetailOf } from '@/models/Blog/detail';
 import { PostModel } from '@/models/Blog/model';
-import { CommonError, error } from '@/models/Common/error';
+import { error } from '@/models/Common/error';
 import { useGlobalStore } from '@/stores/global';
 import postStyles from '@/styles/common/post.scss';
+import { foldIO } from '@/utils/taskEither/foldIO';
 import clsx from 'clsx';
 import * as E from 'fp-ts/lib/Either';
 import { identity } from 'fp-ts/lib/function';
-import { fold as foldOption, Option } from 'fp-ts/lib/Option';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as TE from 'fp-ts/lib/TaskEither';
 import Prism from 'prismjs';
@@ -41,21 +41,14 @@ const Post: TaskFC<PostProps> = ({ post }) => {
   );
 };
 Post.getInitialProps = ({ query }) => {
-  /** Fold `Option` of `TaskEither<unknown, Option>`. */
-  const flatten = (
-    postDetail: TE.TaskEither<CommonError, Option<PostModel>>,
-  ): TE.TaskEither<CommonError, PostModel> =>
-    TE.taskEither.chain(postDetail, postDetail =>
-      pipe(
-        postDetail,
-        foldOption(() => TE.left(error('not-found')), TE.right),
-      ),
-    );
+  const slug = E.fromNullable(error('not-found'))(query.slug as
+    | string
+    | undefined);
 
   return pipe(
-    E.fromNullable(error('not-found'))(query.slug as string | undefined),
+    slug,
     E.map(getPostDetailOf),
-    E.map(flatten),
+    E.map(foldIO(error('not-found'))),
     E.fold(TE.left, identity),
     TE.map(post => ({ post })),
   );
