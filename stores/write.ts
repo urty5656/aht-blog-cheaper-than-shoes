@@ -1,16 +1,20 @@
 import { PostModel } from '@/models/Blog/model';
+import { IO } from 'fp-ts/lib/IO';
 import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
-import { path, prop } from 'ramda';
 import { createContext } from 'react';
 import { MediaStore } from './partial/media';
 
+export type PostModelOptionalSlug = Omit<PostModel, 'slug'> & {
+  slug: string | null;
+};
+
 export class WriteStore {
   @observable
-  post: PostModel = {
+  post: PostModelOptionalSlug = {
     public: false,
     title: '',
-    slug: '',
+    slug: null,
     content: {},
     contentHTML: '',
   };
@@ -18,21 +22,24 @@ export class WriteStore {
   @observable
   isModalOpened: boolean = false;
 
+  @observable
+  isSubmitting: boolean = false;
+
   // Create (false) or Update (true)
-  private isUpdating: boolean = false;
   private readonly media = new MediaStore();
+
+  constructor(readonly isUpdating: boolean) {}
 
   get MediaStore() {
     return this.media;
   }
 
   /**
-   * Set a post for editing. This action implies `isUpdating = true`.
+   * Set a post for editing.
    */
   @action.bound
-  setPost(post: PostModel) {
+  setPost(post: PostModelOptionalSlug) {
     this.post = post;
-    this.isUpdating = true;
   }
 
   @action.bound
@@ -51,51 +58,8 @@ export class WriteStore {
     this.post.contentHTML = contentHTML;
   }
 
-  @action.bound
-  toggleModal() {
-    this.isModalOpened = !this.isModalOpened;
-  }
-
-  @action.bound
-  async submit() {
-    // validations
-    if (!this.post.slug) {
-      return window.alert('No slug!');
-    }
-    if (!this.post.content.doc) {
-      return window.alert('No contents!');
-    }
-
-    // title from the first h1
-    const firstHeading = this.post.content.doc.content.find(
-      node => node.type === 'heading' && path(['attrs', 'level'], node) === 1,
-    );
-    if (firstHeading) {
-      const title = prop('content', firstHeading);
-      if (title) {
-        this.post.title = title.reduce((acc, mark) => acc + mark.text, '');
-      }
-    }
-
-    // times
-    const now = Number(new Date());
-    if (!this.post.created) {
-      this.post.created = now;
-    }
-    this.post.modified = now;
-
-    // execute
-    // [TODO] what should happen when I change slug? duh
-    try {
-      await (this.isUpdating
-        ? updateBlogPost(this.post)
-        : addBlogPost(this.post));
-      window.alert('Added!');
-      this.toggleModal();
-    } catch (_) {
-      window.alert('Error!');
-    }
-  }
+  @action
+  toggleModal: IO<void> = () => (this.isModalOpened = !this.isModalOpened);
 }
 
-export const writeStoreCtx = createContext(new WriteStore());
+export const writeStoreCtx = createContext<WriteStore>(null!);

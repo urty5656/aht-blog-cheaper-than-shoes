@@ -1,7 +1,7 @@
+import { Collections } from '@/models/Collections';
 import { MediaModel } from '@/models/media';
 import { db } from '../firebase';
 import { deleteImage } from '../storage';
-import { Collections } from './Collections';
 
 const getMediaSnapshot = (ref: string) =>
   db

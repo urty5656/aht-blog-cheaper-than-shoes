@@ -8,15 +8,15 @@ import { PostModel } from '@/models/Blog/model';
 import { CommonError, error } from '@/models/Common/error';
 import { authStoreCtx } from '@/stores/auth';
 import { useGlobalStore } from '@/stores/global';
-import { writeStoreCtx } from '@/stores/write';
-import * as E from 'fp-ts/lib/Either';
+import { WriteStore, writeStoreCtx } from '@/stores/write';
+import { foldIO } from '@/utils/taskEither/foldIO';
 import { identity } from 'fp-ts/lib/function';
-import { fold, Option } from 'fp-ts/lib/Option';
+import * as O from 'fp-ts/lib/Option';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as TE from 'fp-ts/lib/TaskEither';
 import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 const UnauthorizedWarning = dynamic(
   () => import('@/components/common/UnauthorizedWarning'),
@@ -37,7 +37,7 @@ const Write: TaskFC<WriteProps> = ({ post }) => {
   useGlobalStore();
 
   const authStore = useContext(authStoreCtx);
-  const writeStore = useContext(writeStoreCtx);
+  const writeStore = useRef(new WriteStore(!!post)).current;
 
   // fetch 1st page of media
   useEffect(() => {
@@ -50,39 +50,35 @@ const Write: TaskFC<WriteProps> = ({ post }) => {
   }, [post]);
 
   return (
-    <Layout>
-      <main>
-        {render(
-          process.browser && authStore.initialized,
-          <>
-            <MediaLibrary mediaStore={writeStore.MediaStore} />
-            <EditorForm initialState={post && post.content} />
-          </>,
-        )}
-      </main>
-      <button onClick={authStore.signOut}>Sign Out</button>
-      <UnauthorizedWarning />
-      <SubmitModal />
-    </Layout>
+    <writeStoreCtx.Provider value={writeStore}>
+      <Layout>
+        <main>
+          {render(
+            process.browser && authStore.initialized,
+            <>
+              <MediaLibrary mediaStore={writeStore.MediaStore} />
+              <EditorForm initialState={post && post.content} />
+            </>,
+          )}
+        </main>
+        <button onClick={authStore.signOut}>Sign Out</button>
+        <UnauthorizedWarning />
+        <SubmitModal />
+      </Layout>
+    </writeStoreCtx.Provider>
   );
 };
 Write.getInitialProps = ({ query }) => {
-  /** Fold `Option` of `TaskEither<unknown, Option>`. */
-  const flatten = (
-    postDetail: TE.TaskEither<CommonError, Option<PostModel>>,
-  ): TE.TaskEither<CommonError, PostModel> =>
-    TE.taskEither.chain(postDetail, postDetail =>
-      pipe(
-        postDetail,
-        fold(() => TE.left(error('not-found')), TE.right),
-      ),
-    );
+  const slug = O.fromNullable(query.slug as string | undefined);
 
   return pipe(
-    E.fromNullable(error('not-found'))(query.slug as string | undefined),
-    E.map(getPostDetailOf),
-    E.map(flatten),
-    E.fold(TE.left, identity),
+    slug,
+    O.map(getPostDetailOf),
+    O.map(foldIO(error('not-found'))),
+    O.fold(
+      () => TE.right<CommonError, PostModel | undefined>(undefined),
+      identity,
+    ),
     TE.map(post => ({ post })),
   );
 };

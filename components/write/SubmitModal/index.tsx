@@ -1,26 +1,36 @@
+import Modal from '@/components/common/Modal';
+import { submit } from '@/functions/write/submit';
 import { writeStoreCtx } from '@/stores/write';
-import { prevent } from '@/utils/events';
+import { prevented } from '@/utils/events';
+import { alert } from '@/utils/io/modal';
+import { navigate } from '@/utils/io/navigation';
+import { pipe } from 'fp-ts/lib/pipeable';
+import * as T from 'fp-ts/lib/Task';
+import * as TE from 'fp-ts/lib/TaskEither';
 import { observer } from 'mobx-react-lite';
-import { pipe } from 'ramda';
 import React, { useContext } from 'react';
-import Modal from '../../common/Modal';
 
 const SubmitModal: React.FC = () => {
   const writeStore = useContext(writeStoreCtx);
 
+  const navigateToThePost = (slug: string): T.Task<void> =>
+    T.fromIO(navigate(`/posts/${slug}`));
+
+  const submitPost: T.Task<void> = pipe(
+    submit(writeStore.post, writeStore.isUpdating),
+    TE.fold(
+      error => T.fromIO(alert(error.code)),
+      () => navigateToThePost(writeStore.post.slug!),
+    ),
+  );
+
   return writeStore.isModalOpened ? (
     <Modal onClickBackground={writeStore.toggleModal}>
-      <form
-        onSubmit={pipe(
-          prevent,
-          writeStore.submit,
-        )}
-        autoComplete="off"
-      >
+      <form onSubmit={prevented(submitPost)} autoComplete="off">
         <label>
           고유주소
           <input
-            value={writeStore.post.slug}
+            value={writeStore.post.slug || ''}
             onChange={e => writeStore.setSlug(e.target.value)}
           />
         </label>
