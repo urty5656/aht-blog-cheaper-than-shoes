@@ -1,0 +1,13 @@
+@import '~@/styles/common/post';
+
+.article {
+  @extend %postBody;
+
+  & pre {
+    visibility: hidden;
+  }
+
+  &.lighted pre {
+    visibility: visible;
+  }
+}

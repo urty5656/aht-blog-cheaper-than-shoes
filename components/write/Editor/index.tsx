@@ -1,5 +1,4 @@
 import { attach } from '@/lib/editor';
-import postStyles from '@/styles/common/post.scss';
 import clsx from 'clsx';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
@@ -39,9 +38,7 @@ const Editor: React.FC<EditorProps> = ({ initialState, onUpdate }, ref) => {
     }
   }, []);
 
-  return (
-    <div ref={$el} className={clsx(styles.container, postStyles.postBody)} />
-  );
+  return <div ref={$el} className={clsx(styles.container)} />;
 };
 
 export default forwardRef<EditorRef, EditorProps>(Editor);

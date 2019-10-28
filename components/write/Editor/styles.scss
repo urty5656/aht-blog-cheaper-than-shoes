@@ -1,4 +1,8 @@
+@import '~@/styles/common/post';
+
 .container {
+  @extend %postBody;
+
   & :global(.ProseMirror) {
     padding: 0.5rem;
   }

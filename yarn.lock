@@ -9852,10 +9852,10 @@ webpack-dev-middleware@3.7.0:
     range-parser "^1.2.1"
     webpack-log "^2.0.0"
 
-webpack-glsl-minify@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/webpack-glsl-minify/-/webpack-glsl-minify-1.0.4.tgz#e30e95c541602e2f782d4acaaca772c077f88c3d"
-  integrity sha512-KzRCETkDG3pSBk3QeGbGoo3bd4mahiqqFc+NCSqci5WkXrm6C8J64+otex88F+PfM2tbfqfVu8VCj4O0Sy71dA==
+webpack-glsl-minify@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/webpack-glsl-minify/-/webpack-glsl-minify-1.1.2.tgz#9e5b395fe409caf2dfac62fac9e7ac006ddd1523"
+  integrity sha512-7svKWgMaP2S0cErucJiRMWW2JJei+0jkLwuODFDg1p+RiV8BnSQ1FA3Pzuw+B25XTacp+1smG/e2gfIEaoPjTw==
 
 webpack-hot-middleware@2.25.0:
   version "2.25.0"

@@ -1,18 +1,15 @@
 import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
+import Article from '@/components/post/Article';
 import { error } from '@/models/Common/error';
 import { getPostDetailOf } from '@/models/post/detail';
 import { PostModel } from '@/models/post/model';
-import { useGlobalStore } from '@/stores/global';
-import postStyles from '@/styles/common/post.scss';
 import { foldIO } from '@/utils/taskEither/foldIO';
-import clsx from 'clsx';
 import * as E from 'fp-ts/lib/Either';
 import { identity } from 'fp-ts/lib/function';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as TE from 'fp-ts/lib/TaskEither';
-import Prism from 'prismjs';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 interface PostProps {
   post: PostModel;
@@ -22,21 +19,9 @@ interface PostProps {
  * Blog post detail
  */
 const Post: TaskFC<PostProps> = ({ post }) => {
-  useGlobalStore();
-
-  const [isLighted, setLighted] = useState(false);
-
-  useEffect(() => Prism.highlightAll(false, () => setLighted(true)), [post]);
-
   return (
     <Layout>
-      <article
-        className={clsx(
-          postStyles.postBody,
-          isLighted && postStyles.postBodyLighted,
-        )}
-        dangerouslySetInnerHTML={{ __html: post.contentHTML }}
-      />
+      <Article post={post} />
     </Layout>
   );
 };

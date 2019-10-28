@@ -1,4 +1,4 @@
-.postBody {
+%postBody {
   font-family: var(--serif);
 
   & > * + * {
@@ -31,7 +31,6 @@
   & pre {
     background: none !important;
     padding: 0.5rem 0.5rem 1rem;
-    visibility: hidden;
   }
 
   & pre > code {
@@ -41,8 +40,4 @@
     line-height: 1.5;
     padding: 1em;
   }
-}
-
-.postBodyLighted pre {
-  visibility: visible;
 }

@@ -1,7 +1,7 @@
 import PageTitle from '@/components/common/PageTitle';
 import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
-import PostBody from '@/components/posts/PostBody';
+import PostsBody from '@/components/posts/PostsBody';
 import { getPostList } from '@/models/post/list';
 import { PostModel } from '@/models/post/model';
 import { useGlobalStore } from '@/stores/global';
@@ -24,7 +24,7 @@ const Posts: TaskFC<PostsProps> = ({ posts }) => {
     <Layout>
       <main>
         <PageTitle>Posts</PageTitle>
-        <PostBody items={posts} />
+        <PostsBody items={posts} />
       </main>
     </Layout>
   );
