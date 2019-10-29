@@ -5,7 +5,7 @@ import React from 'react';
 useStaticRendering(true);
 
 class CustomDocument extends Document {
-  render() {
+  render(): JSX.Element {
     return (
       <html>
         <Head>

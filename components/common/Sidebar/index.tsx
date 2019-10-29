@@ -1,5 +1,6 @@
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
+
 import SideIndex from './SideIndex';
 import styles from './styles.scss';
 
@@ -7,7 +8,7 @@ const Sidebar: React.FC = () => {
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
-    const close = () => setOpened(false);
+    const close = (): void => setOpened(false);
     Router.events.on('routeChangeStart', close);
 
     return () => Router.events.off('routeChangeStart', close);

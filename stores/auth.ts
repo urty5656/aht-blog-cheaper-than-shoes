@@ -1,5 +1,6 @@
 import { action, computed, observable } from 'mobx';
 import { createContext } from 'react';
+
 import { auth } from '../lib/firebase';
 
 export class AuthStore {
@@ -13,12 +14,12 @@ export class AuthStore {
   }
 
   @computed
-  get IsAdmin() {
-    return this.user && this.user.email === 'urty5656@gmail.com';
+  get IsAdmin(): boolean {
+    return !!this.user && this.user.email === 'urty5656@gmail.com';
   }
 
   @action.bound
-  setUser(user: firebase.User | null) {
+  setUser(user: firebase.User | null): void {
     if (!process.browser) {
       return;
     }

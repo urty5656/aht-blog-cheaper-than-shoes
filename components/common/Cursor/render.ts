@@ -14,7 +14,7 @@ const loaderAnimTarget = {
   time: 0,
 };
 
-export const drawRim = (ctx: Pixi.Graphics, time: number) => {
+export const drawRim = (ctx: Pixi.Graphics, time: number): void => {
   const scale = 1 + time * 0.35;
   const size = SIZE * scale;
 
@@ -28,7 +28,7 @@ export const drawRim = (ctx: Pixi.Graphics, time: number) => {
     .endFill();
 };
 
-export const animateRim = (ctx: Pixi.Graphics, type: CursorType) => {
+export const animateRim = (ctx: Pixi.Graphics, type: CursorType): void => {
   if (rimAnim) {
     anime.remove(rimAnimTarget);
   }
@@ -42,7 +42,7 @@ export const animateRim = (ctx: Pixi.Graphics, type: CursorType) => {
   });
 };
 
-export const drawLoader = (ctx: Pixi.Graphics, time: number) => {
+export const drawLoader = (ctx: Pixi.Graphics, time: number): void => {
   const startAngle = time * Math.PI * 2;
 
   ctx
@@ -52,13 +52,13 @@ export const drawLoader = (ctx: Pixi.Graphics, time: number) => {
     .arc(0, 0, SIZE * 1.15, startAngle, startAngle + Math.PI * 0.5);
 };
 
-export const animateLoader = (ctx: Pixi.Graphics, isLoading: boolean) => {
+export const animateLoader = (ctx: Pixi.Graphics, isLoading: boolean): void => {
   if (loaderAnim) {
     anime.remove(loaderAnimTarget);
   }
   if (!isLoading) {
     loaderAnimTarget.time = 0;
-    return ctx.clear();
+    return void ctx.clear();
   }
 
   loaderAnim = anime({

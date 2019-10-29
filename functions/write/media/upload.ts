@@ -12,7 +12,9 @@ const getFileDownloadURL = (
   ref: firebase.storage.Reference,
 ): T.Task<string> => () => ref.getDownloadURL();
 
-const toStorageInfo = (ref: firebase.storage.Reference) =>
+const toStorageInfo = (
+  ref: firebase.storage.Reference,
+): T.Task<{ src: string; ref: string }> =>
   sequenceS(T.task)({
     src: getFileDownloadURL(ref),
     ref: T.of(ref.fullPath),

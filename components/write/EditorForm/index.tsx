@@ -14,6 +14,7 @@ import { debounce } from 'lodash';
 import { observer } from 'mobx-react-lite';
 import { tap } from 'ramda';
 import React, { useContext, useEffect, useRef } from 'react';
+
 import Editor, { EditorRef } from '../Editor';
 import styles from './styles.scss';
 
@@ -25,8 +26,9 @@ const EditorForm: React.FC<EditorFormProps> = ({ initialState }) => {
   const store = useContext(writeStoreCtx);
   const $editor = useRef<EditorRef>(null);
 
-  const startLoading = () => TE.rightIO(store.setLoading(true));
-  const endLoading = () => T.fromIO(store.setLoading(false));
+  const startLoading = (): TE.TaskEither<never, void> =>
+    TE.rightIO(store.setLoading(true));
+  const endLoading = (): T.Task<void> => T.fromIO(store.setLoading(false));
 
   const deletePost = pipe(
     E.fromOption(constNull)(fromBoolean(store.isLoading)),
@@ -64,7 +66,7 @@ const EditorForm: React.FC<EditorFormProps> = ({ initialState }) => {
 
   // set editor on init
   useEffect(() => {
-    store.MediaStore.setEditor($editor);
+    store.media.setEditor($editor);
   }, []);
 
   return (

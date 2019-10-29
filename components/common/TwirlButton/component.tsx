@@ -1,6 +1,7 @@
 import anime from 'animejs';
 import * as Pixi from 'pixi.js';
 import React, { useEffect, useRef } from 'react';
+
 import styles from './styles.scss';
 
 const TwirlButton: React.FC = () => {
@@ -57,11 +58,9 @@ const TwirlButton: React.FC = () => {
     app.stage.addChild(displacementSprite);
     app.stage.filters = [displacement];
 
-    const stopAnim = () => {
-      anime.remove(displacement.scale);
-    };
+    const stopAnim = (): void => anime.remove(displacement.scale);
 
-    const onMouseHover = () => {
+    const onMouseHover = (): void => {
       $anim.current && stopAnim();
       $anim.current = anime({
         targets: displacement.scale,
@@ -73,7 +72,7 @@ const TwirlButton: React.FC = () => {
       });
     };
 
-    const onMouseUp = () => {
+    const onMouseUp = (): void => {
       $anim.current && stopAnim();
       $anim.current = anime({
         targets: displacement.scale,
@@ -95,7 +94,7 @@ const TwirlButton: React.FC = () => {
     };
   }, []);
 
-  return  <div ref={$canvas} className={styles.container}/>;
+  return <div ref={$canvas} className={styles.container} />;
 };
 
 export default TwirlButton;

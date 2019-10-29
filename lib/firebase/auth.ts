@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+
 import { auth } from './firebase';
 
 export interface SignInError {
@@ -10,7 +11,8 @@ export interface SignInError {
 
 const provider = new firebase.auth.GoogleAuthProvider();
 
-export const signIn = () => auth.signInWithPopup(provider);
-export const signOut = () => auth.signOut();
+export const signIn = (): Promise<firebase.auth.UserCredential> =>
+  auth.signInWithPopup(provider);
+export const signOut = (): Promise<void> => auth.signOut();
 
 export { auth };

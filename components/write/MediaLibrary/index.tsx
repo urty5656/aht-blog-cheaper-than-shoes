@@ -15,6 +15,7 @@ import * as TE from 'fp-ts/lib/TaskEither';
 import { observer } from 'mobx-react-lite';
 import { tap } from 'ramda';
 import React from 'react';
+
 import MediaItem from './MediaItem';
 import styles from './styles.scss';
 
@@ -26,8 +27,9 @@ interface MediaLibraryProps {
  * Media library component for managing / inserting images.
  */
 const MediaLibrary: React.FC<MediaLibraryProps> = ({ mediaStore }) => {
-  const startLoading = () => TE.rightIO(mediaStore.setLoading(true));
-  const endLoading = () => T.fromIO(mediaStore.setLoading(false));
+  const startLoading = (): TE.TaskEither<never, void> =>
+    TE.rightIO(mediaStore.setLoading(true));
+  const endLoading = (): T.Task<void> => T.fromIO(mediaStore.setLoading(false));
 
   const addMedia: T.Task<void> = pipe(
     E.fromOption(constNull)(fromBoolean(mediaStore.isLoading)),

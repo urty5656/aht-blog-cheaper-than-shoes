@@ -1,7 +1,8 @@
+import '@/styles/normalize.scss';
+
 import Error from '@/components/common/Error';
 import Sidebar from '@/components/common/Sidebar';
 import { WrappedTaskFC } from '@/components/common/withTaskHandler';
-import '@/styles/normalize.scss';
 import styles from '@/styles/pages/app.scss';
 import { useStaticRendering } from 'mobx-react-lite';
 import NextApp, { AppContext } from 'next/app';
@@ -25,13 +26,13 @@ class App extends NextApp<AppProps, AppStates> {
     isLoading: false,
   };
 
-  componentDidMount() {
+  componentDidMount(): void {
     NProgress.configure({ minimum: 0.75, showSpinner: false, speed: 375 });
-    const startLoading = () => {
+    const startLoading = (): void => {
       NProgress.start();
       this.setState({ isLoading: true });
     };
-    const endLoading = () => {
+    const endLoading = (): void => {
       NProgress.done();
       this.setState({ isLoading: false });
     };
@@ -42,7 +43,7 @@ class App extends NextApp<AppProps, AppStates> {
     router.events.on('routeChangeError', endLoading);
   }
 
-  render() {
+  render(): JSX.Element {
     const { Component, statusCode, pageProps } = this.props;
     const { isLoading } = this.state;
 

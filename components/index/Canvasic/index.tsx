@@ -1,6 +1,7 @@
 import { debounce } from 'lodash';
 import * as Pixi from 'pixi.js';
 import React, { useEffect, useRef } from 'react';
+
 import fragment from './frag.glsl';
 import styles from './styles.scss';
 
@@ -50,7 +51,7 @@ const Cavasic: React.FC = () => {
     }, 100);
     window.addEventListener('resize', updateCanvasDim);
 
-    let time: number = 0;
+    let time = 0;
     app.ticker.add(delta => {
       const width = app.screen.width;
       const height = app.screen.height;

@@ -1,14 +1,14 @@
+import Anchor from '@/components/common/Anchor';
+import Contact from '@/components/common/Contact';
+import Link from '@/components/common/Link';
+import PageTitle from '@/components/common/PageTitle';
+import Layout from '@/components/layouts/DefaultLayout';
 import { PageFC } from '@/components/SortApp';
+import { authStoreCtx } from '@/stores/auth';
+import { useGlobalStore } from '@/stores/global';
+import styles from '@/styles/pages/index.scss';
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
-import Anchor from '../components/common/Anchor';
-import Contact from '../components/common/Contact';
-import Link from '../components/common/Link';
-import PageTitle from '../components/common/PageTitle';
-import Layout from '../components/layouts/DefaultLayout';
-import { authStoreCtx } from '../stores/auth';
-import { useGlobalStore } from '../stores/global';
-import styles from '../styles/pages/index.scss';
 
 const Index: PageFC = () => {
   const authStore = useContext(authStoreCtx);
@@ -25,12 +25,6 @@ const Index: PageFC = () => {
           </li>
           <li className={styles.navItem}>
             <Link href="/me">ME</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/portfolio">WORKS</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Link href="/pics">PICTURES</Link>
           </li>
           <li className={styles.navItem}>
             <Anchor>

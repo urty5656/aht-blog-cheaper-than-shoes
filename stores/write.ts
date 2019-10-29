@@ -3,6 +3,7 @@ import { IO } from 'fp-ts/lib/IO';
 import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
 import { createContext } from 'react';
+
 import { MediaStore } from './partial/media';
 
 export type PostModelOptionalSlug = Omit<PostModel, 'slug'> & {
@@ -26,34 +27,30 @@ export class WriteStore {
   isLoading: boolean = false;
 
   // Create (false) or Update (true)
-  private readonly media = new MediaStore();
+  readonly media = new MediaStore();
 
   constructor(readonly isUpdating: boolean) {}
-
-  get MediaStore() {
-    return this.media;
-  }
 
   /**
    * Set a post for editing.
    */
   @action.bound
-  setPost(post: PostModelOptionalSlug) {
+  setPost(post: PostModelOptionalSlug): void {
     this.post = post;
   }
 
   @action.bound
-  setPublic(public_: boolean) {
+  setPublic(public_: boolean): void {
     this.post.public = public_;
   }
 
   @action.bound
-  setSlug(slug: string) {
+  setSlug(slug: string): void {
     this.post.slug = slug;
   }
 
   @action.bound
-  setContents(content: EditorState, contentHTML: string) {
+  setContents(content: EditorState, contentHTML: string): void {
     this.post.content = content.toJSON();
     this.post.contentHTML = contentHTML;
   }

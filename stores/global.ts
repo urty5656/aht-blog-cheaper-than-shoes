@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect } from 'react';
+
 import { CursorStore, CursorType } from './partial/cursor';
 
 export class GlobalStore {
@@ -7,14 +8,14 @@ export class GlobalStore {
 
 export const globalStoreCtx = createContext(new GlobalStore());
 
-export const useGlobalStore = () => {
+export const useGlobalStore = (): CursorStore => {
   const { cursor } = useContext(globalStoreCtx);
   useEffect(() => {
     cursor.setType(CursorType.Normal);
     cursor.finishLoading();
 
-    const onPressed = () => cursor.setPressed(true);
-    const onReleased = () => cursor.setPressed(false);
+    const onPressed = (): void => cursor.setPressed(true);
+    const onReleased = (): void => cursor.setPressed(false);
 
     window.addEventListener('mousedown', onPressed);
     window.addEventListener('mouseup', onReleased);

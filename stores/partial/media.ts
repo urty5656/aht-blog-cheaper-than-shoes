@@ -36,12 +36,12 @@ export class MediaStore {
     return this.editorRef!.current!.getView();
   }
 
-  setEditor(editorRef: React.RefObject<EditorRef>) {
+  setEditor(editorRef: React.RefObject<EditorRef>): void {
     this.editorRef = editorRef;
   }
 
   @action.bound
-  setFile(event: React.ChangeEvent<HTMLInputElement>) {
+  setFile(event: React.ChangeEvent<HTMLInputElement>): void {
     if (!event.target.files || !event.target.files[0]) {
       return;
     }
@@ -49,7 +49,7 @@ export class MediaStore {
   }
 
   @action.bound
-  insertMedia() {
+  insertMedia(): void {
     if (!this.Editor || !this.SelectedMedia) {
       return;
     }
@@ -69,7 +69,7 @@ export class MediaStore {
   }
 
   @action.bound
-  selectIndex(index: number) {
+  selectIndex(index: number): void {
     this.selectedIndex = this.selectedIndex === index ? undefined : index;
   }
 

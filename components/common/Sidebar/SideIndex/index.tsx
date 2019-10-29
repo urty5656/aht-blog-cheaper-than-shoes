@@ -1,5 +1,6 @@
+import Link from '@/components/common/Link';
 import React from 'react';
-import Link from '../../Link';
+
 import styles from './styles.scss';
 
 const SideIndex: React.FC = () => {

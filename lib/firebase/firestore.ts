@@ -4,8 +4,9 @@ import { CommonError, error, fromFirebaseError } from '@/models/Common/error';
 import { getNow } from '@/utils/io/date';
 import { assoc } from 'fp-ts-ramda';
 import { IO, io } from 'fp-ts/lib/IO';
-import { left, right, TaskEither, tryCatch } from 'fp-ts/lib/TaskEither';
+import { TaskEither, left, right, tryCatch } from 'fp-ts/lib/TaskEither';
 import * as HTTPStatusCodes from 'http-status-codes';
+
 import { db } from './firebase';
 
 export const firestoreErrorToHTTP = (
@@ -54,7 +55,7 @@ export const filterNotFound = (
   !doc.exists ? left(error('not-found')) : right(doc);
 
 // writers
-export const writeData = (data: any, create?: boolean) => (
+export const writeData = <T extends BaseModel>(data: T, create?: boolean) => (
   doc: firebase.firestore.DocumentSnapshot,
 ): TaskEither<CommonError, void> =>
   tryCatch(() => doc.ref[create ? 'set' : 'update'](data), fromFirebaseError);

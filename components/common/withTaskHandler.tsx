@@ -3,8 +3,8 @@ import { CommonError, error } from '@/models/Common/error';
 import { AppProps } from '@/pages/_app';
 import { defaultTo } from 'fp-ts-ramda';
 import { pipe } from 'fp-ts/lib/pipeable';
-import { task, Task } from 'fp-ts/lib/Task';
-import { bimap, getOrElse, mapLeft, TaskEither } from 'fp-ts/lib/TaskEither';
+import { Task, task } from 'fp-ts/lib/Task';
+import { TaskEither, bimap, getOrElse, mapLeft } from 'fp-ts/lib/TaskEither';
 import { NextComponentType, NextPageContext } from 'next';
 import React from 'react';
 
@@ -22,7 +22,9 @@ export type WrappedTaskFC<P = {}> = NextComponentType<
   P
 >;
 
-export const withTaskHandler = <T extends any>(Page: TaskFC<T>) => {
+export const withTaskHandler = <T extends any>(
+  Page: TaskFC<T>,
+): WrappedTaskFC<T> => {
   const wrapped: WrappedTaskFC<T> = props => {
     return <Page {...props} />;
   };

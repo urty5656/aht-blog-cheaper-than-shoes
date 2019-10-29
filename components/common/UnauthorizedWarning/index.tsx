@@ -4,12 +4,13 @@ import { observer } from 'mobx-react-lite';
 import Router from 'next/router';
 import * as Pixi from 'pixi.js';
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
+
 import { authStoreCtx } from '../../../stores/auth';
 import { useScrollLock } from '../../../utils/hooks';
 import Anchor from '../Anchor';
 import styles from './style.scss';
 
-let app: Pixi.Application;
+let app: Pixi.Application | undefined;
 let squares: any[] = [];
 
 const ALPHA = 0.94;
@@ -18,7 +19,11 @@ const addSquare = (
   y: number,
   offsetX: number = 0,
   offsetY: number = 0,
-) => {
+): {
+  square: Pixi.Graphics;
+  activate: () => void;
+  deactivate: () => void;
+} => {
   const animeTarget = { alpha: ALPHA };
   const square = new Pixi.Graphics();
   square
@@ -73,13 +78,21 @@ const addSquare = (
   };
 };
 
-const clearCanvas = () => {
+const clearCanvas = (): void => {
+  if (!app) {
+    return;
+  }
+
   app.stage.children.forEach(child => child.destroy());
   app.stage.removeChildren();
   squares = [];
 };
 
-const placeSquares = () => {
+const placeSquares = (): void => {
+  if (!app) {
+    return;
+  }
+
   clearCanvas();
 
   const innerWidth = window.innerWidth;
@@ -134,7 +147,7 @@ const UnauthorizedWarning: React.FC = () => {
     $canvas.current.appendChild(app.view);
 
     return () => {
-      app.stage.children.forEach(child => (child.alpha = 0));
+      app!.stage.children.forEach(child => (child.alpha = 0));
       squares.forEach(square => square.deactivate());
       window.removeEventListener('resize', placeSquaresDebounced);
     };
@@ -151,7 +164,7 @@ const UnauthorizedWarning: React.FC = () => {
     <div className={styles.container}>
       <div ref={$canvas} className={styles.canvas} />
       <div className={styles.texts}>
-        <h1 className={styles.textHeading}>YOU SHOULDN'T BE HERE</h1>
+        <h1 className={styles.textHeading}>YOU SHOULDN&apos;T BE HERE</h1>
         <p className={styles.textSub}>
           NO ACCESS—CLICK{' '}
           <Anchor>

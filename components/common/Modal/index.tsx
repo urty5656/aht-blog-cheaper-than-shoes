@@ -1,6 +1,7 @@
 import { useScrollLock } from '@/utils/hooks';
 import clsx from 'clsx';
 import React, { useRef } from 'react';
+
 import styles from './styles.scss';
 
 interface ModalProps {
@@ -18,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({
   const $el = useRef<HTMLDivElement>(null);
   useScrollLock();
 
-  const onClickOnlyBackground = (e: React.MouseEvent) => {
+  const onClickOnlyBackground: React.MouseEventHandler<HTMLElement> = e => {
     if (e.target !== $el.current) {
       return;
     }

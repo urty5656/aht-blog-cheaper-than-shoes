@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export function useScrollLock(target?: HTMLElement) {
+export function useScrollLock(target?: HTMLElement): void {
   useEffect(() => {
     const realTarget = target || document.body;
     realTarget.style.overflow = 'hidden';

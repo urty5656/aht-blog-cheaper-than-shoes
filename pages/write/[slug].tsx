@@ -56,7 +56,7 @@ const Write: TaskFC<WriteProps> = ({ post }) => {
           {render(
             process.browser && authStore.initialized,
             <>
-              <MediaLibrary mediaStore={writeStore.MediaStore} />
+              <MediaLibrary mediaStore={writeStore.media} />
               <EditorForm initialState={post && post.content} />
             </>,
           )}
