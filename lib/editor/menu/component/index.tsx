@@ -1,10 +1,11 @@
+import { constTrue } from 'fp-ts/lib/function';
 import { action, autorun, observable } from 'mobx';
 import { Node, Schema } from 'prosemirror-model';
 import { findParentNode } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
-import { always } from 'ramda';
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import MenuBar from './MenuBar';
 import { menuCommands } from './menuCommands';
 import MenuItem from './MenuItem';
@@ -17,11 +18,11 @@ export class MenuView {
   private parent: HTMLElement;
 
   constructor(private editorView: EditorView<Schema>) {
-    this.parent = this.editorView.dom.parentElement!;
-    if (!this.parent) {
-      return;
+    if (!this.editorView.dom.parentElement) {
+      throw new Error(`Can't find Editor DOM`);
     }
 
+    this.parent = this.editorView.dom.parentElement;
     this.parent.prepend(this.el);
 
     autorun(() => {
@@ -43,10 +44,8 @@ export class MenuView {
   }
 
   @action
-  update() {
-    const parent = findParentNode(always(true))(
-      this.editorView.state.selection,
-    );
+  update(): void {
+    const parent = findParentNode(constTrue)(this.editorView.state.selection);
     if (parent) {
       this.selectedNode = parent.node;
     }

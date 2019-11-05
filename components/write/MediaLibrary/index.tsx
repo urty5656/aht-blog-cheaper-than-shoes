@@ -1,3 +1,4 @@
+import { E, O, T, TE, pipe } from '@@prelude';
 import { upload } from '@/functions/write/media/upload';
 import { deleteMedia } from '@/models/media/detail';
 import { getMediaList } from '@/models/media/list';
@@ -5,15 +6,10 @@ import { MediaStore } from '@/stores/partial/media';
 import { prevented } from '@/utils/events';
 import { fromBoolean } from '@/utils/io/fromBoolean';
 import { alert } from '@/utils/io/modal';
+import { tap } from '@/utils/tap';
 import { last } from 'fp-ts/lib/Array';
-import * as E from 'fp-ts/lib/Either';
 import { constNull, identity } from 'fp-ts/lib/function';
-import * as O from 'fp-ts/lib/Option';
-import { pipe } from 'fp-ts/lib/pipeable';
-import * as T from 'fp-ts/lib/Task';
-import * as TE from 'fp-ts/lib/TaskEither';
 import { observer } from 'mobx-react-lite';
-import { tap } from 'ramda';
 import React from 'react';
 
 import MediaItem from './MediaItem';
@@ -40,7 +36,7 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ mediaStore }) => {
       pipe(
         startLoading(),
         TE.chain(() => upload(file)),
-        TE.bimap(e => tap(alert(e.code)), tap(alert('업로드 완료!'))),
+        TE.bimap(e => tap(alert(e.code), e), alert('업로드 완료!')),
         TE.fold(endLoading, endLoading),
       ),
     ),
@@ -62,7 +58,7 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ mediaStore }) => {
             mediaStore.setMediaRefs(mediaStore.mediaRefs.concat(refs)),
           ),
         ),
-        TE.bimap(e => tap(alert(e.code)), identity),
+        TE.bimap(e => tap(alert(e.code), e), identity),
         TE.fold(endLoading, endLoading),
       ),
     ),
@@ -78,7 +74,7 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ mediaStore }) => {
       pipe(
         startLoading(),
         TE.chain(() => deleteMedia(media)),
-        TE.bimap(e => tap(alert(e.code)), tap(alert('삭제 완료!'))),
+        TE.bimap(e => tap(alert(e.code), e), alert('삭제 완료!')),
         TE.fold(endLoading, endLoading),
       ),
     ),

@@ -1,14 +1,10 @@
+import Placeholder from '@/components/index/Placeholder';
+import Layout from '@/components/layouts/DefaultLayout';
 import { PageFC } from '@/components/SortApp';
-import { observer } from 'mobx-react-lite';
+import styles from '@/styles/pages/index.scss';
 import React from 'react';
-import Placeholder from '../components/index/Placeholder';
-import Layout from '../components/layouts/DefaultLayout';
-import { useGlobalStore } from '../stores/global';
-import styles from '../styles/pages/index.scss';
 
 const Index: PageFC = () => {
-  useGlobalStore();
-
   return (
     <Layout>
       <main className={styles.container}>
@@ -18,4 +14,4 @@ const Index: PageFC = () => {
   );
 };
 
-export default observer(Index);
+export default Index;

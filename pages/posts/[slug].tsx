@@ -1,3 +1,4 @@
+import { E, TE, pipe } from '@@prelude';
 import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
 import Article from '@/components/post/Article';
@@ -5,10 +6,7 @@ import { error } from '@/models/Common/error';
 import { getPostDetailOf } from '@/models/post/detail';
 import { PostModel } from '@/models/post/model';
 import { foldIO } from '@/utils/taskEither/foldIO';
-import * as E from 'fp-ts/lib/Either';
 import { identity } from 'fp-ts/lib/function';
-import { pipe } from 'fp-ts/lib/pipeable';
-import * as TE from 'fp-ts/lib/TaskEither';
 import React from 'react';
 
 interface PostProps {

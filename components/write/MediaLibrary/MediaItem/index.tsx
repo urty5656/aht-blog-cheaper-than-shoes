@@ -3,21 +3,16 @@ import { MediaStore } from '@/stores/partial/media';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Anchorable, withAnchor } from '../../../common/withAnchor';
+
 import styles from './styles.scss';
 
-interface MediaItemProps extends Anchorable {
+interface MediaItemProps {
   mediaStore: MediaStore;
   item: MediaModel;
   index: number;
 }
 
-const MediaItem: React.FC<MediaItemProps> = ({
-  mediaStore,
-  item,
-  index,
-  ...anchorEvents
-}) => {
+const MediaItem: React.FC<MediaItemProps> = ({ mediaStore, item, index }) => {
   const style: React.CSSProperties = {
     backgroundImage: `url(${item.src})`,
   };
@@ -30,11 +25,10 @@ const MediaItem: React.FC<MediaItemProps> = ({
         mediaStore.selectedIndex === index && styles.selected,
       )}
       onClick={() => mediaStore.selectIndex(index)}
-      {...anchorEvents}
     >
       <div className={styles.image} style={style} />
     </li>
   );
 };
 
-export default withAnchor(observer(MediaItem));
+export default observer(MediaItem);

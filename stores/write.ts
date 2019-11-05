@@ -1,5 +1,5 @@
+import { I } from '@@prelude';
 import { PostModel } from '@/models/post/model';
-import { IO } from 'fp-ts/lib/IO';
 import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
 import { createContext } from 'react';
@@ -34,20 +34,14 @@ export class WriteStore {
   /**
    * Set a post for editing.
    */
-  @action.bound
-  setPost(post: PostModelOptionalSlug): void {
-    this.post = post;
-  }
+  @action
+  setPost = (post: PostModelOptionalSlug): void => void (this.post = post);
 
-  @action.bound
-  setPublic(public_: boolean): void {
-    this.post.public = public_;
-  }
+  @action
+  setPublic = (public_: boolean): void => void (this.post.public = public_);
 
-  @action.bound
-  setSlug(slug: string): void {
-    this.post.slug = slug;
-  }
+  @action
+  setSlug = (slug: string): void => void (this.post.slug = slug);
 
   @action.bound
   setContents(content: EditorState, contentHTML: string): void {
@@ -56,10 +50,10 @@ export class WriteStore {
   }
 
   @action
-  setLoading = (val: boolean): IO<void> => () => (this.isLoading = val);
+  setLoading = (val: boolean): I.IO<void> => () => (this.isLoading = val);
 
   @action
-  toggleModal: IO<void> = () => (this.isModalOpened = !this.isModalOpened);
+  toggleModal: I.IO<void> = () => (this.isModalOpened = !this.isModalOpened);
 }
 
 export const writeStoreCtx = createContext<WriteStore>(null!);

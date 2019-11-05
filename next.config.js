@@ -1,3 +1,4 @@
+const path = require('path');
 const withSCSS = require('@zeit/next-sass');
 const ForkTsCheckerWebapckPlugin = require('fork-ts-checker-webpack-plugin');
 
@@ -17,9 +18,13 @@ module.exports = withSCSS({
     sourceMap: isDev,
   },
   target: 'serverless',
-  webpack(config, { dev, isServer }) {
+  webpack(config, { dev }) {
     config.devtool = dev && 'eval-source-map';
     config.resolve.alias['@'] = __dirname;
+    config.resolve.alias['@@prelude'] = path.join(
+      __dirname,
+      'utils/prelude.ts',
+    );
 
     config.module.rules.push({
       test: /\.glsl$/,

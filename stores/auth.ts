@@ -28,16 +28,6 @@ export class AuthStore {
     }
     this.user = user;
   }
-
-  @action.bound
-  signIn(): Promise<any> {
-    return auth.signIn();
-  }
-
-  @action.bound
-  signOut(): Promise<void> {
-    return auth.signOut();
-  }
 }
 
 export const authStoreCtx = createContext(new AuthStore());

@@ -11,7 +11,7 @@ class SelectionSizeTooltip {
     this.update(view, null);
   }
 
-  update(view: EditorView, lastState: EditorState | null) {
+  update(view: EditorView, lastState: EditorState | null): void {
     const state = view.state;
     // Don't do anything if the document/selection didn't change
     if (
@@ -44,12 +44,12 @@ class SelectionSizeTooltip {
     this.tooltip.textContent = String(to - from);
   }
 
-  destroy() {
+  destroy(): void {
     this.tooltip.remove();
   }
 }
 
-export const selectionSizePlugin = () =>
+export const selectionSizePlugin = (): Plugin =>
   new Plugin({
     view(editorView) {
       return new SelectionSizeTooltip(editorView);

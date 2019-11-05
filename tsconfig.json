@@ -5,10 +5,7 @@
     "baseUrl": ".",
     "experimentalDecorators": true,
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
@@ -20,23 +17,16 @@
     "sourceMap": true,
     "strict": true,
     "target": "es6",
-    "typeRoots": [
-      "./typings"
-    ],
+    "typeRoots": ["./typings"],
     "paths": {
-      "@/*": [
-        "*"
-      ]
+      "@/*": ["*"],
+      "@@prelude": ["utils/prelude.ts"]
     },
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": [
-    "./**/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["./**/*"],
+  "exclude": ["node_modules"]
 }
