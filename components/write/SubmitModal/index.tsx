@@ -1,12 +1,10 @@
+import { T, TE, pipe } from '@@prelude';
 import Modal from '@/components/common/Modal';
 import { submit } from '@/functions/write/submit';
 import { writeStoreCtx } from '@/stores/write';
 import { prevented } from '@/utils/events';
 import { alert } from '@/utils/io/modal';
 import { navigate } from '@/utils/io/navigation';
-import { pipe } from 'fp-ts/lib/pipeable';
-import * as T from 'fp-ts/lib/Task';
-import * as TE from 'fp-ts/lib/TaskEither';
 import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react';
 

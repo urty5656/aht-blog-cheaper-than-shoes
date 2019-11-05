@@ -4,10 +4,8 @@ import Layout from '@/components/layouts/DefaultLayout';
 import PostsBody from '@/components/posts/PostsBody';
 import { getPostList } from '@/models/post/list';
 import { PostModel } from '@/models/post/model';
-import { useGlobalStore } from '@/stores/global';
 import { identity } from 'fp-ts/lib/function';
-import { pipe } from 'fp-ts/lib/pipeable';
-import { bimap } from 'fp-ts/lib/TaskEither';
+import * as TE from 'fp-ts/lib/TaskEither';
 import React from 'react';
 
 interface PostsProps {
@@ -18,8 +16,6 @@ interface PostsProps {
  * Blog post list
  */
 const Posts: TaskFC<PostsProps> = ({ posts }) => {
-  useGlobalStore();
-
   return (
     <Layout>
       <main>
@@ -30,13 +26,7 @@ const Posts: TaskFC<PostsProps> = ({ posts }) => {
   );
 };
 Posts.getInitialProps = () => {
-  const fn = pipe(
-    getPostList,
-    bimap(identity, posts => ({
-      posts,
-    })),
-  );
-  return fn;
+  return TE.taskEither.bimap(getPostList, identity, posts => ({ posts }));
 };
 
 export default withTaskHandler(Posts);

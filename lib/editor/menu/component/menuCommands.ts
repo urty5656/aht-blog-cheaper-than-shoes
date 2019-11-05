@@ -1,6 +1,7 @@
 import { setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
 import { redo, undo } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';
+
 import { schema } from '../../schema';
 import { MenuItemSpec } from './MenuItem';
 

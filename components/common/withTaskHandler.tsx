@@ -1,14 +1,12 @@
+import { T, TE, pipe } from '@@prelude';
 import { firestoreErrorToHTTP } from '@/lib/firebase/firestore';
 import { CommonError, error } from '@/models/Common/error';
 import { AppProps } from '@/pages/_app';
 import { defaultTo } from 'fp-ts-ramda';
-import { pipe } from 'fp-ts/lib/pipeable';
-import { Task, task } from 'fp-ts/lib/Task';
-import { TaskEither, bimap, getOrElse, mapLeft } from 'fp-ts/lib/TaskEither';
 import { NextComponentType, NextPageContext } from 'next';
 import React from 'react';
 
-export type TaskIP<P> = TaskEither<CommonError, P>;
+export type TaskIP<P> = TE.TaskEither<CommonError, P>;
 
 export type TaskFC<P = object> = NextComponentType<
   NextPageContext,
@@ -18,7 +16,7 @@ export type TaskFC<P = object> = NextComponentType<
 
 export type WrappedTaskFC<P = {}> = NextComponentType<
   NextPageContext,
-  Task<AppProps>,
+  T.Task<AppProps>,
   P
 >;
 
@@ -31,18 +29,18 @@ export const withTaskHandler = <T extends any>(
 
   wrapped.getInitialProps = async ctx => {
     if (!Page.getInitialProps) {
-      return task.of({ statusCode: 200, pageProps: null });
+      return T.task.of({ statusCode: 200, pageProps: null });
     }
 
-    const pageProps = (await Page.getInitialProps(ctx)) as TaskEither<
+    const pageProps = (await Page.getInitialProps(ctx)) as TE.TaskEither<
       CommonError | undefined,
       any
     >;
 
     const makeAppProps = pipe(
       pageProps,
-      mapLeft(defaultTo(error('unknown'))),
-      bimap(
+      TE.mapLeft(defaultTo(error('unknown'))),
+      TE.bimap(
         // failure - no page props required
         left => ({
           pageProps: null,
@@ -54,9 +52,9 @@ export const withTaskHandler = <T extends any>(
           statusCode: 200,
         }),
       ),
-      getOrElse(e => {
+      TE.getOrElse(e => {
         ctx.res && (ctx.res.statusCode = e.statusCode);
-        return task.of(e);
+        return T.task.of(e);
       }),
     );
 

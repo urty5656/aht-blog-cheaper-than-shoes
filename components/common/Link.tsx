@@ -1,7 +1,7 @@
-import NextLink from 'next/link';
-import React, { useContext } from 'react';
 import { UrlObject } from 'url';
-import { globalStoreCtx } from '../../stores/global';
+
+import NextLink from 'next/link';
+import React from 'react';
 
 interface LinkProps {
   href: string | UrlObject;
@@ -10,13 +10,9 @@ interface LinkProps {
 }
 
 const Link: React.FC<LinkProps> = ({ className, children, ...props }) => {
-  const { cursor } = useContext(globalStoreCtx);
-
   return (
     <NextLink {...props}>
-      <a className={className} onClick={cursor.startLoading}>
-        {children}
-      </a>
+      <a className={className}>{children}</a>
     </NextLink>
   );
 };

@@ -1,24 +1,25 @@
 import { ServerResponse } from 'http';
 
 import Error from '@/components/common/Error';
-import { PageFC } from '@/components/SortApp';
-import { prop } from 'ramda';
+import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
+import { TE } from '@/utils/prelude';
+import { prop } from 'fp-ts-ramda';
 import React from 'react';
 
 interface ErrorProps {
   statusCode: number;
 }
 
-const ErrorPage: PageFC<ErrorProps> = ({ statusCode }) => {
+const ErrorPage: TaskFC<ErrorProps> = ({ statusCode }) => {
   return <Error statusCode={statusCode} />;
 };
-ErrorPage.getInitialProps = async ({ res, err }) => {
+ErrorPage.getInitialProps = ({ res, err }) => {
   const pickStatusCode = prop('statusCode');
   const statusCode =
     pickStatusCode(res as ServerResponse) ||
     pickStatusCode(err as Record<'statusCode', number>);
 
-  return { statusCode };
+  return TE.right({ statusCode });
 };
 
-export default ErrorPage;
+export default withTaskHandler(ErrorPage);

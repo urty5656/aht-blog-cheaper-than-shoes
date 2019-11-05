@@ -1,3 +1,4 @@
+import { E, O, TE, pipe } from '@@prelude';
 import { updateTimeInfo } from '@/lib/firebase/firestore';
 import { CommonError, error } from '@/models/Common/error';
 import { addBlogPost, updateBlogPost } from '@/models/post/detail';
@@ -5,10 +6,6 @@ import { PostContent, PostModel } from '@/models/post/model';
 import { PostModelOptionalSlug } from '@/stores/write';
 import { assoc } from 'fp-ts-ramda';
 import { findFirst } from 'fp-ts/lib/Array';
-import * as E from 'fp-ts/lib/Either';
-import * as O from 'fp-ts/lib/Option';
-import { pipe } from 'fp-ts/lib/pipeable';
-import * as TE from 'fp-ts/lib/TaskEither';
 
 /** Verify the post to have slug and contents. */
 const verifyRequirements = (post: PostModelOptionalSlug): post is PostModel =>

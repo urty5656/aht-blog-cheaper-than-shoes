@@ -3,12 +3,12 @@ import Layout from '@/components/layouts/DefaultLayout';
 import EditorForm from '@/components/write/EditorForm';
 import MediaLibrary from '@/components/write/MediaLibrary';
 import SubmitModal from '@/components/write/SubmitModal';
+import { signOut } from '@/lib/firebase/auth';
 import { CommonError, error } from '@/models/Common/error';
 import { getMediaList } from '@/models/media/list';
 import { getPostDetailOf } from '@/models/post/detail';
 import { PostModel } from '@/models/post/model';
 import { authStoreCtx } from '@/stores/auth';
-import { useGlobalStore } from '@/stores/global';
 import { WriteStore, writeStoreCtx } from '@/stores/write';
 import { foldIO } from '@/utils/taskEither/foldIO';
 import { useTaskEitherEffect } from '@/utils/taskEither/useTaskEitherEffect';
@@ -36,8 +36,6 @@ const render = (flag: boolean, content: JSX.Element): JSX.Element => {
 };
 
 const Write: TaskFC<WriteProps> = ({ post }) => {
-  useGlobalStore();
-
   const authStore = useContext(authStoreCtx);
   const writeStore = useRef(new WriteStore(!!post)).current;
 
@@ -61,7 +59,7 @@ const Write: TaskFC<WriteProps> = ({ post }) => {
             </>,
           )}
         </main>
-        <button onClick={authStore.signOut}>Sign Out</button>
+        <button onClick={signOut}>Sign Out</button>
         <UnauthorizedWarning />
         <SubmitModal />
       </Layout>

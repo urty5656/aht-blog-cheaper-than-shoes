@@ -1,20 +1,12 @@
-import Anchor from '@/components/common/Anchor';
 import Contact from '@/components/common/Contact';
 import Link from '@/components/common/Link';
 import PageTitle from '@/components/common/PageTitle';
 import Layout from '@/components/layouts/DefaultLayout';
 import { PageFC } from '@/components/SortApp';
-import { authStoreCtx } from '@/stores/auth';
-import { useGlobalStore } from '@/stores/global';
 import styles from '@/styles/pages/index.scss';
-import { observer } from 'mobx-react-lite';
-import React, { useContext } from 'react';
+import React from 'react';
 
 const Index: PageFC = () => {
-  const authStore = useContext(authStoreCtx);
-
-  useGlobalStore();
-
   return (
     <Layout>
       <main>
@@ -25,11 +17,6 @@ const Index: PageFC = () => {
           </li>
           <li className={styles.navItem}>
             <Link href="/me">ME</Link>
-          </li>
-          <li className={styles.navItem}>
-            <Anchor>
-              <span onClick={authStore.signIn}>SIGN IN</span>
-            </Anchor>
           </li>
         </ul>
         <div className={styles.outlinks}>
@@ -47,4 +34,4 @@ const Index: PageFC = () => {
   );
 };
 
-export default observer(Index);
+export default Index;
