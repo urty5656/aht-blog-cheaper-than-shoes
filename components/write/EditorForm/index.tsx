@@ -41,7 +41,10 @@ const EditorForm: React.FC<EditorFormProps> = ({ initialState }) => {
         TE.chain(() => getData(Collections.Post)(slug)),
         TE.chain(doc => deleteData(doc.ref)),
         TE.bimap(e => tap(alert(e.code), e), alert('삭제 완료!')),
-        TE.fold(() => endLoading, () => T.fromIO(navigate('/posts'))),
+        TE.fold(
+          () => endLoading,
+          () => T.fromIO(navigate('/posts')),
+        ),
       ),
     ),
     E.fold(
@@ -53,6 +56,7 @@ const EditorForm: React.FC<EditorFormProps> = ({ initialState }) => {
 
   const setContents = debounce(
     () => {
+      console.log($editor.current!.getState());
       store.setContents(
         $editor.current!.getState(),
         $editor.current!.getInnerHTML(),

@@ -24,9 +24,9 @@ const Post: TaskFC<PostProps> = ({ post }) => {
   );
 };
 Post.getInitialProps = ({ query }) => {
-  const slug = E.fromNullable(error('not-found'))(query.slug as
-    | string
-    | undefined);
+  const slug = E.fromNullable(error('not-found'))(
+    query.slug as string | undefined,
+  );
 
   return pipe(
     slug,

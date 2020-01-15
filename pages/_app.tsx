@@ -4,7 +4,6 @@ import Error from '@/components/common/Error';
 import Sidebar from '@/components/common/Sidebar';
 import { WrappedTaskFC } from '@/components/common/withTaskHandler';
 import styles from '@/styles/pages/app.scss';
-import { useStaticRendering } from 'mobx-react-lite';
 import NextApp, { AppContext } from 'next/app';
 import NProgress from 'nprogress';
 import React from 'react';
@@ -15,10 +14,6 @@ export interface AppProps {
 }
 interface AppStates {
   isLoading: boolean;
-}
-
-if (!process.browser) {
-  useStaticRendering(true);
 }
 
 class App extends NextApp<AppProps, AppStates> {
@@ -68,7 +63,7 @@ class App extends NextApp<AppProps, AppStates> {
       return { statusCode: 200, pageProps: null };
     }
 
-    const page: WrappedTaskFC = Component;
+    const page = Component as WrappedTaskFC;
 
     try {
       return (await page.getInitialProps!(ctx))();

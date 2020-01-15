@@ -17,7 +17,12 @@ const SubmitModal: React.FC = () => {
   const submitPost: T.Task<void> = pipe(
     submit(writeStore.post, writeStore.isUpdating),
     TE.fold(
-      error => T.fromIO(alert(error.code)),
+      error =>
+        T.fromIO(
+          error.data?.cause === 'no-title'
+            ? alert('No title present')
+            : alert(error.code),
+        ),
       () => navigateToThePost(writeStore.post.slug!),
     ),
   );

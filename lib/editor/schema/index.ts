@@ -1,6 +1,7 @@
 import OrderedMap from 'orderedmap';
 import { NodeSpec, Schema } from 'prosemirror-model';
-import { nodes, schema as basicSchema } from 'prosemirror-schema-basic';
+import { schema as basicSchema, nodes } from 'prosemirror-schema-basic';
+
 import { syntaxSpec } from './syntaxSpec';
 
 type Nodes = typeof nodes & { syntax: NodeSpec };

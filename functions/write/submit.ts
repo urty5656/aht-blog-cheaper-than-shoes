@@ -23,12 +23,13 @@ const getFirstHeadingText = (post: PostModel): O.Option<string> =>
     O.chain(node => O.fromNullable(node.content)),
     O.map(contents => contents.map(mark => mark.text).join('')),
   );
+
 /** Set the post's title to the text of its first h1. */
 const setTitle = (post: PostModel): E.Either<CommonError, PostModel> =>
   pipe(
     post,
     getFirstHeadingText,
-    E.fromOption(() => error('invalid-argument')),
+    E.fromOption(() => error('invalid-argument', { cause: 'no-title' })),
     E.map(title => assoc('title', title, post)),
   );
 
@@ -38,14 +39,14 @@ export const submit = (
   isUpdating: boolean,
 ): TE.TaskEither<CommonError, void> => {
   const postE = E.fromPredicate(verifyRequirements, () =>
-    error('invalid-argument'),
+    error('invalid-argument', { post }),
   )(post);
 
   return pipe(
     postE,
     E.chain(setTitle),
     TE.fromEither,
-    TE.chain(post => TE.rightIO(updateTimeInfo(post))),
+    TE.chain(p => TE.rightIO(updateTimeInfo(p))),
     TE.chain(isUpdating ? updateBlogPost : addBlogPost),
   );
 };

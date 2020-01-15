@@ -1,8 +1,8 @@
-import { useStaticRendering } from 'mobx-react-lite';
+import { useStaticRendering as staticRendering } from 'mobx-react-lite';
 import Document, { Head, Main, NextScript } from 'next/document';
 import React from 'react';
 
-useStaticRendering(true);
+staticRendering(true);
 
 class CustomDocument extends Document {
   render(): JSX.Element {
