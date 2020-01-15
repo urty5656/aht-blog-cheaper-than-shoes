@@ -1,6 +1,6 @@
+/* eslint @typescript-eslint/no-var-requires: 0 */
 const path = require('path');
 const withSCSS = require('@zeit/next-sass');
-const ForkTsCheckerWebapckPlugin = require('fork-ts-checker-webpack-plugin');
 
 const isDev = process.env.NODE_ENV !== 'production';
 

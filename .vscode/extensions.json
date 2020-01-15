@@ -1,7 +1,3 @@
 {
-  "recommendations": [
-    "amatiasq.sort-imports",
-    "dbaeumer.vscode-eslint",
-    "shinnn.stylelint"
-  ]
+  "recommendations": ["dbaeumer.vscode-eslint"]
 }
