@@ -88,7 +88,7 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ mediaStore }) => {
   return (
     <section>
       <h1>미디어 라이브러리</h1>
-      <section>
+      <div>
         <ul className={styles.grid}>
           {mediaStore.Media.map((media, index) => (
             <MediaItem
@@ -102,21 +102,19 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ mediaStore }) => {
         <button type="button" onClick={fetchMoreMedia}>
           Load more
         </button>
-      </section>
-      <aside>
-        <form onSubmit={prevented(addMedia)}>
-          <input type="file" onChange={mediaStore.setFile} />
-          <button type="button" onClick={deleteSelectedMedia}>
-            삭제
-          </button>
-          <button type="submit" disabled={mediaStore.isLoading}>
-            등록
-          </button>
-          <button type="button" onClick={mediaStore.insertMedia}>
-            삽입
-          </button>
-        </form>
-      </aside>
+      </div>
+      <form onSubmit={prevented(addMedia)}>
+        <input type="file" onChange={mediaStore.setFile} />
+        <button type="button" onClick={deleteSelectedMedia}>
+          삭제
+        </button>
+        <button type="submit" disabled={mediaStore.isLoading}>
+          등록
+        </button>
+        <button type="button" onClick={mediaStore.insertMedia}>
+          삽입
+        </button>
+      </form>
     </section>
   );
 };

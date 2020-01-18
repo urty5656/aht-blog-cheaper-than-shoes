@@ -3,6 +3,22 @@
 .container {
   @extend %postBody;
 
+  & a {
+    position: relative;
+
+    &::after {
+      content: attr(href);
+      max-width: 100%;
+      display: block;
+      font-size: (8rem / 16);
+      overflow: hidden;
+      position: absolute;
+      bottom: calc(100% - 0.7em);
+      left: 0;
+      text-overflow: ellipsis;
+    }
+  }
+
   & :global(.ProseMirror) {
     padding: 0.5rem;
     white-space: pre;

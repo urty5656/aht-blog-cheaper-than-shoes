@@ -17,8 +17,13 @@
     opacity: 0.76;
   }
 
-  & img {
-    max-width: 100%;
+  p {
+    margin: 0.75rem 0;
+  }
+
+  & a {
+    color: cornflowerblue;
+    text-decoration: underline;
   }
 
   & code {
@@ -26,6 +31,10 @@
     border-radius: 0.25rem;
     display: inline-block;
     padding: 0 0.2em;
+  }
+
+  & img {
+    max-width: 100%;
   }
 
   & pre {

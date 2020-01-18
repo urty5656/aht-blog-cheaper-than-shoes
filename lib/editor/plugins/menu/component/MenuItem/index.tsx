@@ -1,6 +1,7 @@
 import { Node } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
+
 import Button, { MenuItemButtonSpec } from './Button';
 import Dropdown, { MenuItemDropdownSpec } from './Dropdown';
 import styles from './styles.scss';
@@ -15,7 +16,7 @@ export type MenuItemSpec = MenuItemButtonSpec | MenuItemDropdownSpec;
 export const renderButton = (
   spec: MenuItemBaseSpec,
   selectedNode: Nullable<Node>,
-) => {
+): JSX.Element => {
   const label =
     typeof spec.label === 'function' ? spec.label(selectedNode) : spec.label;
 

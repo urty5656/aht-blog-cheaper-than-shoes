@@ -49,7 +49,7 @@ class SelectionSizeTooltip {
   }
 }
 
-export const selectionSizePlugin = (): Plugin =>
+export const selectionPlugin = (): Plugin =>
   new Plugin({
     view(editorView) {
       return new SelectionSizeTooltip(editorView);

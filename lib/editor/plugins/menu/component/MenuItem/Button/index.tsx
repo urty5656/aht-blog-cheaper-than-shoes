@@ -2,8 +2,9 @@ import { Schema } from 'prosemirror-model';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React, { memo } from 'react';
-import { MenuItemBaseSpec, MenuItemProps, renderButton } from '..';
+
 import menuItemStyles from '../styles.scss';
+import { MenuItemBaseSpec, MenuItemProps, renderButton } from '..';
 
 export type Command = (
   state: EditorState<Schema>,
@@ -28,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
   selectedNode,
   afterCommand,
 }) => {
-  const runCommand = (e: React.MouseEvent) => {
+  const runCommand: React.MouseEventHandler = e => {
     e.preventDefault();
     e.stopPropagation();
     spec.command(view.state, view.dispatch, view);

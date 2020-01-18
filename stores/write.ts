@@ -1,4 +1,4 @@
-import { I } from '@@prelude';
+import { IO } from '@@prelude';
 import { PostModel } from '@/models/post/model';
 import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
@@ -50,10 +50,10 @@ export class WriteStore {
   }
 
   @action
-  setLoading = (val: boolean): I.IO<void> => () => (this.isLoading = val);
+  setLoading = (val: boolean): IO.IO<void> => () => (this.isLoading = val);
 
   @action
-  toggleModal: I.IO<void> = () => (this.isModalOpened = !this.isModalOpened);
+  toggleModal: IO.IO<void> = () => (this.isModalOpened = !this.isModalOpened);
 }
 
 export const writeStoreCtx = createContext<WriteStore>(null!);

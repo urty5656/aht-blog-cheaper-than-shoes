@@ -1,8 +1,8 @@
 import {
   deleteData,
-  getData,
   filterFound,
   filterNotFound,
+  getData,
   writeData,
 } from '@/lib/firebase/firestore';
 import { deleteFile } from '@/lib/firebase/storage';
@@ -11,6 +11,7 @@ import { array } from 'fp-ts/lib/Array';
 import { constVoid } from 'fp-ts/lib/function';
 import { pipe } from 'fp-ts/lib/pipeable';
 import * as TE from 'fp-ts/lib/TaskEither';
+
 import { CommonError } from '../Common/error';
 import { MediaModel } from './model';
 
@@ -33,7 +34,9 @@ export const updateMedia = (
   );
 
 const parallel = array.sequence(TE.taskEither);
-const deleteRelatedEntries = (doc: firebase.firestore.DocumentSnapshot) =>
+const deleteRelatedEntries = (
+  doc: firebase.firestore.DocumentSnapshot,
+): TE.TaskEither<CommonError, void[]> =>
   parallel([deleteFile((doc.data() as MediaModel).ref), deleteData(doc.ref)]);
 
 export const deleteMedia = (

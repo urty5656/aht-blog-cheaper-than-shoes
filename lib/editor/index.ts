@@ -1,14 +1,12 @@
-import {
-  baseKeymap,
-  chainCommands,
-  exitCode,
-  toggleMark,
-} from 'prosemirror-commands';
-import { history, redo, undo } from 'prosemirror-history';
+import { baseKeymap } from 'prosemirror-commands';
+import { history } from 'prosemirror-history';
 import { keymap } from 'prosemirror-keymap';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { menu } from './menu';
+
+import { menuPlugin } from './plugins/menu';
+import { selectionPlugin } from './plugins/selection';
+import { shortcuts } from './plugins/shortcuts';
 import { schema } from './schema';
 
 export const attach = (target: Node, initialState?: object): EditorView => {
@@ -16,25 +14,10 @@ export const attach = (target: Node, initialState?: object): EditorView => {
     schema,
     plugins: [
       history(),
-      keymap({
-        'Mod-z': undo,
-        'Mod-y': redo,
-        'Mod-b': toggleMark(schema.marks.strong),
-        'Mod-o': toggleMark(schema.marks.code),
-        'Shift-Enter': chainCommands(exitCode, (state, dispatch) => {
-          if (!dispatch) {
-            return true;
-          }
-          dispatch(
-            state.tr
-              .replaceSelectionWith(schema.nodes.hard_break.create())
-              .scrollIntoView(),
-          );
-          return true;
-        }),
-      }),
+      shortcuts,
       keymap(baseKeymap),
-      menu(),
+      menuPlugin(),
+      selectionPlugin(),
     ],
   };
 

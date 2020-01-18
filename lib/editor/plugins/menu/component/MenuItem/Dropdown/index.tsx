@@ -1,8 +1,9 @@
 import React, { memo, useState } from 'react';
-import { MenuItemBaseSpec, MenuItemProps, renderButton } from '..';
+
 import Button, { MenuItemButtonSpec } from '../Button';
 import menuItemStyles from '../styles.scss';
 import styles from './styles.scss';
+import { MenuItemBaseSpec, MenuItemProps, renderButton } from '..';
 
 export interface MenuItemDropdownSpec extends MenuItemBaseSpec {
   command?: never;
@@ -17,12 +18,12 @@ interface DropdownProps extends MenuItemProps {
 const Dropdown: React.FC<DropdownProps> = ({ spec, view, selectedNode }) => {
   const [opened, setOpened] = useState(false);
 
-  const on = (e: React.MouseEvent | MouseEvent) => {
+  const on: React.MouseEventHandler = e => {
     e.preventDefault();
     setOpened(true);
   };
 
-  const off = () => {
+  const off: React.MouseEventHandler = () => {
     setOpened(false);
   };
 
@@ -31,10 +32,10 @@ const Dropdown: React.FC<DropdownProps> = ({ spec, view, selectedNode }) => {
       {renderButton(spec, selectedNode)}
       {opened && (
         <div className={styles.menu}>
-          {spec.items.map((spec, index) => (
+          {spec.items.map((item, index) => (
             <Button
               key={index}
-              spec={spec}
+              spec={item}
               view={view}
               selectedNode={selectedNode}
               afterCommand={off}
