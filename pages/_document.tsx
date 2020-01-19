@@ -26,7 +26,6 @@ class CustomDocument extends Document {
           <link href="/static/crystal-256.png" rel="icon" sizes="256x256" type="image/png" />
           <link href="/static/crystal-512.png" rel="icon" sizes="512x512" type="image/png" />
           <link href="/manifest.json" rel="manifest" />
-          <title>NOT 整列</title>
         </Head>
         <body className="custom_class">
           <Main />

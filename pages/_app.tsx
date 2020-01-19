@@ -5,6 +5,7 @@ import Sidebar from '@/components/common/Sidebar';
 import { WrappedTaskFC } from '@/components/common/withTaskHandler';
 import styles from '@/styles/pages/app.scss';
 import NextApp, { AppContext } from 'next/app';
+import Head from 'next/head';
 import NProgress from 'nprogress';
 import React from 'react';
 
@@ -45,6 +46,9 @@ class App extends NextApp<AppProps, AppStates> {
     return (
       <>
         <div id="__app" className={isLoading ? styles.appLoading : styles.app}>
+          <Head>
+            <title>NOT 整列</title>
+          </Head>
           {statusCode === 200 ? (
             <Component {...pageProps} />
           ) : (
