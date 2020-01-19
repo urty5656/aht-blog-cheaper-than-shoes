@@ -7,7 +7,7 @@ staticRendering(true);
 class CustomDocument extends Document {
   render(): JSX.Element {
     return (
-      <html>
+      <html lang="ko">
         <Head>
           <link
             href="https://fonts.googleapis.com/css?family=Noto+Serif+KR:400,700,900&display=swap&subset=korean"
@@ -21,6 +21,12 @@ class CustomDocument extends Document {
             href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
             rel="stylesheet"
           />
+          <link href="/static/crystal-64.png" rel="icon" sizes="64x64" type="image/png" />
+          <link href="/static/crystal-128.png" rel="icon" sizes="128x128" type="image/png" />
+          <link href="/static/crystal-256.png" rel="icon" sizes="256x256" type="image/png" />
+          <link href="/static/crystal-512.png" rel="icon" sizes="512x512" type="image/png" />
+          <link href="/manifest.json" rel="manifest" />
+          <title>NOT 整列</title>
         </Head>
         <body className="custom_class">
           <Main />
