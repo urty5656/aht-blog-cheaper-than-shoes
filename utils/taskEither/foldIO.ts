@@ -1,4 +1,4 @@
-import { O, TE, pipe } from '@@prelude';
+import { O, TE, pipe } from '@/prelude';
 
 /** Fold `Option` of `TaskEither<unknown, Option>`. */
 export const foldIO = <E, A>(noneVal: E) => (

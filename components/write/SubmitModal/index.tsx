@@ -1,4 +1,4 @@
-import { T, TE, pipe } from '@@prelude';
+import { T, TE, pipe } from '@/prelude';
 import Modal from '@/components/common/Modal';
 import { submit } from '@/functions/write/submit';
 import { writeStoreCtx } from '@/stores/write';

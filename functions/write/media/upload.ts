@@ -1,4 +1,4 @@
-import { T, TE, pipe } from '@@prelude';
+import { T, TE, pipe } from '@/prelude';
 import { updateTimeInfo } from '@/lib/firebase/firestore';
 import { addFile } from '@/lib/firebase/storage';
 import { CommonError } from '@/models/Common/error';

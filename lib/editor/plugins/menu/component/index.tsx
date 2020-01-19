@@ -4,11 +4,11 @@ import { Node, Schema } from 'prosemirror-model';
 import { findParentNode } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 
 import MenuBar from './MenuBar';
-import { menuCommands } from './menuCommands';
 import MenuItem from './MenuItem';
+import { menuCommands } from './menuCommands';
 
 export class MenuView {
   @observable
@@ -26,7 +26,7 @@ export class MenuView {
     this.parent.prepend(this.el);
 
     autorun(() => {
-      ReactDOM.render(
+      render(
         // tslint:disable-next-line
         <MenuBar>
           {menuCommands.map((spec, index) => (

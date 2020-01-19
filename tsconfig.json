@@ -19,8 +19,7 @@
     "target": "es6",
     "typeRoots": ["./typings"],
     "paths": {
-      "@/*": ["*"],
-      "@@prelude": ["utils/prelude.ts"]
+      "@/*": ["*"]
     },
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,

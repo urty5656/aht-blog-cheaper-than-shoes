@@ -1,4 +1,5 @@
-import { O, pipe } from '@/utils/prelude';
+import { O, pipe } from '@/prelude';
+
 import { lookup } from 'fp-ts/lib/Array';
 import { constNull, identity } from 'fp-ts/lib/function';
 import { Slice } from 'prosemirror-model';

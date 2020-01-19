@@ -2,7 +2,8 @@ import { ServerResponse } from 'http';
 
 import Error from '@/components/common/Error';
 import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
-import { TE } from '@/utils/prelude';
+import { TE } from '@/prelude';
+
 import { prop } from 'fp-ts-ramda';
 import React from 'react';
 

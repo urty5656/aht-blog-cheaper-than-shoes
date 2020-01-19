@@ -1,5 +1,4 @@
-import { Slice } from 'prosemirror-model';
-import { Node as ProsemirrorNode } from 'prosemirror-model';
+import { Slice, Node as ProsemirrorNode } from 'prosemirror-model';
 
 /**
  * Takes selection slice from `selection.content()`, and returns all texts inside it.

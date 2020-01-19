@@ -1,9 +1,10 @@
+import { PageFC } from '@/components/SortApp';
 import Contact from '@/components/common/Contact';
 import Link from '@/components/common/Link';
 import PageTitle from '@/components/common/PageTitle';
 import Layout from '@/components/layouts/DefaultLayout';
-import { PageFC } from '@/components/SortApp';
 import styles from '@/styles/pages/index.scss';
+
 import React from 'react';
 
 const Index: PageFC = () => {

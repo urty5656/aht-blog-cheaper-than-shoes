@@ -1,4 +1,4 @@
-import { E, TE, pipe } from '@@prelude';
+import { E, TE, pipe } from '@/prelude';
 import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
 import Article from '@/components/post/Article';

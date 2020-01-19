@@ -1,5 +1,6 @@
-import { IO } from '@@prelude';
 import { PostModel } from '@/models/post/model';
+import { IO } from '@/prelude';
+
 import { action, observable } from 'mobx';
 import { EditorState } from 'prosemirror-state';
 import { createContext } from 'react';

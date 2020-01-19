@@ -1,11 +1,12 @@
-import { T, TE, pipe } from '@@prelude';
 import { signIn as firebaseSignIn } from '@/lib/firebase/auth';
+import { T, TE, pipe } from '@/prelude';
 import { authStoreCtx } from '@/stores/auth';
 import { useScrollLock } from '@/utils/hooks';
 import { alert } from '@/utils/io/modal';
+
 import anime from 'animejs';
 import { constVoid } from 'fp-ts/lib/function';
-import { debounce, shuffle } from 'lodash';
+import { shuffle, debounce } from 'lodash';
 import { observer } from 'mobx-react-lite';
 import Router from 'next/router';
 import * as Pixi from 'pixi.js';
@@ -158,7 +159,10 @@ const UnauthorizedWarning: React.FC = () => {
 
   const signIn: T.Task<void> = pipe(
     firebaseSignIn,
-    TE.fold(error => T.fromIO(alert(error)), () => T.fromIO(constVoid)),
+    TE.fold(
+      error => T.fromIO(alert(error)),
+      () => T.fromIO(constVoid),
+    ),
   );
 
   return authStore.initialized && !authStore.IsAdmin ? (

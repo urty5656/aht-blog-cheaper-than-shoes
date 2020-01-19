@@ -1,4 +1,4 @@
-import { T, TE, pipe } from '@@prelude';
+import { T, TE, pipe } from '@/prelude';
 import { firestoreErrorToHTTP } from '@/lib/firebase/firestore';
 import { CommonError, error } from '@/models/Common/error';
 import { AppProps } from '@/pages/_app';

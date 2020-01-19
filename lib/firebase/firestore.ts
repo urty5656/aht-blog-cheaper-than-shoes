@@ -2,6 +2,7 @@ import { BaseModel } from '@/models/BaseModel';
 import { Collections } from '@/models/Collections';
 import { CommonError, error, fromFirebaseError } from '@/models/Common/error';
 import { getNow } from '@/utils/io/date';
+
 import { assoc } from 'fp-ts-ramda';
 import { IO, io } from 'fp-ts/lib/IO';
 import { TaskEither, left, right, tryCatch } from 'fp-ts/lib/TaskEither';

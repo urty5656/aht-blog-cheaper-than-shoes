@@ -8,14 +8,14 @@ import { CommonError, error } from '@/models/Common/error';
 import { getMediaList } from '@/models/media/list';
 import { getPostDetailOf } from '@/models/post/detail';
 import { PostModel } from '@/models/post/model';
+import { O, TE } from '@/prelude';
 import { authStoreCtx } from '@/stores/auth';
 import { WriteStore, writeStoreCtx } from '@/stores/write';
 import { foldIO } from '@/utils/taskEither/foldIO';
 import { useTaskEitherEffect } from '@/utils/taskEither/useTaskEitherEffect';
+
 import { identity } from 'fp-ts/lib/function';
-import * as O from 'fp-ts/lib/Option';
 import { pipe } from 'fp-ts/lib/pipeable';
-import * as TE from 'fp-ts/lib/TaskEither';
 import { observer } from 'mobx-react-lite';
 import dynamic from 'next/dynamic';
 import React, { useContext, useEffect, useRef } from 'react';

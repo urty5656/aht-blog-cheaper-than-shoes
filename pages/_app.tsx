@@ -4,6 +4,7 @@ import Error from '@/components/common/Error';
 import Sidebar from '@/components/common/Sidebar';
 import { WrappedTaskFC } from '@/components/common/withTaskHandler';
 import styles from '@/styles/pages/app.scss';
+
 import NextApp, { AppContext } from 'next/app';
 import Head from 'next/head';
 import NProgress from 'nprogress';

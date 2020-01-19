@@ -4,8 +4,9 @@ import Layout from '@/components/layouts/DefaultLayout';
 import PostsBody from '@/components/posts/PostsBody';
 import { getPostList } from '@/models/post/list';
 import { PostModel } from '@/models/post/model';
+import { TE } from '@/prelude';
+
 import { identity } from 'fp-ts/lib/function';
-import * as TE from 'fp-ts/lib/TaskEither';
 import React from 'react';
 
 interface PostsProps {

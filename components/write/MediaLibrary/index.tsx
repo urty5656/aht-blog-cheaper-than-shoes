@@ -1,4 +1,4 @@
-import { E, O, T, TE, pipe } from '@@prelude';
+import { E, O, T, TE, pipe } from '@/prelude';
 import { upload } from '@/functions/write/media/upload';
 import { deleteMedia } from '@/models/media/detail';
 import { getMediaList } from '@/models/media/list';

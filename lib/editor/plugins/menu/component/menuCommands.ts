@@ -1,4 +1,5 @@
 import { schema } from '@/lib/editor/schema';
+
 import { setBlockType, toggleMark, wrapIn } from 'prosemirror-commands';
 import { redo, undo } from 'prosemirror-history';
 import { Schema } from 'prosemirror-model';

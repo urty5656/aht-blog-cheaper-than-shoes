@@ -1,4 +1,4 @@
-import { E, T, TE, pipe } from '@@prelude';
+import { E, T, TE, pipe } from '@/prelude';
 import { deleteData, getData } from '@/lib/firebase/firestore';
 import { Collections } from '@/models/Collections';
 import { writeStoreCtx } from '@/stores/write';

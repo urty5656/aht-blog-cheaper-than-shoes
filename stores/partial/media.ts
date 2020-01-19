@@ -1,5 +1,6 @@
 import { EditorRef } from '@/components/write/Editor';
 import { MediaModel } from '@/models/media/model';
+
 import { splitAt } from 'fp-ts/lib/Array';
 import { IO } from 'fp-ts/lib/IO';
 import { pipe } from 'fp-ts/lib/pipeable';
@@ -80,10 +81,8 @@ export class MediaStore {
 
   @action
   removeMediaRefAt = (index: number): IO<void> => () =>
-    (this.mediaRefs = pipe(
-      this.mediaRefs,
-      splitAt(index),
-      ([pre, post]) => pre.concat(post.slice(1)),
+    (this.mediaRefs = pipe(this.mediaRefs, splitAt(index), ([pre, post]) =>
+      pre.concat(post.slice(1)),
     ));
 
   @action

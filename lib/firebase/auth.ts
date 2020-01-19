@@ -1,4 +1,4 @@
-import { TE } from '@@prelude';
+import { TE } from '@/prelude';
 import firebase from 'firebase/app';
 import { constVoid } from 'fp-ts/lib/function';
 

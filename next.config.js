@@ -1,5 +1,6 @@
 /* eslint @typescript-eslint/no-var-requires: 0 */
 const path = require('path');
+
 const withSCSS = require('@zeit/next-sass');
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -21,10 +22,6 @@ module.exports = withSCSS({
   webpack(config, { dev }) {
     config.devtool = dev && 'eval-source-map';
     config.resolve.alias['@'] = __dirname;
-    config.resolve.alias['@@prelude'] = path.join(
-      __dirname,
-      'utils/prelude.ts',
-    );
 
     config.module.rules.push({
       test: /\.glsl$/,
