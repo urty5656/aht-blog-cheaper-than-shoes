@@ -6,7 +6,12 @@ import { Node as ProsemirrorNode } from 'prosemirror-model';
  */
 export function getSliceText(slice: Slice): string {
   const nodes: ProsemirrorNode[] = [];
-  slice.content.child(0).content.forEach(node => nodes.push(node));
+  slice.content.child(0).content.descendants(node => {
+    if (node.text) {
+      nodes.push(node);
+    }
+  });
+  console.log(nodes.map(node => node.text));
 
   return nodes.map(node => node.text).join();
 }

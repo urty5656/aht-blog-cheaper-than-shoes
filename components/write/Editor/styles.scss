@@ -21,6 +21,10 @@
 
   & :global(.ProseMirror) {
     padding: 0.5rem;
-    white-space: pre;
+    white-space: pre-wrap;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
