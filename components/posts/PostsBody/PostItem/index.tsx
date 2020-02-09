@@ -1,8 +1,10 @@
 import Link from '@/components/common/Link';
 import { PostModel } from '@/models/post/model';
+
 import clsx from 'clsx';
 import React from 'react';
-import styles from './styles.scss';
+
+import styles from './styles.module.scss';
 
 interface PostItemProps {
   item: PostModel;

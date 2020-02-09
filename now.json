@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "sort-me.space",
   "builds": [
     {
       "src": "next.config.js",

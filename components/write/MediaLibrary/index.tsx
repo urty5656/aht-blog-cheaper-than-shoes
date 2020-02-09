@@ -1,19 +1,20 @@
-import { E, O, T, TE, pipe } from '@/prelude';
 import { upload } from '@/functions/write/media/upload';
 import { deleteMedia } from '@/models/media/detail';
 import { getMediaList } from '@/models/media/list';
+import { E, O, T, TE, pipe } from '@/prelude';
 import { MediaStore } from '@/stores/partial/media';
 import { prevented } from '@/utils/events';
 import { fromBoolean } from '@/utils/io/fromBoolean';
 import { alert } from '@/utils/io/modal';
 import { tap } from '@/utils/tap';
+
 import { last } from 'fp-ts/lib/Array';
 import { constNull, identity } from 'fp-ts/lib/function';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
 import MediaItem from './MediaItem';
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 interface MediaLibraryProps {
   mediaStore: MediaStore;

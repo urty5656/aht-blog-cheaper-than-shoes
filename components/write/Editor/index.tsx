@@ -1,4 +1,5 @@
 import { attach } from '@/lib/editor';
+
 import clsx from 'clsx';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
@@ -8,7 +9,8 @@ import React, {
   useImperativeHandle,
   useRef,
 } from 'react';
-import styles from './styles.scss';
+
+import styles from './styles.module.scss';
 
 export interface EditorRef {
   getView: () => EditorView;

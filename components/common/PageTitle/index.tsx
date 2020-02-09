@@ -1,6 +1,7 @@
 import React from 'react';
+
 import Link from '../Link';
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 interface PageTitleProps {
   isAtHome?: boolean;

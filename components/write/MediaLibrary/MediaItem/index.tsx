@@ -1,10 +1,11 @@
 import { MediaModel } from '@/models/media/model';
 import { MediaStore } from '@/stores/partial/media';
+
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 interface MediaItemProps {
   mediaStore: MediaStore;

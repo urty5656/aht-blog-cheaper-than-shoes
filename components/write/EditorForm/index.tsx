@@ -1,19 +1,20 @@
-import { E, T, TE, pipe } from '@/prelude';
 import { deleteData, getData } from '@/lib/firebase/firestore';
 import { Collections } from '@/models/Collections';
+import { E, T, TE, pipe } from '@/prelude';
 import { writeStoreCtx } from '@/stores/write';
 import { prevented } from '@/utils/events';
 import { fromBoolean } from '@/utils/io/fromBoolean';
 import { alert } from '@/utils/io/modal';
 import { navigate } from '@/utils/io/navigation';
 import { tap } from '@/utils/tap';
+
 import { constNull, identity } from 'fp-ts/lib/function';
 import { debounce } from 'lodash';
 import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useRef } from 'react';
 
 import Editor, { EditorRef } from '../Editor';
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 interface EditorFormProps {
   initialState?: object;

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
 
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 const DefaultLayout: React.FC = ({ children }) => {
   return (

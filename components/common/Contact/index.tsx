@@ -1,9 +1,9 @@
 import clsx from 'clsx';
-import React from 'react';
+import React, { AnchorHTMLAttributes } from 'react';
 
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
-interface ContactProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+interface ContactProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   icon: string;
 }
 

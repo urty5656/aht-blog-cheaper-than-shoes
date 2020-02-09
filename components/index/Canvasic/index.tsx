@@ -3,7 +3,7 @@ import * as Pixi from 'pixi.js';
 import React, { useEffect, useRef } from 'react';
 
 import fragment from './frag.glsl';
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 const Cavasic: React.FC = () => {
   const $app = useRef<Pixi.Application>();
@@ -53,14 +53,14 @@ const Cavasic: React.FC = () => {
 
     let time = 0;
     app.ticker.add(delta => {
-      const width = app.screen.width;
-      const height = app.screen.height;
+      const screenWidth = app.screen.width;
+      const screenHeight = app.screen.height;
       const { x, y } = app.renderer.plugins.interaction.mouse.getLocalPosition(
         app.stage,
       );
 
-      const mouseX = x - width / 2;
-      const mouseY = y - height / 2;
+      const mouseX = x - screenWidth / 2;
+      const mouseY = y - screenHeight / 2;
 
       time += delta;
       filter.uniforms.delta = time;

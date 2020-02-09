@@ -39,20 +39,20 @@ html {
   --bg: #1a1e1f;
   --fg: #fafafa;
   --sans-serif: 'Spoqa Han Sans KR', sans-serif;
-  --serif: 'Noto Serif KR', serif; // [todo]
+  --serif: 'Noto Serif KR', serif; /* [todo] */
   font-family: var(--sans-serif);
   user-select: none;
 }
 
 html,
 body,
-:global(#__app),
-:global(#__next) {
+#__app,
+#__next {
   height: 100%;
   overflow-x: hidden;
 }
 
-:global(#__next) {
+#__next {
   background: var(--bg);
   color: var(--fg);
 }
@@ -83,14 +83,12 @@ a {
   text-decoration: none;
 }
 
-:global {
-  #nprogress .bar {
-    height: auto;
-    background: var(--fg);
-    bottom: 0;
-    z-index: 1000009;
-  }
-  #nprogress .peg {
-    display: none;
-  }
+#nprogress .bar {
+  height: auto;
+  background: var(--fg);
+  bottom: 0;
+  z-index: 1000009;
+}
+#nprogress .peg {
+  display: none;
 }

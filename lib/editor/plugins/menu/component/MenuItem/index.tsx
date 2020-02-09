@@ -4,7 +4,7 @@ import React from 'react';
 
 import Button, { MenuItemButtonSpec } from './Button';
 import Dropdown, { MenuItemDropdownSpec } from './Dropdown';
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 export interface MenuItemBaseSpec {
   label: string | ((selectedNode: Nullable<Node>) => string);

@@ -1,8 +1,10 @@
 import { PostModel } from '@/models/post/model';
+
 import clsx from 'clsx';
-import Prism from 'prismjs';
+import { highlightAll } from 'prismjs';
 import React, { useEffect, useState } from 'react';
-import styles from './styles.scss';
+
+import styles from './styles.module.scss';
 
 interface ArticleProps {
   post: PostModel;
@@ -11,7 +13,7 @@ interface ArticleProps {
 const Article: React.FC<ArticleProps> = ({ post }) => {
   const [isLighted, setLighted] = useState(false);
 
-  useEffect(() => Prism.highlightAll(false, () => setLighted(true)), [post]);
+  useEffect(() => highlightAll(false, () => setLighted(true)), [post]);
 
   return (
     <article

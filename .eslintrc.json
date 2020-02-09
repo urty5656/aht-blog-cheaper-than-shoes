@@ -39,13 +39,15 @@
       },
       "groups": [
         "builtin",
-        "external"
+        "external",
+        "internal",
+        ["sibling", "parent", "index"]
       ],
       "newlines-between": "always",
       "pathGroups": [
         {
           "pattern": "@/**",
-          "group": "external",
+          "group": "internal",
           "position": "before"
         }
       ]

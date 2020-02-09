@@ -3,8 +3,7 @@ import Contact from '@/components/common/Contact';
 import Link from '@/components/common/Link';
 import PageTitle from '@/components/common/PageTitle';
 import Layout from '@/components/layouts/DefaultLayout';
-import styles from '@/styles/pages/index.scss';
-
+import styles from '@/styles/pages/index.module.scss';
 import React from 'react';
 
 const Index: PageFC = () => {

@@ -1,9 +1,9 @@
-import '@/styles/normalize.scss';
+import '@/styles/normalize.css';
 
 import Error from '@/components/common/Error';
 import Sidebar from '@/components/common/Sidebar';
 import { WrappedTaskFC } from '@/components/common/withTaskHandler';
-import styles from '@/styles/pages/app.scss';
+import styles from '@/styles/pages/app.module.scss';
 
 import NextApp, { AppContext } from 'next/app';
 import Head from 'next/head';
@@ -46,6 +46,9 @@ class App extends NextApp<AppProps, AppStates> {
 
     return (
       <>
+        <Head>
+          <title>NOT 整列</title>
+        </Head>
         <div id="__app" className={isLoading ? styles.appLoading : styles.app}>
           <Head>
             <title>NOT 整列</title>

@@ -2,7 +2,7 @@ import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 import SideIndex from './SideIndex';
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 const Sidebar: React.FC = () => {
   const [opened, setOpened] = useState(false);

@@ -1,7 +1,7 @@
 import Layout from '@/components/layouts/DefaultLayout';
 import React from 'react';
 
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 interface ErrorProps {
   statusCode: number;

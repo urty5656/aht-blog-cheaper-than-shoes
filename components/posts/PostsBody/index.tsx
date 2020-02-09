@@ -1,7 +1,9 @@
 import { PostModel } from '@/models/post/model';
+
 import React from 'react';
+
 import PostItem from './PostItem';
-import styles from './styles.scss';
+import styles from './styles.module.scss';
 
 interface PostBodyProps {
   items: readonly PostModel[];
