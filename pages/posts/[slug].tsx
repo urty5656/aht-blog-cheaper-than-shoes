@@ -1,11 +1,12 @@
-import { E, TE, pipe } from '@/prelude';
 import { TaskFC, withTaskHandler } from '@/components/common/withTaskHandler';
 import Layout from '@/components/layouts/DefaultLayout';
 import Article from '@/components/post/Article';
 import { error } from '@/models/Common/error';
 import { getPostDetailOf } from '@/models/post/detail';
 import { PostModel } from '@/models/post/model';
+import { E, TE, pipe } from '@/prelude';
 import { foldIO } from '@/utils/taskEither/foldIO';
+
 import { identity } from 'fp-ts/lib/function';
 import React from 'react';
 

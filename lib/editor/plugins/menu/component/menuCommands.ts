@@ -33,6 +33,19 @@ export const menuCommands: MenuItemSpec[] = [
     icon: '/static/round-space_bar-24px.svg',
   },
   {
+    label: 'hr',
+    command: (state, dispatch) => {
+      if (!dispatch) {
+        return false;
+      }
+
+      const pos = state.tr.selection.from;
+      dispatch(state.tr.insert(pos, schema.nodes.horizontal_rule.create()));
+
+      return true;
+    },
+  },
+  {
     label: selectedNode => {
       if (!selectedNode || selectedNode.type.name !== 'syntax') {
         return 'Code Snippet';
