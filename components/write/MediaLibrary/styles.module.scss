@@ -1,4 +1,22 @@
+.innerContainer {
+  display: flex;
+}
+
+.images {
+  flex: 1;
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
+}
+
+.input {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.inputButton {
+  cursor: pointer;
 }

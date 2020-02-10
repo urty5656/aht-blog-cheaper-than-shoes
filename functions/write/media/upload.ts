@@ -1,9 +1,10 @@
-import { T, TE, pipe } from '@/prelude';
 import { updateTimeInfo } from '@/lib/firebase/firestore';
 import { addFile } from '@/lib/firebase/storage';
 import { CommonError } from '@/models/Common/error';
 import { addMedia } from '@/models/media/detail';
+import { T, TE, pipe } from '@/prelude';
 import { getDimensions } from '@/utils/task/image';
+
 import { sequenceS } from 'fp-ts/lib/Apply';
 
 const getFileDownloadURL = (

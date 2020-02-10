@@ -80,10 +80,17 @@ export class MediaStore {
   ): IO<void> => () => (this.mediaRefs = refs);
 
   @action
-  removeMediaRefAt = (index: number): IO<void> => () =>
-    (this.mediaRefs = pipe(this.mediaRefs, splitAt(index), ([pre, post]) =>
-      pre.concat(post.slice(1)),
+  removeMediaRefAt = (index: number | undefined): IO<void> => () => {
+    if (index == undefined) {
+      return;
+    }
+
+    return (this.mediaRefs = pipe(
+      this.mediaRefs,
+      splitAt(index),
+      ([pre, post]) => pre.concat(post.slice(1)),
     ));
+  };
 
   @action
   setLoading = (loading: boolean): IO<void> => () => (this.isLoading = loading);

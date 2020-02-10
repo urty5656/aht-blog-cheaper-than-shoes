@@ -12,7 +12,7 @@ import Router from 'next/router';
 import * as Pixi from 'pixi.js';
 import React, { useContext, useEffect, useRef } from 'react';
 
-import styles from './style.scss';
+import styles from './styles.module.scss';
 
 let app: Pixi.Application | undefined;
 let squares: any[] = [];
@@ -53,7 +53,7 @@ const addSquare = (
         duration: 150,
         easing: 'steps(1)',
         update: anim => {
-          const alpha = anim.animatables[0].target.alpha;
+          const alpha = (anim.animatables[0] as any).target.alpha;
           if (prevAlpha === alpha) {
             return;
           }
@@ -69,7 +69,7 @@ const addSquare = (
           easing: 'easeInOutSine',
           duration: () => Math.random() * 500 + 1500,
           update: anim => {
-            const alpha = anim.animatables[0].target.alpha;
+            const alpha = (anim.animatables[0] as any).target.alpha;
             square.alpha = alpha;
           },
         });

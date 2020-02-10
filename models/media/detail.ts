@@ -7,15 +7,16 @@ import {
 } from '@/lib/firebase/firestore';
 import { deleteFile } from '@/lib/firebase/storage';
 import { Collections } from '@/models/Collections';
+import { TE } from '@/prelude';
+
 import { array } from 'fp-ts/lib/Array';
 import { constVoid } from 'fp-ts/lib/function';
 import { pipe } from 'fp-ts/lib/pipeable';
-import * as TE from 'fp-ts/lib/TaskEither';
 
 import { CommonError } from '../Common/error';
 import { MediaModel } from './model';
 
-const fetchMedia = getData(Collections.Post);
+const fetchMedia = getData(Collections.Media);
 
 export const addMedia = (data: MediaModel): TE.TaskEither<CommonError, void> =>
   pipe(

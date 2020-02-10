@@ -12,7 +12,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({
-  zIndex,
+  zIndex = 9,
   onClickBackground,
   className,
   children,

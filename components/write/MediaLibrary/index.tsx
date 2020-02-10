@@ -77,6 +77,9 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ mediaStore }) => {
         TE.chain(() => deleteMedia(media)),
         TE.bimap(e => tap(alert(e.code), e), alert('삭제 완료!')),
         TE.fold(endLoading, endLoading),
+        T.chain(() =>
+          T.fromIO(mediaStore.removeMediaRefAt(mediaStore.selectedIndex)),
+        ),
       ),
     ),
     E.fold(
@@ -89,33 +92,47 @@ const MediaLibrary: React.FC<MediaLibraryProps> = ({ mediaStore }) => {
   return (
     <section>
       <h1>미디어 라이브러리</h1>
-      <div>
-        <ul className={styles.grid}>
-          {mediaStore.Media.map((media, index) => (
-            <MediaItem
-              key={media.ref}
-              mediaStore={mediaStore}
-              item={media}
-              index={index}
-            />
-          ))}
-        </ul>
-        <button type="button" onClick={fetchMoreMedia}>
-          Load more
-        </button>
+      <div className={styles.innerContainer}>
+        <div className={styles.images}>
+          {!!mediaStore.Media.length && (
+            <ul className={styles.grid}>
+              {mediaStore.Media.map((media, index) => (
+                <MediaItem
+                  key={media.ref}
+                  mediaStore={mediaStore}
+                  item={media}
+                  index={index}
+                />
+              ))}
+            </ul>
+          )}
+          <button type="button" onClick={fetchMoreMedia}>
+            Load more
+          </button>
+          {mediaStore.SelectedMedia && (
+            <button type="button" onClick={deleteSelectedMedia}>
+              삭제
+            </button>
+          )}
+        </div>
+        <form onSubmit={prevented(addMedia)}>
+          <label className={styles.inputButton} htmlFor="media-library-input">
+            파일 선택...
+          </label>
+          <input
+            className={styles.input}
+            id="media-library-input"
+            type="file"
+            onChange={mediaStore.setFile}
+          />
+          <button type="submit" disabled={mediaStore.isLoading}>
+            등록
+          </button>
+          <button type="button" onClick={mediaStore.insertMedia}>
+            삽입
+          </button>
+        </form>
       </div>
-      <form onSubmit={prevented(addMedia)}>
-        <input type="file" onChange={mediaStore.setFile} />
-        <button type="button" onClick={deleteSelectedMedia}>
-          삭제
-        </button>
-        <button type="submit" disabled={mediaStore.isLoading}>
-          등록
-        </button>
-        <button type="button" onClick={mediaStore.insertMedia}>
-          삽입
-        </button>
-      </form>
     </section>
   );
 };

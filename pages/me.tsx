@@ -1,7 +1,7 @@
 import { PageFC } from '@/components/SortApp';
 import Placeholder from '@/components/index/Placeholder';
 import Layout from '@/components/layouts/DefaultLayout';
-import styles from '@/styles/pages/index.scss';
+import styles from '@/styles/pages/index.module.scss';
 
 import React from 'react';
 
