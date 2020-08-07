@@ -27,7 +27,7 @@
     "next": "^9.2.1",
     "nprogress": "^0.2.0",
     "pixi.js": "^5.2.1",
-    "prismjs": "^1.17.1",
+    "prismjs": "^1.21.0",
     "prosemirror-commands": "^1.0.7",
     "prosemirror-history": "^1.0.4",
     "prosemirror-keymap": "^1.0.1",
